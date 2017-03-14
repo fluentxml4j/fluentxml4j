@@ -1,18 +1,8 @@
-# This is FluentX, a fluent API for XML querying in Java
+# This is FluentXML4J, a fluent API for XML querying in Java [![Build Status](https://travis-ci.org/fluentxml4j/fluentxml4j.svg?branch=master)](https://travis-ci.org/fluentxml4j/fluentxml4j)
 
 ## Requirements
-FluentX uses the builtin JDK XML parser and XPath API, but Java 8 is required because of heavy use
+FluentXML4J uses the builtin JDK XML parser and XPath API, but Java 8 is required because of heavy use
 of the streaming API and Optional.
-
-## Installation from Maven Central
-
-```
-<dependency>
-  <groupId>com.github.cbuschka.fluentx</groupId>
-  </artifactId>fluentx</artifactId>
-  <version>1.0.0</version>
-</dependency>
-```
 
 ## XPath Query Examples
 
@@ -25,7 +15,7 @@ Iterable<Element> elements =
 
 ### Select all words of a document
 ```
-Iterable<Element> elements = 
+Set<String> words = 
  from(doc)
    .selectStrings("//text()")
    .asStream()
