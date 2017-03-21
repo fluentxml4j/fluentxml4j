@@ -4,6 +4,16 @@
 FluentXML4J uses the builtin JDK XML parser and XPath API, but Java 8 is required because of heavy use
 of the streaming API and Optional.
 
+## Maven Depenency
+
+```
+<dependency>
+  <groupId>com.github.fluentxml4j</groupId>
+  <artifactId>fluentxml4j</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
 ## XPath Query Examples
 
 ### Select elements
