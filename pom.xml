@@ -26,6 +26,10 @@
             <distribution>manual</distribution>
         </license>
     </licenses>
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/fluentxml4j/fluentxml4j/issues</url>
+    </issueManagement>
     <scm>
         <developerConnection>scm:git:ssh://git@github.com/fluentxml4j/fluentxml4j.git</developerConnection>
         <connection>scm:git:ssh://git@github.com/fluentxml4j/fluentxml4j.git</connection>
