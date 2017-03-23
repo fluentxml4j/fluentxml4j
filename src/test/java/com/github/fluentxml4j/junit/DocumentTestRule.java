@@ -19,7 +19,9 @@ public class DocumentTestRule extends ExternalResource
 	{
 		try
 		{
-			this.document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(new StringReader(xml)));
+			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+			documentBuilderFactory.setNamespaceAware(true);
+			this.document = documentBuilderFactory.newDocumentBuilder().parse(new InputSource(new StringReader(xml)));
 		}
 		catch (ParserConfigurationException | SAXException | IOException ex)
 		{

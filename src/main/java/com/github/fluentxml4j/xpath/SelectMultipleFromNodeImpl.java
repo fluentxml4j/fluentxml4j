@@ -6,6 +6,7 @@ import org.w3c.dom.NodeList;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathException;
 import javax.xml.xpath.XPathExpression;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -23,6 +24,12 @@ class SelectMultipleFromNodeImpl<ResultType> implements SelectMultipleFromNode<R
 		this.baseNode = baseNode;
 		this.xPathExpression = xPathExpression;
 		this.nodeConverter = nodeConverter;
+	}
+
+	@Override
+	public Iterator<ResultType> iterator()
+	{
+		return iterate().iterator();
 	}
 
 	@Override
@@ -56,4 +63,6 @@ class SelectMultipleFromNodeImpl<ResultType> implements SelectMultipleFromNode<R
 	{
 		return asStream().collect(Collectors.toList());
 	}
+
+
 }
