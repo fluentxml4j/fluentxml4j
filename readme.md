@@ -10,7 +10,7 @@ of the streaming API and Optional.
 <dependency>
   <groupId>com.github.fluentxml4j</groupId>
   <artifactId>fluentxml4j</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.2</version>
 </dependency>
 ```
 
