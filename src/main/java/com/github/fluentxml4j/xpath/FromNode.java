@@ -9,6 +9,8 @@ public interface FromNode
 {
 	FromNode withNamespace(String prefix, String namespaceURI);
 
+	FromNode withXPath(XPathConfigurer xPathConfigurer);
+
 	Optional<String> selectString(String xPathQuery);
 
 	Optional<Element> selectElement(String xPathQuery);

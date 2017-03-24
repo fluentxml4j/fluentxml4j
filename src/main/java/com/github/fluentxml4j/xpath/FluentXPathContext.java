@@ -1,26 +1,23 @@
 package com.github.fluentxml4j.xpath;
 
-import javax.xml.namespace.NamespaceContext;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
 class FluentXPathContext
 {
-	private XPathFactory xPathFactory;
+	private XPathConfigurer xPathConfigurer = new XPathConfigurerAdapter();
 
-	FluentXPathContext()
+	void setxPathConfigurer(XPathConfigurer xPathConfigurer)
 	{
-		xPathFactory = XPathFactory.newInstance();
+		this.xPathConfigurer = xPathConfigurer;
 	}
 
-	XPathExpression compile(String xPathQuery, NamespaceContext namespaceContext)
+	XPathExpression compile(String xPathQuery, ImmutableNamespaceContext namespaceContext)
 	{
 		try
 		{
-			XPath xPath = xPathFactory.newXPath();
-			xPath.setNamespaceContext(namespaceContext);
+			XPath xPath = this.xPathConfigurer.getXPath(namespaceContext);
 			return xPath.compile(xPathQuery);
 		}
 		catch (XPathExpressionException ex)

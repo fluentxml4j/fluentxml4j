@@ -30,6 +30,13 @@ class FromNodeImpl implements FromNode
 	}
 
 	@Override
+	public FromNode withXPath(XPathConfigurer xPathConfigurer)
+	{
+		this.context.setxPathConfigurer(xPathConfigurer);
+		return this;
+	}
+
+	@Override
 	public SelectMultipleFromNode<String> selectStrings(String xPathQuery)
 	{
 		XPathExpression xPathExpression = this.context.compile(xPathQuery, this.namespaceContext);
