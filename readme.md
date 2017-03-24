@@ -18,8 +18,7 @@ of the streaming API and Optional.
 
 ### Parse from input stream
 ```
-Document doc = parse(getClass().getResourceAsStream("example.xml"))
- .document();
+Document doc = parse(getClass().getResourceAsStream("example.xml")).document();
 ```
 
 ## Serialization Examples
@@ -36,20 +35,30 @@ serialize(document).to(System.err);
 
 ## XPath Query Examples
 
-### Select elements
+### Select elements and iterate via for loop
 ```
-Iterable<Element> elements = 
- from(doc)
-   .selectElements("//H1[text()='Some Title']");
+for(Element element : from(doc).selectElements("//H1[text()='Some Title']") ) {
+  ...
+}
 ```
 
-### Select all words of a document
+### Select elements and iterate via forEach
+
 ```
-Set<String> words = 
- from(doc)
+from(doc).selectElements("//*").forEach( (e) -> { ... } );
+```
+
+### Select elements into list
+```
+List<Element> elements = from(doc).selectElements("//*").asList();
+```
+
+### Select all words of a document (fluentxml4j + xpath + lambda)
+```
+Set<String> words = from(doc)
    .selectStrings("//text()")
    .asStream()
-   .flatMap((s) -> Arrays.stream(s.split("[\\s\\t]+")))
+   .flatMap((s) -> Arrays.stream(s.split("[\\s]+")))
    .collect(Collectors.toSet());
 ```
 
