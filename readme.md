@@ -53,7 +53,7 @@ from(doc).selectElements("//*").forEach( (e) -> { ... } );
 List<Element> elements = from(doc).selectElements("//*").asList();
 ```
 
-### Select all words of a document (fluentxml4j + xpath + lambda)
+### Select all words of a document
 ```
 Set<String> words = from(doc)
    .selectStrings("//text()")
