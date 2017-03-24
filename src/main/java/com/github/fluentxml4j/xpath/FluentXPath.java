@@ -4,7 +4,7 @@ import org.w3c.dom.Document;
 
 public class FluentXPath
 {
-	public static FromNode from(Document doc)
+	public FromNode from(Document doc)
 	{
 		return new FromNodeImpl(doc, new FluentXPathContext());
 	}

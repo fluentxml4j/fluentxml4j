@@ -11,19 +11,19 @@ import java.io.Reader;
 
 public class FluentXmlParser
 {
-	public static ParseNode parse(InputStream in)
+	public ParseNode parse(InputStream in)
 	{
 		InputSource inputSource = new InputSource(in);
 		return parse(inputSource);
 	}
 
-	public static ParseNode parse(Reader rd)
+	public ParseNode parse(Reader rd)
 	{
 		InputSource inputSource = new InputSource(rd);
 		return parse(inputSource);
 	}
 
-	public static ParseNode parse(InputSource inputSource)
+	public ParseNode parse(InputSource inputSource)
 	{
 		return new ParseNode()
 		{

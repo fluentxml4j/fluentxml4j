@@ -13,7 +13,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -55,7 +55,7 @@ public class DocumentBuilderConfigurerAdapterTest
 		assertThat(documentBuilderBuilt, is(this.documentBuilder));
 		verify(documentBuilder).reset();
 	}
-	
+
 	@Test
 	public void getDocumentBuilder() throws Exception
 	{

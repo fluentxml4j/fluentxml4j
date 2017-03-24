@@ -13,7 +13,7 @@ import java.io.Writer;
 
 public class FluentXmlSerializer
 {
-	public static SerializeNode serialize(Document doc)
+	public SerializeNode serialize(Document doc)
 	{
 		return new SerializeNode()
 		{

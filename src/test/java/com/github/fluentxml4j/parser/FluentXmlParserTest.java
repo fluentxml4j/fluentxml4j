@@ -7,10 +7,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
 
-import static com.github.fluentxml4j.parser.FluentXmlParser.parse;
+import static com.github.fluentxml4j.FluentXml.parse;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class FluentXmlParserTest
 {

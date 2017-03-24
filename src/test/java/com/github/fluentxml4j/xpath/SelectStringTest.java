@@ -3,11 +3,10 @@ package com.github.fluentxml4j.xpath;
 import com.github.fluentxml4j.junit.DocumentTestRule;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.w3c.dom.Element;
 
 import java.util.Optional;
 
-import static com.github.fluentxml4j.xpath.FluentXPath.from;
+import static com.github.fluentxml4j.FluentXml.from;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

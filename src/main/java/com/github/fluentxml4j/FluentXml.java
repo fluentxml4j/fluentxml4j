@@ -17,28 +17,34 @@ import java.io.Reader;
  */
 public class FluentXml
 {
+	private static FluentXmlParser fluentXmlParser = new FluentXmlParser();
+
+	private static FluentXmlSerializer fluentXmlSerializer = new FluentXmlSerializer();
+
+	private static FluentXPath fluentXPath = new FluentXPath();
+
 	public static ParseNode parse(InputStream in)
 	{
-		return FluentXmlParser.parse(in);
+		return fluentXmlParser.parse(in);
 	}
 
 	public static ParseNode parse(Reader in)
 	{
-		return FluentXmlParser.parse(in);
+		return fluentXmlParser.parse(in);
 	}
 
 	public static ParseNode parse(InputSource in)
 	{
-		return FluentXmlParser.parse(in);
+		return fluentXmlParser.parse(in);
 	}
 
 	public static FromNode from(Document doc)
 	{
-		return FluentXPath.from(doc);
+		return fluentXPath.from(doc);
 	}
 
 	public static SerializeNode serialize(Document doc)
 	{
-		return FluentXmlSerializer.serialize(doc);
+		return fluentXmlSerializer.serialize(doc);
 	}
 }

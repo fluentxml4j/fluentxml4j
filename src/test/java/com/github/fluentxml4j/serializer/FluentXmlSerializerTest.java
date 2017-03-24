@@ -7,7 +7,7 @@ import org.junit.Test;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 
-import static com.github.fluentxml4j.serializer.FluentXmlSerializer.serialize;
+import static com.github.fluentxml4j.FluentXml.serialize;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
