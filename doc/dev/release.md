@@ -5,7 +5,7 @@ See https://maven.apache.org/plugins/maven-gpg-plugin/usage.html for more infos.
 
 ## release artifact into staging repo
 ```
-mvn release:prepare release:perform -Darguments=-Dgpg.passphrase=thephrase
+mvn release:prepare release:perform -Darguments='-Dgpg.keyname=A77B975B -Dgpg.passphrase=thepassphrase'
 ```
 
 ## list staging repos
@@ -25,7 +25,5 @@ mvn nexus-staging:drop -DstagingRepositoryId=comgithubfluentxml4j-xxxx
 
 ## release artifact from staging repo to public
 ```
-git checkout fluentxml4j-xxxx
-
-mvn nexus-staging:release
+mvn nexus-staging:release -DstagingRepositoryId=comgithubfluentxml4j-xxxx
 ```
