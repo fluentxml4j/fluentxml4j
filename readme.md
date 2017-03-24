@@ -14,6 +14,26 @@ of the streaming API and Optional.
 </dependency>
 ```
 
+## Parsing Examples
+
+### Parse from input stream
+```
+Document doc = parse(getClass().getResourceAsStream("example.xml"))
+ .document();
+```
+
+## Serialization Examples
+
+### Serialize to string
+```
+String xml = serialize(document).toString();
+```
+
+### Serialize to System.err
+```
+serialize(document).to(System.err);
+```
+
 ## XPath Query Examples
 
 ### Select elements
