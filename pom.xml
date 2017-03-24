@@ -6,7 +6,7 @@
     <version>1.0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>FluentXML4J</name>
-    <description>A fluent API for XML querying.</description>
+    <description>A fluent API for XML XML parsing, serialization and XPath querying in Java.</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
