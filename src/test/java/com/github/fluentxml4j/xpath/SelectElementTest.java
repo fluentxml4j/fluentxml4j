@@ -1,6 +1,6 @@
 package com.github.fluentxml4j.xpath;
 
-import com.github.fluentxml4j.junit.DocumentTestRule;
+import com.github.fluentxml4j.DocumentTestRule;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.w3c.dom.Element;

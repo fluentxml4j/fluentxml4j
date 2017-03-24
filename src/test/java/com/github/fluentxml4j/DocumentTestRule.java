@@ -1,4 +1,4 @@
-package com.github.fluentxml4j.junit;
+package com.github.fluentxml4j;
 
 
 import org.junit.rules.ExternalResource;

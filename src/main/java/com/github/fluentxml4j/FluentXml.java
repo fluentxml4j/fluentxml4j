@@ -11,40 +11,46 @@ import org.xml.sax.InputSource;
 
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.function.Supplier;
 
 /**
  * This is the main entry point for users of FluentXml4J.
  */
 public class FluentXml
 {
-	private static FluentXmlParser fluentXmlParser = new FluentXmlParser();
+	static Supplier<FluentXmlParser> fluentXmlParser = supplierFor(new FluentXmlParser());
 
-	private static FluentXmlSerializer fluentXmlSerializer = new FluentXmlSerializer();
+	static Supplier<FluentXmlSerializer> fluentXmlSerializer = supplierFor(new FluentXmlSerializer());
 
-	private static FluentXPath fluentXPath = new FluentXPath();
+	static Supplier<FluentXPath> fluentXPath = supplierFor(new FluentXPath());
+
+	private static <T> Supplier<T> supplierFor(T defaultInstance)
+	{
+		return () -> defaultInstance;
+	}
 
 	public static ParseNode parse(InputStream in)
 	{
-		return fluentXmlParser.parse(in);
+		return fluentXmlParser.get().parse(in);
 	}
 
 	public static ParseNode parse(Reader in)
 	{
-		return fluentXmlParser.parse(in);
+		return fluentXmlParser.get().parse(in);
 	}
 
 	public static ParseNode parse(InputSource in)
 	{
-		return fluentXmlParser.parse(in);
+		return fluentXmlParser.get().parse(in);
 	}
 
 	public static FromNode from(Document doc)
 	{
-		return fluentXPath.from(doc);
+		return fluentXPath.get().from(doc);
 	}
 
 	public static SerializeNode serialize(Document doc)
 	{
-		return fluentXmlSerializer.serialize(doc);
+		return fluentXmlSerializer.get().serialize(doc);
 	}
 }
