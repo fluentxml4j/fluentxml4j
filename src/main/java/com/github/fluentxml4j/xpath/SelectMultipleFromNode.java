@@ -11,7 +11,8 @@ import java.util.stream.Stream;
 public interface SelectMultipleFromNode<NodeType> extends Iterable<NodeType>
 {
 	/**
-	 * @deprecated SelectMultipleFromNode already is an instance of {@link Iterable<NodeType>}.
+	 * @deprecated SelectMultipleFromNode already is an instance of {@link Iterable}.
+	 * @return Iterable instance of result.
 	 */
 	@Deprecated
 	Iterable<NodeType> iterate();

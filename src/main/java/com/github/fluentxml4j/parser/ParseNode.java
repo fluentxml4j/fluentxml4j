@@ -10,6 +10,7 @@ public interface ParseNode
 
 	/**
 	 * @deprecated Use {@link #document()} instead.
+	 * @return The document parsed.
 	 */
 	@Deprecated
 	Document asDocument();
