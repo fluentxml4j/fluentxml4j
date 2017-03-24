@@ -4,7 +4,13 @@ import org.w3c.dom.Document;
 
 public interface ParseNode
 {
-	ParseNode withNamespaces(boolean namespacesEnabled);
+	ParseWithDocumentBuilderNode withDocumentBuilder(DocumentBuilderConfigurer documentBuilderConfigurer);
 
+	Document document();
+
+	/**
+	 * @deprecated Use {@link #document()} instead.
+	 */
+	@Deprecated
 	Document asDocument();
 }

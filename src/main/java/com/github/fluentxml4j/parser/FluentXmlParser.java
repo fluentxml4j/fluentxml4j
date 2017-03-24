@@ -4,8 +4,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.DocumentBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -28,28 +27,37 @@ public class FluentXmlParser
 	{
 		return new ParseNode()
 		{
-			private boolean namespaceAware = true;
-
-			@Override
-			public ParseNode withNamespaces(boolean namespaceAware)
+			public ParseWithDocumentBuilderNode withDocumentBuilder(DocumentBuilderConfigurer documentBuilderConfigurer)
 			{
-				this.namespaceAware = namespaceAware;
-				return this;
+				return new ParseWithDocumentBuilderNode()
+				{
+					@Override
+					public Document document()
+					{
+						try
+						{
+							DocumentBuilder documentBuilder = documentBuilderConfigurer.getDocumentBuilder();
+							return documentBuilder.parse(inputSource);
+						}
+						catch (SAXException | IOException ex)
+						{
+							throw new RuntimeException(ex);
+						}
+					}
+				};
 			}
 
 			@Override
+			public Document document()
+			{
+				return withDocumentBuilder(new DocumentBuilderConfigurerAdapter()).document();
+			}
+
+			@Override
+			@Deprecated
 			public Document asDocument()
 			{
-				try
-				{
-					DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-					documentBuilderFactory.setNamespaceAware(this.namespaceAware);
-					return documentBuilderFactory.newDocumentBuilder().parse(inputSource);
-				}
-				catch (ParserConfigurationException | SAXException | IOException ex)
-				{
-					throw new RuntimeException(ex);
-				}
+				return document();
 			}
 		};
 	}
