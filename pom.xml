@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.fluentxml4j</groupId>
     <artifactId>fluentxml4j</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
     <name>FluentXML4J</name>
     <description>A fluent API for XML querying.</description>
@@ -34,7 +34,7 @@
     <scm>
         <developerConnection>scm:git:ssh://git@github.com/fluentxml4j/fluentxml4j.git</developerConnection>
         <connection>scm:git:ssh://git@github.com/fluentxml4j/fluentxml4j.git</connection>
-        <tag>HEAD</tag>
+        <tag>fluentxml4j-1.0.2</tag>
         <url>https://github.com/fluentxml4j/fluentxml4j.git</url>
     </scm>
     <build>
