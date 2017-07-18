@@ -8,11 +8,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 import java.io.InputStream;
 import java.io.Reader;
 
+import static com.github.fluentxml4j.FluentXml.from;
 import static com.github.fluentxml4j.FluentXml.parse;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -39,6 +41,9 @@ public class FluentXmlParseTest
 	@Mock
 	private InputSource inputSource;
 
+	@Mock
+	private Document document;
+
 	@Before
 	public void setUp()
 	{
@@ -46,6 +51,7 @@ public class FluentXmlParseTest
 		when(fluentXmlParser.parse(inputStream)).thenReturn(parseNode);
 		when(fluentXmlParser.parse(reader)).thenReturn(parseNode);
 		when(fluentXmlParser.parse(inputSource)).thenReturn(parseNode);
+		when(parseNode.document()).thenReturn(document);
 	}
 
 	@Test
@@ -70,5 +76,26 @@ public class FluentXmlParseTest
 		ParseNode parseNodeReturned = parse(inputSource);
 
 		assertThat(parseNodeReturned, is(this.parseNode));
+	}
+
+	@Test
+	public void documentFromInputSource() {
+		Document documentReturned = from(inputSource).parse().document();
+
+		assertThat(documentReturned, is(this.document));
+	}
+
+	@Test
+	public void documentFromInputStream() {
+		Document documentReturned = from(inputStream).parse().document();
+
+		assertThat(documentReturned, is(this.document));
+	}
+
+	@Test
+	public void documentFromReader() {
+		Document documentReturned = from(reader).parse().document();
+
+		assertThat(documentReturned, is(this.document));
 	}
 }
