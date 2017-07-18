@@ -23,6 +23,12 @@ of the streaming API and Optional.
 Document doc = parse(getClass().getResourceAsStream("example.xml")).document();
 ```
 
+or (from 1.0.3) 
+
+```
+Document doc = from(getClass().getResourceAsStream("example.xml")).parse().document();
+```
+
 ## Serialization Examples
 
 ### Serialize to string
