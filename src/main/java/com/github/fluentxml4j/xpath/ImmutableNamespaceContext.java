@@ -53,7 +53,7 @@ class ImmutableNamespaceContext implements NamespaceContext
 	}
 
 	@Override
-	public Iterator getPrefixes(String namespaceURI)
+	public Iterator<String> getPrefixes(String namespaceURI)
 	{
 		Set<String> prefixes = this.prefixesByNamespaceURI.get(namespaceURI);
 		if (prefixes == null)
