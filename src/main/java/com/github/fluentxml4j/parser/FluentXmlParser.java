@@ -1,6 +1,5 @@
 package com.github.fluentxml4j.parser;
 
-import com.github.fluentxml4j.FromNode;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;

@@ -1,10 +1,14 @@
 package com.github.fluentxml4j.transformer;
 
 import com.github.fluentxml4j.DocumentTestRule;
+import com.github.fluentxml4j.serializer.SerializerConfigurerAdapter;
 import org.junit.Rule;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -47,7 +51,7 @@ public class FluentXmlTransformerTest
 	}
 
 	@Test
-	public void documentToDocument() throws Exception
+	public void documentToDocumentWithTransformers() throws Exception
 	{
 		Document resultDoc = fluentXmlTransformer
 				.transform(sourceDocumentRule.document())
@@ -62,7 +66,7 @@ public class FluentXmlTransformerTest
 	}
 
 	@Test
-	public void streamToDocument() throws Exception
+	public void streamToDocumentWithTransformers() throws Exception
 	{
 		Document resultDoc = fluentXmlTransformer
 				.transform(sourceDocumentRule.inputStream())
@@ -74,5 +78,28 @@ public class FluentXmlTransformerTest
 		Element root = resultDoc.getDocumentElement();
 
 		assertThat(root.getLocalName(), is("transformed3"));
+	}
+
+	@Test
+	public void streamToStringWithTransformers() throws Exception
+	{
+		String resultXml = fluentXmlTransformer
+				.transform(sourceDocumentRule.inputStream())
+				.withStylesheet(xsltDocumentRule.document())
+				.withStylesheet(xsltDocumentRule2.inputStream())
+				.withStylesheet(xsltDocumentRule3.url())
+				.withSerializer(new SerializerConfigurerAdapter()
+				{
+					@Override
+					protected void configure(Transformer transformer)
+					{
+						super.configure(transformer);
+						transformer.setOutputProperty(OutputKeys.INDENT, "no");
+						transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+					}
+				})
+				.toString();
+
+		assertThat(resultXml, is("<transformed3/>"));
 	}
 }

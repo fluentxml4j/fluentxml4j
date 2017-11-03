@@ -1,6 +1,7 @@
 package com.github.fluentxml4j;
 
 import com.github.fluentxml4j.parser.FluentXmlParser;
+import com.github.fluentxml4j.parser.FromNode;
 import com.github.fluentxml4j.parser.ParseNode;
 import com.github.fluentxml4j.serializer.FluentXmlSerializer;
 import com.github.fluentxml4j.serializer.SerializeNode;
@@ -50,17 +51,17 @@ public class FluentXml
 		return fluentXmlParser.get().parse(in);
 	}
 
-	public static com.github.fluentxml4j.FromNode from(InputSource in)
+	public static FromNode from(InputSource in)
 	{
 		return () -> fluentXmlParser.get().parse(in);
 	}
 
-	public static com.github.fluentxml4j.FromNode from(InputStream in)
+	public static FromNode from(InputStream in)
 	{
 		return () -> fluentXmlParser.get().parse(in);
 	}
 
-	public static com.github.fluentxml4j.FromNode from(Reader in)
+	public static FromNode from(Reader in)
 	{
 		return () -> fluentXmlParser.get().parse(in);
 	}

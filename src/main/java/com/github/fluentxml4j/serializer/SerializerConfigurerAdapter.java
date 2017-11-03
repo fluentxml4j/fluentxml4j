@@ -3,19 +3,20 @@ package com.github.fluentxml4j.serializer;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.sax.SAXTransformerFactory;
+import javax.xml.transform.sax.TransformerHandler;
 
 public class SerializerConfigurerAdapter implements SerializerConfigurer
 {
 	@Override
-	public Transformer getSerializer()
+	public TransformerHandler getSerializer()
 	{
 		try
 		{
-			TransformerFactory transformerFactory = buildTransformerFactory();
+			SAXTransformerFactory transformerFactory = buildTransformerFactory();
 			configure(transformerFactory);
-			Transformer transformer = buildTransformer(transformerFactory);
-			configure(transformer);
+			TransformerHandler transformer = buildTransformer(transformerFactory);
+			configure(transformer.getTransformer());
 			return transformer;
 		}
 		catch (TransformerConfigurationException ex)
@@ -31,18 +32,18 @@ public class SerializerConfigurerAdapter implements SerializerConfigurer
 		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 	}
 
-	protected Transformer buildTransformer(TransformerFactory transformerFactory) throws TransformerConfigurationException
+	protected TransformerHandler buildTransformer(SAXTransformerFactory transformerFactory) throws TransformerConfigurationException
 	{
-		return transformerFactory.newTransformer();
+		return transformerFactory.newTransformerHandler();
 	}
 
-	protected void configure(TransformerFactory transformerFactory)
+	protected void configure(SAXTransformerFactory transformerFactory)
 	{
 	}
 
-	protected TransformerFactory buildTransformerFactory()
+	protected SAXTransformerFactory buildTransformerFactory()
 	{
-		return TransformerFactory.newInstance();
+		return (SAXTransformerFactory) SAXTransformerFactory.newInstance();
 	}
 
 
