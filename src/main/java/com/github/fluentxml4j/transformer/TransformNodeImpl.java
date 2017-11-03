@@ -97,30 +97,36 @@ class TransformNodeImpl implements TransformNode
 
 	private TransformerHandler buildPipeline(Result result) throws TransformerConfigurationException
 	{
-		SAXTransformerFactory saxTransformerFactory = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
-
-		if( this.transformers.isEmpty() ) {
-			TransformerHandler transformerHandler = saxTransformerFactory.newTransformerHandler();
-			transformerHandler.setResult(result);
-			return transformerHandler;
+		if (this.transformers.isEmpty())
+		{
+			return buildSingleTransformerPipeline(result);
 		}
+		else
+		{
+			return buildChainedTransformersPipeline(result);
+		}
+	}
 
-		TransformerHandler firstTransformer = null;
+	private TransformerHandler buildChainedTransformersPipeline(Result result)
+	{
 		TransformerHandler prevTransformer = null;
 		for (TransformerHandler currTransformer : transformers)
 		{
-			if (firstTransformer == null)
-			{
-				firstTransformer = currTransformer;
-			}
-			else
+			if (prevTransformer != null)
 			{
 				prevTransformer.setResult(new SAXResult(currTransformer));
 			}
 			prevTransformer = currTransformer;
 		}
 		prevTransformer.setResult(result);
+		return this.transformers.get(0);
+	}
 
-		return firstTransformer;
+	private TransformerHandler buildSingleTransformerPipeline(Result result) throws TransformerConfigurationException
+	{
+		SAXTransformerFactory saxTransformerFactory = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
+		TransformerHandler transformerHandler = saxTransformerFactory.newTransformerHandler();
+		transformerHandler.setResult(result);
+		return transformerHandler;
 	}
 }
