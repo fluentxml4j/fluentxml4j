@@ -23,6 +23,9 @@ public class FluentXml
 
 	static Supplier<FluentXPath> fluentXPath = supplierFor(new FluentXPath());
 
+	private FluentXml() {
+	}
+
 	private static <T> Supplier<T> supplierFor(T defaultInstance)
 	{
 		return () -> defaultInstance;
