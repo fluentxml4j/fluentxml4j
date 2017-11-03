@@ -45,8 +45,7 @@ serialize(document).to(System.err);
 
 ### Transform via XSLT
 ```
-Document resultDoc = fluentXmlTransformer
-        .transform(inputDoc)
+Document resultDoc = transform(inputDoc)
         .withStylesheet(xsltInputStream)
         .toDocument();
 ```
