@@ -35,6 +35,18 @@ public class FluentXmlTransformerTest
 	private FluentXmlTransformer fluentXmlTransformer = new FluentXmlTransformer();
 
 	@Test
+	public void documentToDocumentNoTransformer() throws Exception
+	{
+		Document resultDoc = fluentXmlTransformer
+				.transform(sourceDocumentRule.document())
+				.toDocument();
+
+		Element root = resultDoc.getDocumentElement();
+
+		assertThat(root.getLocalName(), is("source"));
+	}
+
+	@Test
 	public void documentToDocument() throws Exception
 	{
 		Document resultDoc = fluentXmlTransformer
