@@ -12,7 +12,7 @@ of the streaming API and Optional.
 <dependency>
   <groupId>com.github.fluentxml4j</groupId>
   <artifactId>fluentxml4j</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
 </dependency>
 ```
 
@@ -23,7 +23,7 @@ of the streaming API and Optional.
 Document doc = parse(getClass().getResourceAsStream("example.xml")).document();
 ```
 
-or (from 1.0.3) 
+or
 
 ```
 Document doc = from(getClass().getResourceAsStream("example.xml")).parse().document();
