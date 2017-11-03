@@ -8,29 +8,87 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
+import java.net.URL;
+import java.nio.charset.Charset;
 
 public class DocumentTestRule extends ExternalResource
 {
-	private Document document;
+	private String xml;
 
 	public DocumentTestRule(String xml)
 	{
+		this.xml = xml;
+	}
+
+	public URL url()
+	{
+		File tempFile = getXmlTempFile();
+
+		writeTo(tempFile);
+
+		return toURL(tempFile);
+	}
+
+	private URL toURL(File tempFile)
+	{
 		try
 		{
-			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-			documentBuilderFactory.setNamespaceAware(true);
-			this.document = documentBuilderFactory.newDocumentBuilder().parse(new InputSource(new StringReader(xml)));
+			return tempFile.toURI().toURL();
 		}
-		catch (ParserConfigurationException | SAXException | IOException ex)
+		catch (IOException ex)
 		{
 			throw new RuntimeException(ex);
 		}
 	}
 
+	private void writeTo(File tempFile)
+	{
+		try (FileOutputStream fileOut = new FileOutputStream(tempFile))
+		{
+			fileOut.write(this.xml.getBytes(Charset.forName("UTF-8")));
+		}
+		catch (IOException ex)
+		{
+			throw new RuntimeException(ex);
+		}
+	}
+
+	private File getXmlTempFile()
+	{
+		File tempFile;
+		try
+		{
+			tempFile = File.createTempFile(getClass().getSimpleName(), "document.xml");
+		}
+		catch (IOException ex)
+		{
+			throw new RuntimeException(ex);
+		}
+		return tempFile;
+	}
+
+	public InputStream inputStream()
+	{
+		return new ByteArrayInputStream(this.xml.getBytes(Charset.forName("UTF-8")));
+	}
+
 	public Document document()
 	{
-		return document;
+		try
+		{
+			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+			documentBuilderFactory.setNamespaceAware(true);
+			return documentBuilderFactory.newDocumentBuilder().parse(new InputSource(new StringReader(xml)));
+		}
+		catch (ParserConfigurationException | SAXException | IOException ex)
+		{
+			throw new RuntimeException(ex);
+		}
 	}
 }
