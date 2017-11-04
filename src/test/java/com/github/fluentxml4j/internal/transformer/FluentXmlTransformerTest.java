@@ -1,6 +1,7 @@
-package com.github.fluentxml4j.transformer;
+package com.github.fluentxml4j.internal.transformer;
 
 import com.github.fluentxml4j.DocumentTestRule;
+import com.github.fluentxml4j.internal.transformer.FluentXmlTransformer;
 import com.github.fluentxml4j.serializer.SerializerConfigurerAdapter;
 import org.junit.Rule;
 import org.junit.Test;

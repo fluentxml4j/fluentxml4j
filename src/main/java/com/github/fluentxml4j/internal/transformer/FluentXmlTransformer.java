@@ -1,5 +1,6 @@
-package com.github.fluentxml4j.transformer;
+package com.github.fluentxml4j.internal.transformer;
 
+import com.github.fluentxml4j.transformer.TransformNode;
 import org.w3c.dom.Document;
 
 import javax.xml.transform.dom.DOMSource;

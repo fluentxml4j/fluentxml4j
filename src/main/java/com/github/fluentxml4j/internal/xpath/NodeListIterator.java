@@ -1,4 +1,4 @@
-package com.github.fluentxml4j.xpath;
+package com.github.fluentxml4j.internal.xpath;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

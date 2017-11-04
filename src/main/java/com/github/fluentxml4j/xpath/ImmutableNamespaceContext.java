@@ -8,12 +8,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-class ImmutableNamespaceContext implements NamespaceContext
+public class ImmutableNamespaceContext implements NamespaceContext
 {
 	private Map<String, String> namespaceURIByPrefix = new HashMap<>();
 	private Map<String, Set<String>> prefixesByNamespaceURI = new HashMap<>();
 
-	ImmutableNamespaceContext()
+	public ImmutableNamespaceContext()
 	{
 	}
 

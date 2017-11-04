@@ -1,17 +1,16 @@
-package com.github.fluentxml4j.transformer;
+package com.github.fluentxml4j.internal.transformer;
 
+import com.github.fluentxml4j.internal.transformer.TransformWithSerializerNodeImpl;
+import com.github.fluentxml4j.internal.transformer.TransformationChain;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import javax.xml.transform.sax.TransformerHandler;
-
 import java.io.OutputStream;
 import java.io.Writer;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)

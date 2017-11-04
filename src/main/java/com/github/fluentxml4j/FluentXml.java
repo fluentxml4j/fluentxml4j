@@ -1,12 +1,12 @@
 package com.github.fluentxml4j;
 
-import com.github.fluentxml4j.parser.FluentXmlParser;
+import com.github.fluentxml4j.internal.parser.FluentXmlParser;
 import com.github.fluentxml4j.parser.FromNode;
 import com.github.fluentxml4j.parser.ParseNode;
-import com.github.fluentxml4j.serializer.FluentXmlSerializer;
+import com.github.fluentxml4j.internal.serializer.FluentXmlSerializer;
 import com.github.fluentxml4j.serializer.SerializeNode;
-import com.github.fluentxml4j.transformer.FluentXmlTransformer;
-import com.github.fluentxml4j.xpath.FluentXPath;
+import com.github.fluentxml4j.internal.transformer.FluentXmlTransformer;
+import com.github.fluentxml4j.internal.xpath.FluentXPath;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 

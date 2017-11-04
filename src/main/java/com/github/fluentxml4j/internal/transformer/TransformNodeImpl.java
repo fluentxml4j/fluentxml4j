@@ -1,8 +1,9 @@
-package com.github.fluentxml4j.transformer;
+package com.github.fluentxml4j.internal.transformer;
 
 import com.github.fluentxml4j.serializer.SerializeWithTransformerNode;
 import com.github.fluentxml4j.serializer.SerializerConfigurer;
 import com.github.fluentxml4j.serializer.SerializerConfigurerAdapter;
+import com.github.fluentxml4j.transformer.TransformNode;
 import org.w3c.dom.Document;
 
 import javax.xml.transform.Source;

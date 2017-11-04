@@ -1,5 +1,6 @@
-package com.github.fluentxml4j.parser;
+package com.github.fluentxml4j.internal.parser;
 
+import com.github.fluentxml4j.parser.DocumentBuilderConfigurerAdapter;
 import org.junit.Test;
 import org.w3c.dom.Document;
 

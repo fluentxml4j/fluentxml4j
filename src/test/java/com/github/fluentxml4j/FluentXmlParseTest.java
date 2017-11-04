@@ -1,6 +1,6 @@
 package com.github.fluentxml4j;
 
-import com.github.fluentxml4j.parser.FluentXmlParser;
+import com.github.fluentxml4j.internal.parser.FluentXmlParser;
 import com.github.fluentxml4j.parser.ParseNode;
 import org.junit.Before;
 import org.junit.Rule;

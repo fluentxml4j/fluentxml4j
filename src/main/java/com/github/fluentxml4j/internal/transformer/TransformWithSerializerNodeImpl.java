@@ -1,4 +1,4 @@
-package com.github.fluentxml4j.transformer;
+package com.github.fluentxml4j.internal.transformer;
 
 import com.github.fluentxml4j.serializer.SerializeWithTransformerNode;
 

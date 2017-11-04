@@ -1,5 +1,10 @@
-package com.github.fluentxml4j.parser;
+package com.github.fluentxml4j.internal.parser;
 
+import com.github.fluentxml4j.parser.DocumentBuilderConfigurer;
+import com.github.fluentxml4j.parser.DocumentBuilderConfigurerAdapter;
+import com.github.fluentxml4j.parser.FromNode;
+import com.github.fluentxml4j.parser.ParseNode;
+import com.github.fluentxml4j.parser.ParseWithDocumentBuilderNode;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;

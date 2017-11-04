@@ -1,4 +1,4 @@
-package com.github.fluentxml4j.xpath;
+package com.github.fluentxml4j.internal.xpath;
 
 import com.github.fluentxml4j.DocumentTestRule;
 import org.junit.ClassRule;

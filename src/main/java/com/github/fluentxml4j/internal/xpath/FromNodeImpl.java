@@ -1,5 +1,9 @@
-package com.github.fluentxml4j.xpath;
+package com.github.fluentxml4j.internal.xpath;
 
+import com.github.fluentxml4j.xpath.FromNode;
+import com.github.fluentxml4j.xpath.ImmutableNamespaceContext;
+import com.github.fluentxml4j.xpath.SelectMultipleFromNode;
+import com.github.fluentxml4j.xpath.XPathConfigurer;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

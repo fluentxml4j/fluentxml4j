@@ -1,4 +1,7 @@
-package com.github.fluentxml4j.serializer;
+package com.github.fluentxml4j.internal.serializer;
+
+import com.github.fluentxml4j.serializer.SerializeWithTransformerNode;
+import com.github.fluentxml4j.serializer.SerializerConfigurer;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -9,7 +12,7 @@ import java.io.OutputStream;
 import java.io.StringWriter;
 import java.io.Writer;
 
-class SerializeWithTransformerNodeImpl implements SerializeWithTransformerNode
+public class SerializeWithTransformerNodeImpl implements SerializeWithTransformerNode
 {
 	private final Source source;
 	private final SerializerConfigurer serializerConfigurer;
