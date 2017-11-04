@@ -13,10 +13,6 @@ public class ImmutableNamespaceContext implements NamespaceContext
 	private Map<String, String> namespaceURIByPrefix = new HashMap<>();
 	private Map<String, Set<String>> prefixesByNamespaceURI = new HashMap<>();
 
-	public ImmutableNamespaceContext()
-	{
-	}
-
 	public Set<String> getAllPrefixes()
 	{
 		return this.namespaceURIByPrefix.keySet();
