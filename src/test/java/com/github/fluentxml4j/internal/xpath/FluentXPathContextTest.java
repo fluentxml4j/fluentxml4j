@@ -21,16 +21,12 @@ public class FluentXPathContextTest
 {
 	@InjectMocks
 	private FluentXPathContext fluentXPathContext;
-
 	@Mock
 	private XPathConfigurer xPathConfigurer;
-
 	@Mock
 	private XPath xpath;
-
 	@Mock
 	private ImmutableNamespaceContext immutableNamespaceContext;
-
 	@Mock
 	private XPathExpression xpathExpr;
 

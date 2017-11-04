@@ -1,5 +1,6 @@
 package com.github.fluentxml4j.internal.xpath;
 
+import com.github.fluentxml4j.FluentXmlProcessingException;
 import com.github.fluentxml4j.xpath.FromNode;
 import com.github.fluentxml4j.xpath.ImmutableNamespaceContext;
 import com.github.fluentxml4j.xpath.SelectMultipleFromNode;
@@ -64,27 +65,32 @@ class FromNodeImpl implements FromNode
 	@Override
 	public Optional<String> selectString(String xPathQuery)
 	{
-		return selectNode(xPathQuery, ToStringConverter::toString);
+		return selectUniqueNode(xPathQuery, ToStringConverter::toString);
 	}
 
 	@Override
 	public Optional<Element> selectElement(String xPathQuery)
 	{
-		return selectNode(xPathQuery, ToElementConverter::toElement);
+		return selectUniqueNode(xPathQuery, ToElementConverter::toElement);
 	}
 
 	@Override
 	public Optional<Node> selectNode(String xPathQuery)
 	{
-		return selectNode(xPathQuery, Function.identity());
+		return selectUniqueNode(xPathQuery, Function.identity());
 	}
 
-	private <ResultType> Optional<ResultType> selectNode(String xPathQuery, Function<Node, ResultType> converter)
+	private <T> Optional<T> selectUniqueNode(String xPathQuery, Function<Node, T> converter)
 	{
 		NodeList nodeList = selectNodes(xPathQuery).asNodeList();
-		if (nodeList.getLength() == 0)
+		int length = nodeList.getLength();
+		if (length == 0)
 		{
 			return Optional.empty();
+		}
+		else if (length > 1)
+		{
+			throw new FluentXmlProcessingException("Non unique result.");
 		}
 		else
 		{
