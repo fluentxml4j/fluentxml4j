@@ -20,6 +20,7 @@ import javax.xml.xpath.XPathExpressionException;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
@@ -62,6 +63,26 @@ public class FromNodeImplTest
 	}
 
 	@Test
+	public void selectNodeGivesEmptyOptionalWhenNoResultFound() throws XPathExpressionException
+	{
+		givenResultNodeSetIsEmpty();
+
+		boolean present = this.fromNode.selectNode("aQuery").isPresent();
+
+		assertThat(present, is(false));
+	}
+
+	@Test
+	public void selectElementGivesEmptyOptionalWhenNoResultFound() throws XPathExpressionException
+	{
+		givenResultNodeSetIsEmpty();
+
+		boolean present = this.fromNode.selectElement("aQuery").isPresent();
+
+		assertThat(present, is(false));
+	}
+
+	@Test
 	public void singleStringWhenSingleNodeFound() throws XPathExpressionException
 	{
 		givenResultNodeSetContains("string1");
@@ -69,6 +90,16 @@ public class FromNodeImplTest
 		String result = this.fromNode.selectString("aQuery").get();
 
 		assertThat(result, is("string1"));
+	}
+
+	@Test
+	public void singleNodeWhenSingleNodeFound() throws XPathExpressionException
+	{
+		givenResultNodeSetContains("string1");
+
+		Text result = (Text) this.fromNode.selectNode("aQuery").get();
+
+		assertThat(result.getData(), is("string1"));
 	}
 
 	@Test
@@ -82,6 +113,16 @@ public class FromNodeImplTest
 	}
 
 	@Test
+	public void selectNodeFailsWhenMultipleNodesFound() throws XPathExpressionException
+	{
+		expectedException.expect(FluentXmlProcessingException.class);
+
+		givenResultNodeSetContains("string1", "string2");
+
+		this.fromNode.selectNode("aQuery");
+	}
+
+	@Test
 	public void selectStringsGivesListOfStrings() throws XPathExpressionException
 	{
 		givenResultNodeSetContains("string1", "string2");
@@ -89,6 +130,19 @@ public class FromNodeImplTest
 		List<String> result = this.fromNode.selectStrings("aQuery").asList();
 
 		assertThat(result, is(Arrays.asList("string1", "string2")));
+	}
+
+
+	@Test
+	public void selectNodesGivesListOfNodes() throws XPathExpressionException
+	{
+		givenResultNodeSetContains("string1", "string2");
+
+		List<Node> result = this.fromNode.selectNodes("aQuery").asList();
+
+		assertThat(result.size(), is(2));
+		assertThat(result.get(0), instanceOf(Text.class));
+		assertThat(result.get(1), instanceOf(Text.class));
 	}
 
 	private void givenResultNodeSetContains(String... values)
