@@ -127,11 +127,6 @@ class TransformationChain
 
 		prevTransformer.setResult(result);
 
-		if (firstTransformer == null)
-		{
-			throw new IllegalStateException("Internal problem: No first transformer.");
-		}
-
 		return firstTransformer;
 	}
 
