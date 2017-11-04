@@ -1,6 +1,5 @@
 package com.github.fluentxml4j.xpath;
 
-import com.github.fluentxml4j.xpath.ImmutableNamespaceContext;
 import org.junit.Test;
 
 import java.util.Arrays;
