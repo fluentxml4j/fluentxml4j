@@ -33,6 +33,7 @@ class SelectMultipleFromNodeImpl<ResultType> implements SelectMultipleFromNode<R
 		return iterate().iterator();
 	}
 
+	@Deprecated
 	@Override
 	public Iterable<ResultType> iterate()
 	{
