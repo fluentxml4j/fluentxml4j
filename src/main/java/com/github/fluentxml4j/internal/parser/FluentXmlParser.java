@@ -1,5 +1,6 @@
 package com.github.fluentxml4j.internal.parser;
 
+import com.github.fluentxml4j.FluentXmlProcessingException;
 import com.github.fluentxml4j.parser.DocumentBuilderConfigurer;
 import com.github.fluentxml4j.parser.DocumentBuilderConfigurerAdapter;
 import com.github.fluentxml4j.parser.FromNode;
@@ -46,7 +47,7 @@ public class FluentXmlParser
 						}
 						catch (SAXException | IOException ex)
 						{
-							throw new RuntimeException(ex);
+							throw new FluentXmlProcessingException(ex);
 						}
 					}
 				};

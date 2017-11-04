@@ -1,5 +1,7 @@
 package com.github.fluentxml4j.parser;
 
+import com.github.fluentxml4j.FluentXmlConfigurationException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -19,7 +21,7 @@ public class DocumentBuilderConfigurerAdapter implements DocumentBuilderConfigur
 		}
 		catch (ParserConfigurationException ex)
 		{
-			throw new RuntimeException(ex);
+			throw new FluentXmlConfigurationException(ex);
 		}
 	}
 

@@ -1,5 +1,6 @@
 package com.github.fluentxml4j.internal.serializer;
 
+import com.github.fluentxml4j.FluentXmlProcessingException;
 import com.github.fluentxml4j.serializer.SerializeWithTransformerNode;
 import com.github.fluentxml4j.serializer.SerializerConfigurer;
 
@@ -52,7 +53,7 @@ public class SerializeWithTransformerNodeImpl implements SerializeWithTransforme
 		}
 		catch (TransformerException ex)
 		{
-			throw new RuntimeException(ex);
+			throw new FluentXmlProcessingException(ex);
 		}
 	}
 }

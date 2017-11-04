@@ -1,5 +1,6 @@
 package com.github.fluentxml4j.internal.xpath;
 
+import com.github.fluentxml4j.FluentXmlProcessingException;
 import com.github.fluentxml4j.xpath.SelectMultipleFromNode;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -56,7 +57,7 @@ class SelectMultipleFromNodeImpl<ResultType> implements SelectMultipleFromNode<R
 		}
 		catch (XPathException ex)
 		{
-			throw new RuntimeException(ex);
+			throw new FluentXmlProcessingException(ex);
 		}
 	}
 

@@ -1,5 +1,7 @@
 package com.github.fluentxml4j.internal.transformer;
 
+import com.github.fluentxml4j.FluentXmlConfigurationException;
+import com.github.fluentxml4j.FluentXmlProcessingException;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -48,7 +50,7 @@ class TransformationChain
 		}
 		catch (TransformerException ex)
 		{
-			throw new RuntimeException(ex);
+			throw new FluentXmlProcessingException(ex);
 		}
 	}
 
@@ -83,7 +85,7 @@ class TransformationChain
 		}
 		catch (ParserConfigurationException ex)
 		{
-			throw new RuntimeException(ex);
+			throw new FluentXmlConfigurationException(ex);
 		}
 
 	}
@@ -126,7 +128,7 @@ class TransformationChain
 		}
 		catch (TransformerConfigurationException ex)
 		{
-			throw new RuntimeException(ex);
+			throw new FluentXmlConfigurationException(ex);
 		}
 	}
 }

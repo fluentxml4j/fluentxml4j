@@ -1,5 +1,6 @@
 package com.github.fluentxml4j.internal.xpath;
 
+import com.github.fluentxml4j.FluentXmlProcessingException;
 import com.github.fluentxml4j.xpath.ImmutableNamespaceContext;
 import com.github.fluentxml4j.xpath.XPathConfigurer;
 import com.github.fluentxml4j.xpath.XPathConfigurerAdapter;
@@ -26,7 +27,7 @@ class FluentXPathContext
 		}
 		catch (XPathExpressionException ex)
 		{
-			throw new RuntimeException(ex);
+			throw new FluentXmlProcessingException(ex);
 		}
 	}
 }

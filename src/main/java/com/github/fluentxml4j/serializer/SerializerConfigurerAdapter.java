@@ -1,5 +1,7 @@
 package com.github.fluentxml4j.serializer;
 
+import com.github.fluentxml4j.FluentXmlConfigurationException;
+
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -21,7 +23,7 @@ public class SerializerConfigurerAdapter implements SerializerConfigurer
 		}
 		catch (TransformerConfigurationException ex)
 		{
-			throw new RuntimeException(ex);
+			throw new FluentXmlConfigurationException(ex);
 		}
 	}
 
