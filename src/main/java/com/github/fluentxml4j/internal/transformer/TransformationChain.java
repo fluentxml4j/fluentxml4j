@@ -105,16 +105,34 @@ class TransformationChain
 	private TransformerHandler buildChainedTransformersPipeline(Result result)
 	{
 		TransformerHandler prevTransformer = null;
+		TransformerHandler firstTransformer = null;
 		for (TransformerHandler currTransformer : transformers)
 		{
+			if (firstTransformer == null)
+			{
+				firstTransformer = currTransformer;
+			}
+
 			if (prevTransformer != null)
 			{
 				prevTransformer.setResult(new SAXResult(currTransformer));
 			}
 			prevTransformer = currTransformer;
 		}
+
+		if (prevTransformer == null)
+		{
+			throw new IllegalStateException("Internal problem: No previous transformer.");
+		}
+
 		prevTransformer.setResult(result);
-		return this.transformers.get(0);
+
+		if (firstTransformer == null)
+		{
+			throw new IllegalStateException("Internal problem: No first transformer.");
+		}
+
+		return firstTransformer;
 	}
 
 	private TransformerHandler buildSingleTransformerPipeline(Result result)
