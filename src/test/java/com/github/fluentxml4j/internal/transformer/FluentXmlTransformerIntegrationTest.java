@@ -14,7 +14,7 @@ import javax.xml.transform.Transformer;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class FluentXmlTransformerTest
+public class FluentXmlTransformerIntegrationTest
 {
 	@Rule
 	public DocumentTestRule sourceDocumentRule = new DocumentTestRule("<source/>");
