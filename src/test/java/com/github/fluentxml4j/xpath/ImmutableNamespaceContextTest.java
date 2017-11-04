@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashSet;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 public class ImmutableNamespaceContextTest
@@ -16,15 +17,25 @@ public class ImmutableNamespaceContextTest
 	private ImmutableNamespaceContext derived;
 
 	@Test
-	public void empty() {
+	public void empty()
+	{
 		assertThat(origin.getAllPrefixes(), is(Collections.emptySet()));
 	}
 
 	@Test
-	public void add() {
-		this.derived = this.origin.addMapping("prefix","nsURI");
+	public void addMaping()
+	{
+		this.derived = this.origin.addMapping("prefix", "nsURI");
 
+		assertThat(origin.getNamespaceURI("prefix"), is(nullValue()));
+		assertThat(origin.getPrefix("nsURI"), is(nullValue()));
+		assertThat(origin.getPrefixes("nsURI").hasNext(), is(false));
 		assertThat(origin.getAllPrefixes(), is(Collections.emptySet()));
+
+		assertThat(derived.getNamespaceURI("prefix"), is("nsURI"));
+		assertThat(derived.getPrefix("nsURI"), is("prefix"));
+		assertThat(derived.getPrefixes("nsURI").hasNext(), is(true));
 		assertThat(derived.getAllPrefixes(), is(new HashSet<>(Arrays.asList("prefix"))));
 	}
+
 }

@@ -58,7 +58,7 @@ public class ImmutableNamespaceContext implements NamespaceContext
 		Set<String> prefixes = this.prefixesByNamespaceURI.get(namespaceURI);
 		if (prefixes == null)
 		{
-			return null;
+			return Collections.<String>emptyList().iterator();
 		}
 		else
 		{
