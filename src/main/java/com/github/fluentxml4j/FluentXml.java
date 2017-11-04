@@ -1,12 +1,13 @@
 package com.github.fluentxml4j;
 
 import com.github.fluentxml4j.internal.parser.FluentXmlParser;
+import com.github.fluentxml4j.internal.serializer.FluentXmlSerializer;
+import com.github.fluentxml4j.internal.transformer.FluentXmlTransformer;
+import com.github.fluentxml4j.internal.validator.FluentXmlValidator;
+import com.github.fluentxml4j.internal.xpath.FluentXPath;
 import com.github.fluentxml4j.parser.FromNode;
 import com.github.fluentxml4j.parser.ParseNode;
-import com.github.fluentxml4j.internal.serializer.FluentXmlSerializer;
 import com.github.fluentxml4j.serializer.SerializeNode;
-import com.github.fluentxml4j.internal.transformer.FluentXmlTransformer;
-import com.github.fluentxml4j.internal.xpath.FluentXPath;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -26,6 +27,8 @@ public class FluentXml
 	static Supplier<FluentXPath> fluentXPath = supplierFor(new FluentXPath());
 
 	static Supplier<FluentXmlTransformer> fluentXmlTransformer = supplierFor(new FluentXmlTransformer());
+
+	static Supplier<FluentXmlValidator> fluentXmlValidator = supplierFor(new FluentXmlValidator());
 
 	private FluentXml()
 	{
@@ -84,5 +87,10 @@ public class FluentXml
 	public static com.github.fluentxml4j.transformer.TransformNode transform(InputStream in)
 	{
 		return fluentXmlTransformer.get().transform(in);
+	}
+
+	public static com.github.fluentxml4j.validator.ValidateNode validate(Document doc)
+	{
+		return fluentXmlValidator.get().validate(doc);
 	}
 }
