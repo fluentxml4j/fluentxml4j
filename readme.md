@@ -15,8 +15,9 @@ FluentXML4J uses the builtin JDK XML parser and XPath API, but Java 8 is require
 </dependency>
 ```
 
-## Parsing Examples
+## Examples
 
+### Parsing
 ```
 Document doc = parse(getClass().getResourceAsStream("example.xml"))
     .document();
@@ -25,18 +26,14 @@ Document doc = parse(getClass().getResourceAsStream("example.xml"))
 [More parsing examples...](doc/examples/parsing-examples.md)
 
 
-## Serialization Examples
-
-### Serialize to System.err
+### Serialization
 ```
 serialize(document).to(System.err);
 ```
 
 [More serialization examples...](doc/examples/serialization-examples.md)
 
-## Transformation Examples
-
-### Transform via XSLT
+### Transformation
 ```
 Document resultDoc = transform(inputDoc)
         .withStylesheet(xsltInputStream)
@@ -45,9 +42,7 @@ Document resultDoc = transform(inputDoc)
 
 [More transformation examples...](doc/examples/transformation-examples.md)
 
-## XPath Query Examples
-
-### Select elements into list
+### XPath Querying
 ```
 List<Element> elements = from(doc)
     .selectElements("//*")
