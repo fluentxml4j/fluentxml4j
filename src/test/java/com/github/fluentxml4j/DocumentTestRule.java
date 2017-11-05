@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 import java.io.StringReader;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -28,11 +29,19 @@ public class DocumentTestRule extends ExternalResource
 
 	public URL url()
 	{
+		File tempFile = exportXmlToTempFile();
+
+		return toURL(tempFile);
+	}
+
+	private File exportXmlToTempFile()
+	{
+
 		File tempFile = getXmlTempFile();
 
 		writeTo(tempFile);
 
-		return toURL(tempFile);
+		return tempFile;
 	}
 
 	private URL toURL(File tempFile)
@@ -61,16 +70,14 @@ public class DocumentTestRule extends ExternalResource
 
 	private File getXmlTempFile()
 	{
-		File tempFile;
 		try
 		{
-			tempFile = File.createTempFile(getClass().getSimpleName(), "document.xml");
+			return File.createTempFile(getClass().getSimpleName(), "document.xml");
 		}
 		catch (IOException ex)
 		{
 			throw new RuntimeException(ex);
 		}
-		return tempFile;
 	}
 
 	public InputStream inputStream()
@@ -90,5 +97,27 @@ public class DocumentTestRule extends ExternalResource
 		{
 			throw new RuntimeException(ex);
 		}
+	}
+
+	public byte[] bytes(String charset)
+	{
+		try
+		{
+			return xml.getBytes(charset);
+		}
+		catch (IOException ex)
+		{
+			throw new RuntimeException(ex);
+		}
+	}
+
+	public File file()
+	{
+		return exportXmlToTempFile();
+	}
+
+	public Reader reader()
+	{
+		return new StringReader(this.xml);
 	}
 }

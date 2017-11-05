@@ -10,6 +10,7 @@ import com.github.fluentxml4j.internal.xpath.FluentXPath;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.function.Supplier;
@@ -36,6 +37,11 @@ public class FluentXml
 		return () -> defaultInstance;
 	}
 
+	public static ParseNode parse(File in)
+	{
+		return fluentXmlParser.get().parse(in);
+	}
+
 	public static ParseNode parse(InputStream in)
 	{
 		return fluentXmlParser.get().parse(in);
@@ -49,6 +55,11 @@ public class FluentXml
 	public static ParseNode parse(InputSource in)
 	{
 		return fluentXmlParser.get().parse(in);
+	}
+
+	public static FromNode from(File in)
+	{
+		return () -> fluentXmlParser.get().parse(in);
 	}
 
 	public static FromNode from(InputSource in)

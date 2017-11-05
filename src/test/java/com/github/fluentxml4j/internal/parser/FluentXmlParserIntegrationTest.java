@@ -1,13 +1,13 @@
 package com.github.fluentxml4j.internal.parser;
 
+import com.github.fluentxml4j.DocumentTestRule;
 import com.github.fluentxml4j.parser.DocumentBuilderConfigurerAdapter;
+import org.junit.Rule;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.ByteArrayInputStream;
-import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -16,34 +16,39 @@ import static org.junit.Assert.assertThat;
 
 public class FluentXmlParserIntegrationTest
 {
+	@Rule
+	public DocumentTestRule xmlInput = new DocumentTestRule("<test/>");
+
 	private FluentXmlParser fluentXmlParser = new FluentXmlParser();
 
 	@Test
-	public void parseDocumentWithDefaultsFromInputSource() throws UnsupportedEncodingException
+	public void parseDocumentWithDefaultsFromInputSource()
 	{
-		byte[] xmlBytes = "<test/>".getBytes("UTF-8");
-
-		Document doc = fluentXmlParser.parse(new InputSource(new ByteArrayInputStream(xmlBytes))).document();
+		Document doc = fluentXmlParser.parse(new InputSource(xmlInput.inputStream())).document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}
 
 	@Test
-	public void parseDocumentWithDefaultsFromInputStream() throws UnsupportedEncodingException
+	public void parseDocumentWithDefaultsFromFile()
 	{
-		byte[] xmlBytes = "<test/>".getBytes("UTF-8");
-
-		Document doc = fluentXmlParser.parse(new ByteArrayInputStream(xmlBytes)).document();
+		Document doc = fluentXmlParser.parse(xmlInput.file()).document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}
 
 	@Test
-	public void parseDocumentWithDefaultsFromReader() throws UnsupportedEncodingException
+	public void parseDocumentWithDefaultsFromInputStream()
 	{
-		String xml = "<test/>";
+		Document doc = fluentXmlParser.parse(xmlInput.inputStream()).document();
 
-		Document doc = fluentXmlParser.parse(new StringReader(xml)).document();
+		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
+	}
+
+	@Test
+	public void parseDocumentWithDefaultsFromReader()
+	{
+		Document doc = fluentXmlParser.parse(xmlInput.reader()).document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}
@@ -51,9 +56,7 @@ public class FluentXmlParserIntegrationTest
 	@Test
 	public void parseDocumentWithConfiguredDocumentBuilderFromInputStream() throws UnsupportedEncodingException
 	{
-		byte[] xmlBytes = "<test/>".getBytes("UTF-8");
-
-		Document doc = fluentXmlParser.parse(new ByteArrayInputStream(xmlBytes)).withDocumentBuilder(new DocumentBuilderConfigurerAdapter()
+		Document doc = fluentXmlParser.parse(xmlInput.inputStream()).withDocumentBuilder(new DocumentBuilderConfigurerAdapter()
 		{
 			@Override
 			protected void configure(DocumentBuilderFactory documentBuilderFactory)
@@ -67,33 +70,34 @@ public class FluentXmlParserIntegrationTest
 	}
 
 	@Test
-	public void parseDocumentWithDefaultsFromInputStreamViaFrom() throws UnsupportedEncodingException
+	public void parseDocumentWithDefaultsFromInputStreamViaFrom()
 	{
-		byte[] xmlBytes = "<test/>".getBytes("UTF-8");
-
-		Document doc = fluentXmlParser.from(new ByteArrayInputStream(xmlBytes)).parse().document();
+		Document doc = fluentXmlParser.from(xmlInput.inputStream()).parse().document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}
 
 	@Test
-	public void parseDocumentWithDefaultsFromInputSourceViaFrom() throws UnsupportedEncodingException
+	public void parseDocumentWithDefaultsFromInputSourceViaFrom()
 	{
-		byte[] xmlBytes = "<test/>".getBytes("UTF-8");
-
-		Document doc = fluentXmlParser.from(new InputSource(new ByteArrayInputStream(xmlBytes))).parse().document();
+		Document doc = fluentXmlParser.from(new InputSource(xmlInput.inputStream())).parse().document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}
 
 	@Test
-	public void parseDocumentWithDefaultsFromReaderViaFrom() throws UnsupportedEncodingException
+	public void parseDocumentWithDefaultsFromReaderViaFrom()
 	{
-		String xml = "<test/>";
-
-		Document doc = fluentXmlParser.from(new StringReader(xml)).parse().document();
+		Document doc = fluentXmlParser.from(xmlInput.reader()).parse().document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}
 
+	@Test
+	public void parseDocumentWithDefaultsFromFileViaFrom()
+	{
+		Document doc = fluentXmlParser.from(xmlInput.file()).parse().document();
+
+		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
+	}
 }
