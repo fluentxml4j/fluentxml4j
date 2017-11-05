@@ -1,6 +1,6 @@
 package com.github.fluentxml4j.internal.serializer;
 
-import com.github.fluentxml4j.DocumentTestRule;
+import com.github.fluentxml4j.junit.XmlResource;
 import com.github.fluentxml4j.serializer.SerializerConfigurerAdapter;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -18,12 +18,12 @@ import static org.junit.Assert.assertThat;
 public class FluentXmlSerializerIntegrationTest
 {
 	@ClassRule
-	public static DocumentTestRule documentTestRule = new DocumentTestRule("<foo:test xmlns:foo=\"bar\"/>");
+	public static XmlResource documentTestRule = XmlResource.withData("<foo:test xmlns:foo=\"bar\"/>");
 
 	@Test
 	public void serializeWithDefaultsToString()
 	{
-		String serializedXml = serialize(documentTestRule.document()).toString();
+		String serializedXml = serialize(documentTestRule.asDocument()).toString();
 
 		assertThat(serializedXml, is("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<foo:test xmlns:foo=\"bar\"/>\n"));
 	}
@@ -33,7 +33,7 @@ public class FluentXmlSerializerIntegrationTest
 	{
 		StringWriter wr = new StringWriter();
 
-		serialize(documentTestRule.document())
+		serialize(documentTestRule.asDocument())
 				.to(wr);
 
 		String serializedXml = wr.getBuffer().toString();
@@ -45,7 +45,7 @@ public class FluentXmlSerializerIntegrationTest
 	{
 		ByteArrayOutputStream bytesBufOut = new ByteArrayOutputStream();
 
-		serialize(documentTestRule.document())
+		serialize(documentTestRule.asDocument())
 				.to(bytesBufOut);
 
 		String serializedXml = new String(bytesBufOut.toByteArray(), Charset.forName("UTF-8"));
@@ -57,7 +57,7 @@ public class FluentXmlSerializerIntegrationTest
 	@Test
 	public void serializeCustomizedToString()
 	{
-		String serializedXml = serialize(documentTestRule.document())
+		String serializedXml = serialize(documentTestRule.asDocument())
 				.withSerializer(new SerializerConfigurerAdapter()
 				{
 					@Override
@@ -78,7 +78,7 @@ public class FluentXmlSerializerIntegrationTest
 	{
 		StringWriter wr = new StringWriter();
 
-		serialize(documentTestRule.document())
+		serialize(documentTestRule.asDocument())
 				.withSerializer(new SerializerConfigurerAdapter()
 				{
 					@Override
@@ -99,7 +99,7 @@ public class FluentXmlSerializerIntegrationTest
 	{
 		ByteArrayOutputStream bytesBufOut = new ByteArrayOutputStream();
 
-		serialize(documentTestRule.document())
+		serialize(documentTestRule.asDocument())
 				.withSerializer(new SerializerConfigurerAdapter()
 				{
 					@Override

@@ -1,6 +1,6 @@
 package com.github.fluentxml4j.internal.xpath;
 
-import com.github.fluentxml4j.DocumentTestRule;
+import com.github.fluentxml4j.junit.XmlResource;
 import org.junit.ClassRule;
 import org.junit.Test;
 
@@ -17,12 +17,12 @@ import static org.junit.Assert.assertThat;
 public class SelectStringsTest
 {
 	@ClassRule
-	public static DocumentTestRule docRule = new DocumentTestRule("<a><b id=\"_1\">text1 word2</b><b id=\"_2\">text2 word3</b></a>");
+	public static XmlResource docRule = XmlResource.withData("<a><b id=\"_1\">text1 word2</b><b id=\"_2\">text2 word3</b></a>");
 
 	@Test
 	public void selectAttributeStrings()
 	{
-		List<String> values = from(docRule.document())
+		List<String> values = from(docRule.asDocument())
 				.selectStrings("//b/@id").asList();
 		assertThat(values.size(), is(2));
 		assertThat(values.get(0), is("_1"));
@@ -32,7 +32,7 @@ public class SelectStringsTest
 	@Test
 	public void selectWords()
 	{
-		Set<String> words = from(docRule.document())
+		Set<String> words = from(docRule.asDocument())
 				.selectStrings("//text()")
 				.asStream().flatMap((s) ->
 						Arrays.stream(s.split("[\\s]+")))

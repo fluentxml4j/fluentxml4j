@@ -1,6 +1,6 @@
 package com.github.fluentxml4j.internal.xpath;
 
-import com.github.fluentxml4j.DocumentTestRule;
+import com.github.fluentxml4j.junit.XmlResource;
 import org.junit.ClassRule;
 import org.junit.Test;
 
@@ -13,19 +13,19 @@ import static org.junit.Assert.assertThat;
 public class SelectStringTest
 {
 	@ClassRule
-	public static DocumentTestRule docRule = new DocumentTestRule("<a><b id=\"_1\">text1 word2</b><b id=\"_2\">text2 word3</b></a>");
+	public static XmlResource docRule = XmlResource.withData("<a><b id=\"_1\">text1 word2</b><b id=\"_2\">text2 word3</b></a>");
 
 	@Test
 	public void selectSingleString()
 	{
-		String text = from(docRule.document()).selectString("//*[@id='_1']/text()").get();
+		String text = from(docRule.asDocument()).selectString("//*[@id='_1']/text()").get();
 		assertThat(text, is("text1 word2"));
 	}
 
 	@Test
 	public void selectSingleElementByIdWhenElementNotExists()
 	{
-		Optional<String> text = from(docRule.document()).selectString("//*[@id='doesNotExists']/text()");
+		Optional<String> text = from(docRule.asDocument()).selectString("//*[@id='doesNotExists']/text()");
 		assertThat(text.isPresent(), is(false));
 	}
 }

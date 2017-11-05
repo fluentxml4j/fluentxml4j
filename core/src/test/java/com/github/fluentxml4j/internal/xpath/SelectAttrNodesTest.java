@@ -1,6 +1,6 @@
 package com.github.fluentxml4j.internal.xpath;
 
-import com.github.fluentxml4j.DocumentTestRule;
+import com.github.fluentxml4j.junit.XmlResource;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.w3c.dom.Attr;
@@ -15,12 +15,12 @@ import static org.junit.Assert.assertThat;
 public class SelectAttrNodesTest
 {
 	@ClassRule
-	public static DocumentTestRule docRule = new DocumentTestRule("<a><b id=\"_1\">text1 word2</b><b id=\"_2\">text2 word3</b></a>");
+	public static XmlResource docRule = XmlResource.withData("<a><b id=\"_1\">text1 word2</b><b id=\"_2\">text2 word3</b></a>");
 
 	@Test
 	public void selectAttrNodes()
 	{
-		List<String> values = from(docRule.document())
+		List<String> values = from(docRule.asDocument())
 				.selectNodes("//b/@id")
 				.asStream().map((node) -> ((Attr) node).getValue()).collect(Collectors.toList());
 		assertThat(values.size(), is(2));

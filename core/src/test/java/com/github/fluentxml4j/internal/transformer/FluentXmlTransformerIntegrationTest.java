@@ -1,7 +1,6 @@
 package com.github.fluentxml4j.internal.transformer;
 
-import com.github.fluentxml4j.DocumentTestRule;
-import com.github.fluentxml4j.internal.transformer.FluentXmlTransformer;
+import com.github.fluentxml4j.junit.XmlResource;
 import com.github.fluentxml4j.serializer.SerializerConfigurerAdapter;
 import org.junit.Rule;
 import org.junit.Test;
@@ -17,21 +16,21 @@ import static org.junit.Assert.assertThat;
 public class FluentXmlTransformerIntegrationTest
 {
 	@Rule
-	public DocumentTestRule sourceDocumentRule = new DocumentTestRule("<source/>");
+	public XmlResource sourceDocumentRule = XmlResource.withData("<source/>");
 	@Rule
-	public DocumentTestRule xsltDocumentRule = new DocumentTestRule("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+	public XmlResource xsltDocumentRule = XmlResource.withData("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
 			"<xsl:stylesheet version='1.0' xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">" +
 			"<xsl:output method='xml' indent='yes'/>" +
 			"<xsl:template match='/source'><transformed1/></xsl:template>" +
 			"</xsl:stylesheet>");
 	@Rule
-	public DocumentTestRule xsltDocumentRule2 = new DocumentTestRule("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+	public XmlResource xsltDocumentRule2 = XmlResource.withData("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
 			"<xsl:stylesheet version='1.0' xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">" +
 			"<xsl:output method='xml' indent='yes'/>" +
 			"<xsl:template match='/transformed1'><transformed2/></xsl:template>" +
 			"</xsl:stylesheet>");
 	@Rule
-	public DocumentTestRule xsltDocumentRule3 = new DocumentTestRule("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+	public XmlResource xsltDocumentRule3 = XmlResource.withData("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
 			"<xsl:stylesheet version='1.0' xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">" +
 			"<xsl:output method='xml' indent='yes'/>" +
 			"<xsl:template match='/transformed2'><transformed3/></xsl:template>" +
@@ -43,7 +42,7 @@ public class FluentXmlTransformerIntegrationTest
 	public void documentToDocumentNoTransformer() throws Exception
 	{
 		Document resultDoc = fluentXmlTransformer
-				.transform(sourceDocumentRule.document())
+				.transform(sourceDocumentRule.asDocument())
 				.toDocument();
 
 		Element root = resultDoc.getDocumentElement();
@@ -55,10 +54,10 @@ public class FluentXmlTransformerIntegrationTest
 	public void documentToDocumentWithTransformers() throws Exception
 	{
 		Document resultDoc = fluentXmlTransformer
-				.transform(sourceDocumentRule.document())
-				.withStylesheet(xsltDocumentRule.document())
-				.withStylesheet(xsltDocumentRule2.inputStream())
-				.withStylesheet(xsltDocumentRule3.url())
+				.transform(sourceDocumentRule.asDocument())
+				.withStylesheet(xsltDocumentRule.asDocument())
+				.withStylesheet(xsltDocumentRule2.asInputStream())
+				.withStylesheet(xsltDocumentRule3.asUrl())
 				.toDocument();
 
 		Element root = resultDoc.getDocumentElement();
@@ -70,10 +69,10 @@ public class FluentXmlTransformerIntegrationTest
 	public void streamToDocumentWithTransformers() throws Exception
 	{
 		Document resultDoc = fluentXmlTransformer
-				.transform(sourceDocumentRule.inputStream())
-				.withStylesheet(xsltDocumentRule.document())
-				.withStylesheet(xsltDocumentRule2.inputStream())
-				.withStylesheet(xsltDocumentRule3.url())
+				.transform(sourceDocumentRule.asInputStream())
+				.withStylesheet(xsltDocumentRule.asDocument())
+				.withStylesheet(xsltDocumentRule2.asInputStream())
+				.withStylesheet(xsltDocumentRule3.asUrl())
 				.toDocument();
 
 		Element root = resultDoc.getDocumentElement();
@@ -85,10 +84,10 @@ public class FluentXmlTransformerIntegrationTest
 	public void streamToStringWithTransformers() throws Exception
 	{
 		String resultXml = fluentXmlTransformer
-				.transform(sourceDocumentRule.inputStream())
-				.withStylesheet(xsltDocumentRule.document())
-				.withStylesheet(xsltDocumentRule2.inputStream())
-				.withStylesheet(xsltDocumentRule3.url())
+				.transform(sourceDocumentRule.asInputStream())
+				.withStylesheet(xsltDocumentRule.asDocument())
+				.withStylesheet(xsltDocumentRule2.asInputStream())
+				.withStylesheet(xsltDocumentRule3.asUrl())
 				.withSerializer(new SerializerConfigurerAdapter()
 				{
 					@Override

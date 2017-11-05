@@ -1,6 +1,6 @@
 package com.github.fluentxml4j.internal.parser;
 
-import com.github.fluentxml4j.DocumentTestRule;
+import com.github.fluentxml4j.junit.XmlResource;
 import com.github.fluentxml4j.parser.DocumentBuilderConfigurerAdapter;
 import org.junit.Rule;
 import org.junit.Test;
@@ -17,14 +17,14 @@ import static org.junit.Assert.assertThat;
 public class FluentXmlParserIntegrationTest
 {
 	@Rule
-	public DocumentTestRule xmlInput = new DocumentTestRule("<test/>");
+	public XmlResource xmlInput = XmlResource.withData("<test/>");
 
 	private FluentXmlParser fluentXmlParser = new FluentXmlParser();
 
 	@Test
 	public void parseDocumentWithDefaultsFromInputSource()
 	{
-		Document doc = fluentXmlParser.parse(new InputSource(xmlInput.inputStream())).document();
+		Document doc = fluentXmlParser.parse(new InputSource(xmlInput.asInputStream())).document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}
@@ -32,7 +32,7 @@ public class FluentXmlParserIntegrationTest
 	@Test
 	public void parseDocumentWithDefaultsFromFile()
 	{
-		Document doc = fluentXmlParser.parse(xmlInput.file()).document();
+		Document doc = fluentXmlParser.parse(xmlInput.asFile()).document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}
@@ -40,7 +40,7 @@ public class FluentXmlParserIntegrationTest
 	@Test
 	public void parseDocumentWithDefaultsFromURL()
 	{
-		Document doc = fluentXmlParser.parse(xmlInput.url()).document();
+		Document doc = fluentXmlParser.parse(xmlInput.asUrl()).document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}
@@ -48,7 +48,7 @@ public class FluentXmlParserIntegrationTest
 	@Test
 	public void parseDocumentWithDefaultsFromInputStream()
 	{
-		Document doc = fluentXmlParser.parse(xmlInput.inputStream()).document();
+		Document doc = fluentXmlParser.parse(xmlInput.asInputStream()).document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}
@@ -56,7 +56,7 @@ public class FluentXmlParserIntegrationTest
 	@Test
 	public void parseDocumentWithDefaultsFromReader()
 	{
-		Document doc = fluentXmlParser.parse(xmlInput.reader()).document();
+		Document doc = fluentXmlParser.parse(xmlInput.asReader()).document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}
@@ -64,7 +64,7 @@ public class FluentXmlParserIntegrationTest
 	@Test
 	public void parseDocumentWithConfiguredDocumentBuilderFromInputStream() throws UnsupportedEncodingException
 	{
-		Document doc = fluentXmlParser.parse(xmlInput.inputStream()).withDocumentBuilder(new DocumentBuilderConfigurerAdapter()
+		Document doc = fluentXmlParser.parse(xmlInput.asInputStream()).withDocumentBuilder(new DocumentBuilderConfigurerAdapter()
 		{
 			@Override
 			protected void configure(DocumentBuilderFactory documentBuilderFactory)
@@ -80,7 +80,7 @@ public class FluentXmlParserIntegrationTest
 	@Test
 	public void parseDocumentWithDefaultsFromInputStreamViaFrom()
 	{
-		Document doc = fluentXmlParser.from(xmlInput.inputStream()).parse().document();
+		Document doc = fluentXmlParser.from(xmlInput.asInputStream()).parse().document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}
@@ -88,7 +88,7 @@ public class FluentXmlParserIntegrationTest
 	@Test
 	public void parseDocumentWithDefaultsFromInputSourceViaFrom()
 	{
-		Document doc = fluentXmlParser.from(new InputSource(xmlInput.inputStream())).parse().document();
+		Document doc = fluentXmlParser.from(new InputSource(xmlInput.asInputStream())).parse().document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}
@@ -96,7 +96,7 @@ public class FluentXmlParserIntegrationTest
 	@Test
 	public void parseDocumentWithDefaultsFromReaderViaFrom()
 	{
-		Document doc = fluentXmlParser.from(xmlInput.reader()).parse().document();
+		Document doc = fluentXmlParser.from(xmlInput.asReader()).parse().document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}
@@ -104,7 +104,7 @@ public class FluentXmlParserIntegrationTest
 	@Test
 	public void parseDocumentWithDefaultsFromFileViaFrom()
 	{
-		Document doc = fluentXmlParser.from(xmlInput.file()).parse().document();
+		Document doc = fluentXmlParser.from(xmlInput.asFile()).parse().document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}
@@ -112,7 +112,7 @@ public class FluentXmlParserIntegrationTest
 	@Test
 	public void parseDocumentWithDefaultsFromURLViaFrom()
 	{
-		Document doc = fluentXmlParser.from(xmlInput.url()).parse().document();
+		Document doc = fluentXmlParser.from(xmlInput.asUrl()).parse().document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}
