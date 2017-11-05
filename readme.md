@@ -3,8 +3,7 @@
 #### XML parsing, serialization XPath querying and transformation without boilerplate code
 
 ## Requirements
-FluentXML4J uses the builtin JDK XML parser and XPath API, but Java 8 is required because of heavy use
-of the streaming API and Optional.
+FluentXML4J uses the builtin JDK XML parser and XPath API, but Java 8 is required because of streaming API and Optional support.
 
 ## Maven Dependency
 
@@ -23,7 +22,7 @@ Document doc = parse(getClass().getResourceAsStream("example.xml"))
     .document();
 ```
 
-[more parsing examples](doc/examples/parsing-examples.md)
+[More parsing examples...](doc/examples/parsing-examples.md)
 
 
 ## Serialization Examples
@@ -33,7 +32,7 @@ Document doc = parse(getClass().getResourceAsStream("example.xml"))
 serialize(document).to(System.err);
 ```
 
-[more serialization examples](doc/examples/serialization-examples.md)
+[More serialization examples...](doc/examples/serialization-examples.md)
 
 ## Transformation Examples
 
@@ -44,7 +43,7 @@ Document resultDoc = transform(inputDoc)
         .toDocument();
 ```
 
-[more transformation examples](doc/examples/transformation-examples.md)
+[More transformation examples...](doc/examples/transformation-examples.md)
 
 ## XPath Query Examples
 
@@ -55,7 +54,7 @@ List<Element> elements = from(doc)
     .asList();
 ```
 
-[more xpath examples](doc/examples/xpath-examples.md)
+[More xpath examples...](doc/examples/xpath-examples.md)
 
 ## Contributing
 FluentXML4J is an open source project, and contributions are welcome! Feel free to raise an issue or submit a pull request.
