@@ -18,28 +18,22 @@ of the streaming API and Optional.
 
 ## Parsing Examples
 
-### Parse from input stream
 ```
-Document doc = parse(getClass().getResourceAsStream("example.xml")).document();
+Document doc = parse(getClass().getResourceAsStream("example.xml"))
+    .document();
 ```
 
-or
+[more parsing examples](doc/examples/parsing-examples)
 
-```
-Document doc = from(getClass().getResourceAsStream("example.xml")).parse().document();
-```
 
 ## Serialization Examples
-
-### Serialize to string
-```
-String xml = serialize(document).toString();
-```
 
 ### Serialize to System.err
 ```
 serialize(document).to(System.err);
 ```
+
+[more serialization examples](doc/examples/serialization-examples)
 
 ## Transformation Examples
 
@@ -50,34 +44,18 @@ Document resultDoc = transform(inputDoc)
         .toDocument();
 ```
 
+[more transformation examples](doc/examples/transformation-examples)
+
 ## XPath Query Examples
-
-### Select elements and iterate via for loop
-```
-for(Element element : from(doc).selectElements("//H1[text()='Some Title']") ) {
-  ...
-}
-```
-
-### Select elements and iterate via forEach
-
-```
-from(doc).selectElements("//*").forEach( (e) -> { ... } );
-```
 
 ### Select elements into list
 ```
-List<Element> elements = from(doc).selectElements("//*").asList();
+List<Element> elements = from(doc)
+    .selectElements("//*")
+    .asList();
 ```
 
-### Select all words of a document
-```
-Set<String> words = from(doc)
-   .selectStrings("//text()")
-   .asStream()
-   .flatMap((s) -> Arrays.stream(s.split("[\\s]+")))
-   .collect(Collectors.toSet());
-```
+[more xpath examples](doc/examples/xpath-examples)
 
 ## Contributing
 FluentXML4J is an open source project, and contributions are welcome! Feel free to raise an issue or submit a pull request.
