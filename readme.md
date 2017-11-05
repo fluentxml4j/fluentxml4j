@@ -23,7 +23,7 @@ Document doc = parse(getClass().getResourceAsStream("example.xml"))
     .document();
 ```
 
-[more parsing examples](doc/examples/parsing-examples)
+[more parsing examples](doc/examples/parsing-examples.md)
 
 
 ## Serialization Examples
@@ -33,7 +33,7 @@ Document doc = parse(getClass().getResourceAsStream("example.xml"))
 serialize(document).to(System.err);
 ```
 
-[more serialization examples](doc/examples/serialization-examples)
+[more serialization examples](doc/examples/serialization-examples.md)
 
 ## Transformation Examples
 
@@ -44,7 +44,7 @@ Document resultDoc = transform(inputDoc)
         .toDocument();
 ```
 
-[more transformation examples](doc/examples/transformation-examples)
+[more transformation examples](doc/examples/transformation-examples.md)
 
 ## XPath Query Examples
 
@@ -55,7 +55,7 @@ List<Element> elements = from(doc)
     .asList();
 ```
 
-[more xpath examples](doc/examples/xpath-examples)
+[more xpath examples](doc/examples/xpath-examples.md)
 
 ## Contributing
 FluentXML4J is an open source project, and contributions are welcome! Feel free to raise an issue or submit a pull request.
