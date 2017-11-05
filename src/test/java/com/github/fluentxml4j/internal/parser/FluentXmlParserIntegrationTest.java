@@ -38,6 +38,14 @@ public class FluentXmlParserIntegrationTest
 	}
 
 	@Test
+	public void parseDocumentWithDefaultsFromURL()
+	{
+		Document doc = fluentXmlParser.parse(xmlInput.url()).document();
+
+		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
+	}
+
+	@Test
 	public void parseDocumentWithDefaultsFromInputStream()
 	{
 		Document doc = fluentXmlParser.parse(xmlInput.inputStream()).document();
@@ -97,6 +105,14 @@ public class FluentXmlParserIntegrationTest
 	public void parseDocumentWithDefaultsFromFileViaFrom()
 	{
 		Document doc = fluentXmlParser.from(xmlInput.file()).parse().document();
+
+		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
+	}
+
+	@Test
+	public void parseDocumentWithDefaultsFromURLViaFrom()
+	{
+		Document doc = fluentXmlParser.from(xmlInput.url()).parse().document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}

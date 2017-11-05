@@ -13,6 +13,7 @@ import org.xml.sax.InputSource;
 import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
+import java.net.URL;
 import java.util.function.Supplier;
 
 /**
@@ -57,6 +58,11 @@ public class FluentXml
 		return fluentXmlParser.get().parse(in);
 	}
 
+	public static ParseNode parse(URL in)
+	{
+		return fluentXmlParser.get().parse(in);
+	}
+
 	public static FromNode from(File in)
 	{
 		return () -> fluentXmlParser.get().parse(in);
@@ -73,6 +79,11 @@ public class FluentXml
 	}
 
 	public static FromNode from(Reader in)
+	{
+		return () -> fluentXmlParser.get().parse(in);
+	}
+
+	public static FromNode from(URL in)
 	{
 		return () -> fluentXmlParser.get().parse(in);
 	}

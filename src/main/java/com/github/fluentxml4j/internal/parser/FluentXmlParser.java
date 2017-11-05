@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.net.URL;
 
 public class FluentXmlParser
 {
@@ -33,6 +34,12 @@ public class FluentXmlParser
 	public ParseNode parse(File in)
 	{
 		InputSource inputSource = new InputSource(in.getAbsolutePath());
+		return parse(inputSource);
+	}
+
+	public ParseNode parse(URL in)
+	{
+		InputSource inputSource = new InputSource(in.toExternalForm());
 		return parse(inputSource);
 	}
 
@@ -93,5 +100,10 @@ public class FluentXmlParser
 	public FromNode from(File file)
 	{
 		return () -> FluentXmlParser.this.parse(file);
+	}
+
+	public FromNode from(URL url)
+	{
+		return () -> FluentXmlParser.this.parse(url);
 	}
 }
