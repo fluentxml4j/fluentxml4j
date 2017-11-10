@@ -2,17 +2,24 @@ package com.github.fluentxml4j.internal.transformer;
 
 import com.github.fluentxml4j.FluentXmlConfigurationException;
 import com.github.fluentxml4j.FluentXmlProcessingException;
+import com.github.fluentxml4j.internal.util.StaxUtils;
 import com.github.fluentxml4j.serializer.SerializeWithTransformerNode;
 import com.github.fluentxml4j.serializer.SerializerConfigurer;
 import com.github.fluentxml4j.serializer.SerializerConfigurerAdapter;
 import com.github.fluentxml4j.transformer.TransformNode;
 import org.w3c.dom.Document;
 
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLEventWriter;
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLStreamWriter;
+import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
+import javax.xml.transform.stax.StAXSource;
 import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +34,16 @@ class TransformNodeImpl implements TransformNode
 	TransformNodeImpl(Source source)
 	{
 		this.transformationChain = new TransformationChain(source);
+	}
+
+	TransformNodeImpl(XMLEventReader in)
+	{
+		this(StaxUtils.newStAXSource(in));
+	}
+
+	TransformNodeImpl(XMLStreamReader in)
+	{
+		this(new StAXSource(in));
 	}
 
 	@Override
@@ -79,6 +96,12 @@ class TransformNodeImpl implements TransformNode
 	}
 
 	@Override
+	public void to(Result out)
+	{
+		withSerializer(new SerializerConfigurerAdapter()).to(out);
+	}
+
+	@Override
 	public void to(OutputStream out)
 	{
 		withSerializer(new SerializerConfigurerAdapter()).to(out);
@@ -86,6 +109,18 @@ class TransformNodeImpl implements TransformNode
 
 	@Override
 	public void to(Writer out)
+	{
+		withSerializer(new SerializerConfigurerAdapter()).to(out);
+	}
+
+	@Override
+	public void to(XMLEventWriter out)
+	{
+		withSerializer(new SerializerConfigurerAdapter()).to(out);
+	}
+
+	@Override
+	public void to(XMLStreamWriter out)
 	{
 		withSerializer(new SerializerConfigurerAdapter()).to(out);
 	}

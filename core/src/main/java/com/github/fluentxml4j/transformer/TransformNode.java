@@ -4,6 +4,9 @@ import com.github.fluentxml4j.serializer.SerializeWithTransformerNode;
 import com.github.fluentxml4j.serializer.SerializerConfigurer;
 import org.w3c.dom.Document;
 
+import javax.xml.stream.XMLEventWriter;
+import javax.xml.stream.XMLStreamWriter;
+import javax.xml.transform.Result;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
@@ -18,6 +21,12 @@ public interface TransformNode
 	TransformNode withStylesheet(Document doc);
 
 	SerializeWithTransformerNode withSerializer(SerializerConfigurer serializerConfigurer);
+
+	void to(Result result);
+
+	void to(XMLEventWriter out);
+
+	void to(XMLStreamWriter out);
 
 	void to(OutputStream out);
 

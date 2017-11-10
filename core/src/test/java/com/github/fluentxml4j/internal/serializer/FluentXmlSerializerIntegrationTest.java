@@ -1,6 +1,6 @@
 package com.github.fluentxml4j.internal.serializer;
 
-import com.github.fluentxml4j.junit.XmlResource;
+import com.github.fluentxml4j.junit.XmlSource;
 import com.github.fluentxml4j.serializer.SerializerConfigurerAdapter;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -18,7 +18,7 @@ import static org.junit.Assert.assertThat;
 public class FluentXmlSerializerIntegrationTest
 {
 	@ClassRule
-	public static XmlResource documentTestRule = XmlResource.withData("<foo:test xmlns:foo=\"bar\"/>");
+	public static XmlSource documentTestRule = XmlSource.withData("<foo:test xmlns:foo=\"bar\"/>");
 
 	@Test
 	public void serializeWithDefaultsToString()

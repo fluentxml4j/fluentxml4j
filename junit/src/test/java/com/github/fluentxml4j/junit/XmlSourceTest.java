@@ -11,10 +11,10 @@ import java.io.UnsupportedEncodingException;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class XmlResourceTest
+public class XmlSourceTest
 {
 	@Rule
-	public XmlResource xml = XmlResource.withData("<test/>");
+	public XmlSource xml = XmlSource.withData("<test/>");
 
 	@Test
 	public void asBytes() throws UnsupportedEncodingException

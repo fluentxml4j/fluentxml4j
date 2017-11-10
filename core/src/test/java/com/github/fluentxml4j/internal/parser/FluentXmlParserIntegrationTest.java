@@ -1,6 +1,6 @@
 package com.github.fluentxml4j.internal.parser;
 
-import com.github.fluentxml4j.junit.XmlResource;
+import com.github.fluentxml4j.junit.XmlSource;
 import com.github.fluentxml4j.parser.DocumentBuilderConfigurerAdapter;
 import org.junit.Rule;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat;
 public class FluentXmlParserIntegrationTest
 {
 	@Rule
-	public XmlResource xmlInput = XmlResource.withData("<test/>");
+	public XmlSource xmlInput = XmlSource.withData("<test/>");
 
 	private FluentXmlParser fluentXmlParser = new FluentXmlParser();
 

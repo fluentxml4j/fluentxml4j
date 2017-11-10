@@ -7,6 +7,10 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,16 +21,16 @@ import java.io.StringReader;
 import java.net.URL;
 import java.nio.charset.Charset;
 
-public class XmlResource extends ExternalResource
+public class XmlSource extends ExternalResource
 {
 	private String xml;
 
-	public static XmlResource withData(String xml)
+	public static XmlSource withData(String xml)
 	{
-		return new XmlResource(xml);
+		return new XmlSource(xml);
 	}
 
-	private XmlResource(String xml)
+	private XmlSource(String xml)
 	{
 		this.xml = xml;
 	}
@@ -129,5 +133,29 @@ public class XmlResource extends ExternalResource
 	public String asString()
 	{
 		return this.xml;
+	}
+
+	public XMLStreamReader asXMLStreamReader()
+	{
+		try
+		{
+			return XMLInputFactory.newFactory().createXMLStreamReader(new StringReader(this.xml));
+		}
+		catch (XMLStreamException e)
+		{
+			throw new IllegalStateException(e);
+		}
+	}
+
+	public XMLEventReader asXMLEventReader()
+	{
+		try
+		{
+			return XMLInputFactory.newFactory().createXMLEventReader(new StringReader(this.xml));
+		}
+		catch (XMLStreamException e)
+		{
+			throw new IllegalStateException(e);
+		}
 	}
 }

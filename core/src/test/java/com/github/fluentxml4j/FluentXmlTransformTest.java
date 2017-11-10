@@ -12,6 +12,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.w3c.dom.Document;
 
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLStreamReader;
 import java.io.InputStream;
 
 import static com.github.fluentxml4j.FluentXml.from;
@@ -37,6 +39,12 @@ public class FluentXmlTransformTest
 	@Mock
 	private InputStream inputStream;
 
+	@Mock
+	private XMLStreamReader xmlStreamReader;
+
+	@Mock
+	private XMLEventReader xmlEventReader;
+
 	@Before
 	public void setUp()
 	{
@@ -53,7 +61,6 @@ public class FluentXmlTransformTest
 		assertThat(transformNodeReturned, is(this.transformNode));
 	}
 
-
 	@Test
 	public void transformStream()
 	{
@@ -63,4 +70,25 @@ public class FluentXmlTransformTest
 
 		assertThat(transformNodeReturned, is(this.transformNode));
 	}
+
+	@Test
+	public void transformXmlStreamReader()
+	{
+		when(fluentXmlTransformer.transform(xmlStreamReader)).thenReturn(transformNode);
+
+		TransformNode transformNodeReturned = FluentXml.transform(xmlStreamReader);
+
+		assertThat(transformNodeReturned, is(this.transformNode));
+	}
+
+	@Test
+	public void transformXmlEventReader()
+	{
+		when(fluentXmlTransformer.transform(xmlEventReader)).thenReturn(transformNode);
+
+		TransformNode transformNodeReturned = FluentXml.transform(xmlEventReader);
+
+		assertThat(transformNodeReturned, is(this.transformNode));
+	}
+
 }

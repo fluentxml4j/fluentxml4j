@@ -10,6 +10,8 @@ import com.github.fluentxml4j.internal.xpath.FluentXPath;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLStreamReader;
 import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
@@ -104,6 +106,16 @@ public class FluentXml
 	}
 
 	public static com.github.fluentxml4j.transformer.TransformNode transform(InputStream in)
+	{
+		return fluentXmlTransformer.get().transform(in);
+	}
+
+	public static com.github.fluentxml4j.transformer.TransformNode transform(XMLStreamReader in)
+	{
+		return fluentXmlTransformer.get().transform(in);
+	}
+
+	public static com.github.fluentxml4j.transformer.TransformNode transform(XMLEventReader in)
 	{
 		return fluentXmlTransformer.get().transform(in);
 	}

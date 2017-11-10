@@ -7,6 +7,8 @@ import org.w3c.dom.Document;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLEventWriter;
+import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -17,6 +19,7 @@ import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
+import javax.xml.transform.stax.StAXResult;
 import javax.xml.transform.stream.StreamResult;
 import java.io.OutputStream;
 import java.io.StringWriter;
@@ -143,5 +146,20 @@ class TransformationChain
 		{
 			throw new FluentXmlConfigurationException(ex);
 		}
+	}
+
+	public void transformTo(Result out)
+	{
+		transform(out);
+	}
+
+	public void transformTo(XMLStreamWriter out)
+	{
+		transformTo(new StAXResult(out));
+	}
+
+	public void transformTo(XMLEventWriter out)
+	{
+		transformTo(new StAXResult(out));
 	}
 }
