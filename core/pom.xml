@@ -11,6 +11,9 @@
     <packaging>jar</packaging>
     <name>FluentXML4J</name>
     <description>A fluent API for XML parsing, serialization and XPath querying in Java.</description>
+    <properties>
+        <sonar.projectKey>com.github.fluentxml4j:fluentxml4j-core</sonar.projectKey>
+    </properties>
     <build>
         <plugins>
             <plugin>

@@ -11,6 +11,9 @@
     <packaging>jar</packaging>
     <name>FluentXML4J junit extensions</name>
     <description>Collection of junit extensions for tests with xml.</description>
+    <properties>
+        <sonar.projectKey>com.github.fluentxml4j:fluentxml4j-junit</sonar.projectKey>
+    </properties>
     <build>
         <plugins>
             <plugin>
