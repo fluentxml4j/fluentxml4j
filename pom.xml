@@ -10,6 +10,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <sonar.projectKey>com.github.fluentxml4j:fluentxml4j</sonar.projectKey>
     </properties>
     <url>https://github.com/fluentxml4j</url>
     <developers>
@@ -176,7 +177,7 @@
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>fluentxml4j</artifactId>
+                <artifactId>fluentxml4j-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
