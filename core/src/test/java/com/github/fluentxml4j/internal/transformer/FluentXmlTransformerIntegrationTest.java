@@ -23,6 +23,10 @@ public class FluentXmlTransformerIntegrationTest
 	public XmlSource sourceDocumentRule = XmlSource.withData("<source/>");
 	@Rule
 	public XmlResult resultDocument = XmlResult.empty();
+	@Rule
+	public XmlSource sourceDocumentWithNSRule = XmlSource.withData("<ns1:source xmlns=\"uri:ns\" xmlns:ns1=\"uri:ns\" xmlns:ns2=\"uri:ns\"></ns1:source>");
+	@Rule
+	public XmlSource sourceDocumentWithDefaultNSRule = XmlSource.withData("<source xmlns=\"uri:ns\" xmlns:ns1=\"uri:ns\"></source>");
 
 	@Rule
 	public XmlSource xsltDocumentRule = XmlSource.withData("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
@@ -180,4 +184,66 @@ public class FluentXmlTransformerIntegrationTest
 		assertThat(this.resultDocument.asString(), containsString("<source></source>"));
 	}
 
+	@Test
+	public void documentWithPrefixMappingToString() throws Exception
+	{
+		String xml = fluentXmlTransformer
+				.transform(sourceDocumentWithNSRule.asDocument())
+				.withPrefixMapping("ns1", "ns2")
+				.withSerializer(new SerializerConfigurerAdapter()
+				{
+					@Override
+					protected void configure(Transformer transformer)
+					{
+						super.configure(transformer);
+						transformer.setOutputProperty(OutputKeys.INDENT, "no");
+						transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+					}
+				})
+				.toString();
+
+		assertThat(xml, is("<ns2:source xmlns:ns2=\"uri:ns\" xmlns=\"uri:ns\" xmlns:ns1=\"uri:ns\"/>"));
+	}
+
+	@Test
+	public void documentWithPrefixMappingToDefaultToString() throws Exception
+	{
+		String xml = fluentXmlTransformer
+				.transform(sourceDocumentWithNSRule.asDocument())
+				.withPrefixMapping("ns1", "")
+				.withSerializer(new SerializerConfigurerAdapter()
+				{
+					@Override
+					protected void configure(Transformer transformer)
+					{
+						super.configure(transformer);
+						transformer.setOutputProperty(OutputKeys.INDENT, "no");
+						transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+					}
+				})
+				.toString();
+
+		assertThat(xml, is("<source xmlns=\"uri:ns\" xmlns:ns1=\"uri:ns\" xmlns:ns2=\"uri:ns\"/>"));
+	}
+
+	@Test
+	public void documentWithPrefixMappingFromDefaultToString() throws Exception
+	{
+		String xml = fluentXmlTransformer
+				.transform(sourceDocumentWithDefaultNSRule.asDocument())
+				.withPrefixMapping("", "ns1")
+				.withSerializer(new SerializerConfigurerAdapter()
+				{
+					@Override
+					protected void configure(Transformer transformer)
+					{
+						super.configure(transformer);
+						transformer.setOutputProperty(OutputKeys.INDENT, "no");
+						transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+					}
+				})
+				.toString();
+
+		assertThat(xml, is("<ns1:source xmlns:ns1=\"uri:ns\" xmlns=\"uri:ns\"/>"));
+	}
 }

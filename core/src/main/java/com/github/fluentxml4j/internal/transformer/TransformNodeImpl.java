@@ -2,6 +2,7 @@ package com.github.fluentxml4j.internal.transformer;
 
 import com.github.fluentxml4j.FluentXmlConfigurationException;
 import com.github.fluentxml4j.FluentXmlProcessingException;
+import com.github.fluentxml4j.internal.transformer.filters.PrefixMappingFilterImpl;
 import com.github.fluentxml4j.internal.util.StaxUtils;
 import com.github.fluentxml4j.serializer.SerializeWithTransformerNode;
 import com.github.fluentxml4j.serializer.SerializerConfigurer;
@@ -44,6 +45,16 @@ class TransformNodeImpl implements TransformNode
 	TransformNodeImpl(XMLStreamReader in)
 	{
 		this(new StAXSource(in));
+	}
+
+	@Override
+	public TransformNode withPrefixMapping(String prefix, String newPrefix)
+	{
+		PrefixMappingFilterImpl filter = new PrefixMappingFilterImpl();
+		filter.addPrefixMapping(prefix, newPrefix);
+		this.transformationChain.addTransformer(filter);
+
+		return this;
 	}
 
 	@Override

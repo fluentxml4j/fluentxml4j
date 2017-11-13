@@ -20,6 +20,8 @@ public interface TransformNode
 
 	TransformNode withStylesheet(Document doc);
 
+	TransformNode withPrefixMapping(String prefix, String newPrefix);
+
 	SerializeWithTransformerNode withSerializer(SerializerConfigurer serializerConfigurer);
 
 	void to(Result result);
