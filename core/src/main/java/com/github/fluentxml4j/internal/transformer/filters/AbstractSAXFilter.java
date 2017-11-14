@@ -344,84 +344,273 @@ public abstract class AbstractSAXFilter extends Transformer implements Transform
 	}
 
 	@Override
-	public void notationDecl(String s, String s1, String s2) throws SAXException
+	public void notationDecl(String name, String publicId, String systemId) throws SAXException
 	{
-		if (this.nextDtdHandler != null)
+		boolean process = beforeNotationDecl(name, publicId, systemId);
+		if (process)
 		{
-			this.nextDtdHandler.notationDecl(s, s1, s2);
+			delegateNotationDecl(name, publicId, systemId);
 		}
+		afterNotationDecl(name, publicId, systemId, process);
+	}
+
+	protected void afterNotationDecl(String name, String publicId, String systemId, boolean processed)
+	{
+	}
+
+	protected boolean beforeNotationDecl(String name, String publicId, String systemId)
+	{
+		return true;
+	}
+
+	protected void delegateNotationDecl(String name, String publicId, String systemId) throws SAXException
+	{
+		if (this.nextDtdHandler == null)
+		{
+			return;
+		}
+
+		this.nextDtdHandler.notationDecl(name, publicId, systemId);
 	}
 
 	@Override
-	public void unparsedEntityDecl(String s, String s1, String s2, String s3) throws SAXException
+	public void unparsedEntityDecl(String name, String publicId, String systemId, String notationName) throws SAXException
 	{
-		if (this.nextDtdHandler != null)
+		boolean process = beforeUnparsedEntityDecl(name, publicId, systemId, notationName);
+		if (process)
 		{
-			this.nextDtdHandler.unparsedEntityDecl(s, s1, s2, s3);
+			delegateUnparsedEntityDecl(name, publicId, systemId, notationName);
 		}
+		afterUnparsedEntityDecl(name, publicId, systemId, notationName, process);
+	}
+
+	protected void afterUnparsedEntityDecl(String name, String publicId, String systemId, String notationName, boolean processed)
+	{
+	}
+
+	protected boolean beforeUnparsedEntityDecl(String name, String publicId, String systemId, String notationName)
+	{
+		return true;
+	}
+
+	protected void delegateUnparsedEntityDecl(String name, String publicId, String systemId, String notationName) throws SAXException
+	{
+		if (this.nextDtdHandler == null)
+		{
+			return;
+		}
+
+		this.nextDtdHandler.unparsedEntityDecl(name, publicId, systemId, notationName);
 	}
 
 	@Override
-	public void startDTD(String s, String s1, String s2) throws SAXException
+	public void startDTD(String name, String publicId, String systemId) throws SAXException
 	{
-		if (this.nextLexicalHandler != null)
+		boolean process = beforeStartDTD(name, publicId, systemId);
+		if (process)
 		{
-			this.nextLexicalHandler.startDTD(s, s1, s2);
+			delegateStartDTD(name, publicId, systemId);
 		}
+		afterStartDTD(name, publicId, systemId, process);
+	}
+
+	protected void afterStartDTD(String name, String publicId, String systemId, boolean processed)
+	{
+	}
+
+	protected boolean beforeStartDTD(String name, String publicId, String systemId)
+	{
+		return true;
+	}
+
+	protected void delegateStartDTD(String name, String publicId, String systemId) throws SAXException
+	{
+		if (this.nextLexicalHandler == null)
+		{
+			return;
+		}
+
+		this.nextLexicalHandler.startDTD(name, publicId, systemId);
 	}
 
 	@Override
 	public void endDTD() throws SAXException
 	{
-		if (this.nextLexicalHandler != null)
+		boolean process = beforeEndDTD();
+		if (process)
 		{
-			this.nextLexicalHandler.endDTD();
+			delegateEndDTD();
 		}
+		afterEndDTD(process);
+	}
+
+	protected void afterEndDTD(boolean processed)
+	{
+	}
+
+	protected boolean beforeEndDTD()
+	{
+		return true;
+	}
+
+	protected void delegateEndDTD() throws SAXException
+	{
+		if (this.nextLexicalHandler == null)
+		{
+			return;
+		}
+
+		this.nextLexicalHandler.endDTD();
 	}
 
 	@Override
-	public void startEntity(String s) throws SAXException
+	public void startEntity(String name) throws SAXException
 	{
-		if (this.nextLexicalHandler != null)
+		boolean process = beforeStartEntity(name);
+		if (process)
 		{
-			this.nextLexicalHandler.startEntity(s);
+			delegateStartEntity(name);
 		}
+		afterStartEntity(name, process);
+	}
+
+	protected void afterStartEntity(String name, boolean processed)
+	{
+	}
+
+	protected boolean beforeStartEntity(String name)
+	{
+		return true;
+	}
+
+	protected void delegateStartEntity(String name) throws SAXException
+	{
+		if (this.nextLexicalHandler == null)
+		{
+			return;
+		}
+
+		this.nextLexicalHandler.startEntity(name);
 	}
 
 	@Override
-	public void endEntity(String s) throws SAXException
+	public void endEntity(String name) throws SAXException
 	{
-		if (this.nextLexicalHandler != null)
+		boolean process = beforeEndEntity(name);
+		if (process)
 		{
-			this.nextLexicalHandler.endEntity(s);
+			delegateEndEntity(name);
 		}
+		afterEndEntity(name, process);
+	}
+
+	protected void afterEndEntity(String name, boolean process)
+	{
+	}
+
+	protected boolean beforeEndEntity(String name)
+	{
+		return true;
+	}
+
+	protected void delegateEndEntity(String name) throws SAXException
+	{
+		if (this.nextLexicalHandler == null)
+		{
+			return;
+		}
+
+		this.nextLexicalHandler.endEntity(name);
 	}
 
 	@Override
 	public void startCDATA() throws SAXException
 	{
-		if (this.nextLexicalHandler != null)
+		boolean process = beforeStartCDATA();
+		if (process)
 		{
-			this.nextLexicalHandler.startCDATA();
+			deleateStartCDATA();
 		}
+		afterStartCDATA(process);
+	}
+
+	protected void afterStartCDATA(boolean processed)
+	{
+	}
+
+	protected boolean beforeStartCDATA()
+	{
+		return true;
+	}
+
+	protected void deleateStartCDATA() throws SAXException
+	{
+		if (this.nextLexicalHandler == null)
+		{
+			return;
+		}
+
+		this.nextLexicalHandler.startCDATA();
 	}
 
 	@Override
 	public void endCDATA() throws SAXException
 	{
-		if (this.nextLexicalHandler != null)
+		boolean process = beforeEndCDATA();
+		if (process)
 		{
-			this.nextLexicalHandler.endCDATA();
+			delegateEndCDATA();
 		}
+		afterEndCDATA(process);
+	}
+
+	protected void afterEndCDATA(boolean processed)
+	{
+	}
+
+	protected boolean beforeEndCDATA()
+	{
+		return true;
+	}
+
+	protected void delegateEndCDATA() throws SAXException
+	{
+		if (this.nextLexicalHandler == null)
+		{
+			return;
+		}
+
+		this.nextLexicalHandler.endCDATA();
 	}
 
 	@Override
 	public void comment(char[] ch, int start, int length) throws SAXException
 	{
-		if (this.nextLexicalHandler != null)
+		boolean process = beforeComment(ch, start, length);
+		if (process)
 		{
-			this.nextLexicalHandler.comment(ch, start, length);
+			delegateComment(ch, start, length);
 		}
+		afterComment(ch, start, length, process);
+	}
+
+	private void afterComment(char[] ch, int start, int length, boolean processed)
+	{
+	}
+
+	protected boolean beforeComment(char[] ch, int start, int length)
+	{
+		return true;
+	}
+
+	protected void delegateComment(char[] ch, int start, int length) throws SAXException
+	{
+		if (this.nextLexicalHandler == null)
+		{
+			return;
+		}
+
+		this.nextLexicalHandler.comment(ch, start, length);
 	}
 
 	@Override
