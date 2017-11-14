@@ -3,6 +3,7 @@ package com.github.fluentxml4j.internal.transformer.filters;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
 
 public class ElementNameTest
@@ -36,4 +37,19 @@ public class ElementNameTest
 		assertThat(elementName.qName(), is("prefix2:localName"));
 		assertThat(elementName.prefix(), is("prefix2"));
 	}
+
+	@Test
+	public void equality()
+	{
+		assertThat(ElementName.valueOf("localName").withPrefix("prefix"), is(ElementName.valueOf("prefix:localName")));
+		assertThat(ElementName.valueOf("localName").equals(ElementName.valueOf("prefix:localName")), is(false));
+	}
+
+	@Test
+	public void hashing()
+	{
+		assertThat(ElementName.valueOf("prefix:localName").hashCode(), is(not(ElementName.valueOf("localName").hashCode())));
+		assertThat(ElementName.valueOf("prefix:localName").hashCode(), is(ElementName.valueOf("prefix:localName").hashCode()));
+	}
+
 }
