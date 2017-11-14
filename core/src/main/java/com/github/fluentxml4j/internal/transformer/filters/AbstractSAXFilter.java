@@ -1,5 +1,6 @@
 package com.github.fluentxml4j.internal.transformer.filters;
 
+import com.github.fluentxml4j.FluentXmlConfigurationException;
 import com.github.fluentxml4j.xpath.ImmutableNamespaceContext;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
@@ -12,9 +13,11 @@ import javax.xml.transform.ErrorListener;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
 import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import java.util.Properties;
 
@@ -317,18 +320,35 @@ public abstract class AbstractSAXFilter extends Transformer implements Transform
 	@Override
 	public Transformer getTransformer()
 	{
-		return (Transformer) this;
+		return this;
 	}
 
 	@Override
 	public void setResult(Result result) throws IllegalArgumentException
 	{
-		if (!(result instanceof SAXResult))
+		SAXResult saxResult = toSAXResult(result);
+
+		this.nextContentHandler = saxResult.getHandler();
+	}
+
+	private SAXResult toSAXResult(Result result)
+	{
+		if (result instanceof SAXResult)
 		{
-			throw new IllegalArgumentException("Only SAXResult supported.");
+			return (SAXResult) result;
 		}
 
-		this.nextContentHandler = ((SAXResult) result).getHandler();
+		try
+		{
+			SAXTransformerFactory transformerFactory = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
+			TransformerHandler transformerHandler = transformerFactory.newTransformerHandler();
+			transformerHandler.setResult(result);
+			return new SAXResult(transformerHandler);
+		}
+		catch (TransformerConfigurationException ex)
+		{
+			throw new FluentXmlConfigurationException(ex);
+		}
 	}
 
 	@Override
