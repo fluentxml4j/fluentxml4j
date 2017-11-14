@@ -41,6 +41,8 @@ public abstract class AbstractSAXFilter extends Transformer implements Transform
 		setResult(new SAXResult(nextContentHandler));
 	}
 
+	protected ErrorListener errorListener;
+
 	@Override
 	public void setDocumentLocator(Locator locator)
 	{
@@ -328,7 +330,17 @@ public abstract class AbstractSAXFilter extends Transformer implements Transform
 	{
 		SAXResult saxResult = toSAXResult(result);
 
-		this.nextContentHandler = saxResult.getHandler();
+		ContentHandler handler = saxResult.getHandler();
+		this.nextContentHandler = handler;
+		if (handler instanceof LexicalHandler)
+		{
+			this.nextLexicalHandler = (LexicalHandler) handler;
+		}
+		if (handler instanceof DTDHandler)
+		{
+			this.nextDtdHandler = (DTDHandler) handler;
+		}
+
 	}
 
 	private SAXResult toSAXResult(Result result)
@@ -648,7 +660,7 @@ public abstract class AbstractSAXFilter extends Transformer implements Transform
 	@Override
 	public Object getParameter(String name)
 	{
-		throw new IllegalArgumentException("Unsupported param " + name + ".");
+		return null;
 	}
 
 	@Override
@@ -681,26 +693,26 @@ public abstract class AbstractSAXFilter extends Transformer implements Transform
 	}
 
 	@Override
-	public void setOutputProperty(String s, String s1) throws IllegalArgumentException
+	public void setOutputProperty(String name, String value) throws IllegalArgumentException
 	{
-		throw new UnsupportedOperationException();
+		throw new IllegalArgumentException("Unsupported param " + name + ".");
 	}
 
 	@Override
-	public String getOutputProperty(String s) throws IllegalArgumentException
+	public String getOutputProperty(String name) throws IllegalArgumentException
 	{
-		throw new UnsupportedOperationException();
+		return null;
 	}
 
 	@Override
 	public void setErrorListener(ErrorListener errorListener) throws IllegalArgumentException
 	{
-		throw new UnsupportedOperationException();
+		this.errorListener = errorListener;
 	}
 
 	@Override
 	public ErrorListener getErrorListener()
 	{
-		throw new UnsupportedOperationException();
+		return this.errorListener;
 	}
 }
