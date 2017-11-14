@@ -26,6 +26,7 @@ public class XPathConfigurerAdapter implements XPathConfigurer
 
 	protected void configure(XPathFactory xPathFactory)
 	{
+		// override for customization
 	}
 
 	protected XPathFactory buildXPathFactory()

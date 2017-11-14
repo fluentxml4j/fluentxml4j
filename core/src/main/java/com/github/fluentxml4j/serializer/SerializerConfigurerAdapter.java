@@ -41,6 +41,7 @@ public class SerializerConfigurerAdapter implements SerializerConfigurer
 
 	protected void configure(SAXTransformerFactory transformerFactory)
 	{
+		// override for customization
 	}
 
 	protected SAXTransformerFactory buildTransformerFactory()

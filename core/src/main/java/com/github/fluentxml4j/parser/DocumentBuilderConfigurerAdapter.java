@@ -38,6 +38,7 @@ public class DocumentBuilderConfigurerAdapter implements DocumentBuilderConfigur
 
 	protected void configure(DocumentBuilder documentBuilder)
 	{
+		// override for customization
 	}
 
 	protected DocumentBuilderFactory buildDocumentBuilderFactory()
