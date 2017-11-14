@@ -26,8 +26,6 @@ public abstract class AbstractSAXFilter extends Transformer implements Transform
 
 	protected ImmutableNamespaceContext namespaceContext = new ImmutableNamespaceContext();
 
-	protected XmlLocation xmlLocation = XmlLocation.root();
-
 	protected String systemId;
 
 	protected AbstractSAXFilter()
@@ -174,8 +172,6 @@ public abstract class AbstractSAXFilter extends Transformer implements Transform
 	@Override
 	public void startElement(String nsURI, String localName, String qName, Attributes attributes) throws SAXException
 	{
-		this.xmlLocation.addElementEntry(qName);
-
 		boolean process = beforeStartElement(nsURI, localName, qName, attributes);
 		if (process)
 		{
@@ -207,8 +203,6 @@ public abstract class AbstractSAXFilter extends Transformer implements Transform
 			delegateEndElement(nsURI, localName, qName);
 		}
 		afterEndElement(nsURI, localName, qName, process);
-
-		this.xmlLocation.removeEntry();
 	}
 
 	protected void afterEndElement(String nsURI, String localName, String qName, boolean processed)
