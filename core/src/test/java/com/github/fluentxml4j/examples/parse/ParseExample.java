@@ -1,4 +1,4 @@
-package com.github.fluentxml4j.examples.parse.io;
+package com.github.fluentxml4j.examples.parse;
 
 import com.github.fluentxml4j.junit.XmlSource;
 import org.junit.Rule;
