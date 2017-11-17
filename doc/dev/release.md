@@ -10,7 +10,7 @@ mvn release:prepare release:perform -Darguments='-Dgpg.keyname=A77B975B -Dgpg.pa
 
 ## list staging repos
 ```
-mvn nexus-staging:rc-list
+mvn nexus-staging:rc-list | grep comgithubfluentxml4j
 ```
 
 ## close staging repo
