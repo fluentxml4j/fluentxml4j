@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.w3c.dom.Document;
 
+import javax.xml.bind.JAXBContext;
+
 import static com.github.fluentxml4j.FluentXml.serialize;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -31,18 +33,36 @@ public class FluentXmlSerializeTest
 	@Mock
 	private SerializeNode serializeNode;
 
+	@Mock
+	private JAXBContext jaxbContext;
+
+	@Mock
+	private Object object;
+
 	@Before
 	public void setUp()
 	{
 		fluentXmlInjectionRule.setFluentXmlSerializer(fluentXmlSerializer);
-		when(fluentXmlSerializer.serialize(document)).thenReturn(serializeNode);
 	}
 
 	@Test
 	public void serializeDocument()
 	{
+		when(fluentXmlSerializer.serialize(document)).thenReturn(serializeNode);
+
 		SerializeNode serializeNodeReturned = serialize(document);
 
 		assertThat(serializeNodeReturned, is(this.serializeNode));
 	}
+
+	@Test
+	public void serializeWithJAXB()
+	{
+		when(fluentXmlSerializer.serialize(jaxbContext, object)).thenReturn(serializeNode);
+
+		SerializeNode serializeNodeReturned = serialize(jaxbContext, object);
+
+		assertThat(serializeNodeReturned, is(this.serializeNode));
+	}
+
 }

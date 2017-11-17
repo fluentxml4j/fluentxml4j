@@ -6,7 +6,9 @@ import com.github.fluentxml4j.serializer.SerializerConfigurerAdapter;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
+import javax.xml.bind.JAXBContext;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import java.io.ByteArrayOutputStream;
@@ -130,4 +132,23 @@ public class FluentXmlSerializerIntegrationTest
 		assertThat(serializedXml, is("<foo:test xmlns:foo=\"bar\"/>"));
 	}
 
+	@Test
+	public void serializeWithJAXBToString() throws Exception
+	{
+		String serializedXml = serialize(JAXBContext.newInstance(JaxbRoot.class), new JaxbRoot())
+				.withSerializer(new SerializerConfigurerAdapter()
+				{
+					@Override
+					protected void configure(Transformer transformer)
+					{
+						super.configure(transformer);
+						transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+						transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+						transformer.setOutputProperty(OutputKeys.INDENT, "no");
+					}
+				})
+			.toString();
+
+		assertThat(serializedXml, is("<ns:jaxb-root xmlns:ns=\"uri:ns1\" xmlns=\"uri:ns1\"/>"));
+	}
 }

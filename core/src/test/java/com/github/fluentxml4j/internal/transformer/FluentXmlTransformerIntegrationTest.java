@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import javax.xml.bind.JAXBContext;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.stream.StreamResult;
@@ -252,5 +253,25 @@ public class FluentXmlTransformerIntegrationTest
 				.toString();
 
 		assertThat(xml, is("<ns1:source xmlns:ns1=\"uri:ns\" xmlns=\"uri:ns\"/>"));
+	}
+
+	@Test
+	public void transformWithJAXBAndStylesheetToString() throws Exception
+	{
+		String xml = fluentXmlTransformer.transform(JAXBContext.newInstance(JaxbSource.class), new JaxbSource())
+				.withStylesheet(this.xsltDocumentRule.asDocument())
+				.withSerializer(new SerializerConfigurerAdapter()
+				{
+					@Override
+					protected void configure(Transformer transformer)
+					{
+						super.configure(transformer);
+						transformer.setOutputProperty(OutputKeys.INDENT, "no");
+						transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+					}
+				})
+				.toString();
+
+		assertThat(xml, is("<transformed1/>"));
 	}
 }

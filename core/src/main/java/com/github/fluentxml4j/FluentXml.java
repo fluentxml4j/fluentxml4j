@@ -12,6 +12,7 @@ import com.github.fluentxml4j.xpath.QueryFromNode;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
+import javax.xml.bind.JAXBContext;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamReader;
 import java.io.File;
@@ -102,6 +103,11 @@ public class FluentXml
 		return fluentXmlSerializer.get().serialize(doc);
 	}
 
+	public static SerializeNode serialize(JAXBContext jaxbContext, Object object)
+	{
+		return fluentXmlSerializer.get().serialize(jaxbContext, object);
+	}
+
 	public static TransformNode transform(URL url)
 	{
 		return fluentXmlTransformer.get().transform(url);
@@ -130,5 +136,10 @@ public class FluentXml
 	public static TransformNode transform(XMLEventReader in)
 	{
 		return fluentXmlTransformer.get().transform(in);
+	}
+
+	public static TransformNode transform(JAXBContext jaxbContext, Object object)
+	{
+		return fluentXmlTransformer.get().transform(jaxbContext, object);
 	}
 }

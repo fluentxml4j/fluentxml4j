@@ -10,6 +10,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import javax.xml.bind.JAXBContext;
 import javax.xml.parsers.DocumentBuilder;
 import java.io.File;
 import java.io.IOException;

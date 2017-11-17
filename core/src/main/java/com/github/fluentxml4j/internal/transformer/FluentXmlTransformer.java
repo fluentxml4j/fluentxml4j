@@ -1,8 +1,10 @@
 package com.github.fluentxml4j.internal.transformer;
 
+import com.github.fluentxml4j.internal.util.JaxbUtils;
 import com.github.fluentxml4j.transformer.TransformNode;
 import org.w3c.dom.Document;
 
+import javax.xml.bind.JAXBContext;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.dom.DOMSource;
@@ -41,5 +43,10 @@ public class FluentXmlTransformer
 	public TransformNode transform(URL url)
 	{
 		return new TransformNodeImpl(new StreamSource(url.toExternalForm()));
+	}
+
+	public TransformNode transform(JAXBContext jaxbContext, Object object)
+	{
+		return new TransformNodeImpl(JaxbUtils.newJAXBSource(jaxbContext, object));
 	}
 }
