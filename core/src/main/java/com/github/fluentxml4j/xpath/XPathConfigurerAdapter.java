@@ -1,11 +1,12 @@
 package com.github.fluentxml4j.xpath;
 
+import javax.xml.namespace.NamespaceContext;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
 
 public class XPathConfigurerAdapter implements XPathConfigurer
 {
-	public XPath getXPath(ImmutableNamespaceContext namespaceContext)
+	public XPath getXPath(NamespaceContext namespaceContext)
 	{
 		XPathFactory xPathFactory = buildXPathFactory();
 		configure(xPathFactory);
@@ -19,7 +20,7 @@ public class XPathConfigurerAdapter implements XPathConfigurer
 		return xPathFactory.newXPath();
 	}
 
-	protected void configure(XPath xPath, ImmutableNamespaceContext namespaceContext)
+	protected void configure(XPath xPath, NamespaceContext namespaceContext)
 	{
 		xPath.setNamespaceContext(namespaceContext);
 	}

@@ -1,4 +1,4 @@
-package com.github.fluentxml4j.xpath;
+package com.github.fluentxml4j.namespace;
 
 import org.junit.Test;
 
@@ -26,7 +26,7 @@ public class ImmutableNamespaceContextTest
 	@Test
 	public void addMaping()
 	{
-		this.derived = this.origin.addMapping("prefix", "nsURI");
+		this.derived = this.origin.withMapping("prefix", "nsURI");
 
 		assertThat(origin.getNamespaceURI("prefix"), is(nullValue()));
 		assertThat(origin.getPrefix("nsURI"), is(nullValue()));
@@ -42,8 +42,8 @@ public class ImmutableNamespaceContextTest
 	@Test
 	public void addMapingTwoPrefixes()
 	{
-		this.derived = this.origin.addMapping("prefix", "nsURI")
-				.addMapping("prefix2", "nsURI");
+		this.derived = this.origin.withMapping("prefix", "nsURI")
+				.withMapping("prefix2", "nsURI");
 
 		assertThat(origin.getNamespaceURI("prefix"), is(nullValue()));
 		assertThat(origin.getNamespaceURI("prefix2"), is(nullValue()));

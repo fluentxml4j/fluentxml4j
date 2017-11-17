@@ -1,4 +1,4 @@
-package com.github.fluentxml4j.xpath;
+package com.github.fluentxml4j.namespace;
 
 import javax.xml.namespace.NamespaceContext;
 import java.util.Collections;
@@ -13,19 +13,33 @@ public class ImmutableNamespaceContext implements NamespaceContext
 	private Map<String, String> namespaceURIByPrefix = new HashMap<>();
 	private Map<String, Set<String>> prefixesByNamespaceURI = new HashMap<>();
 
-	public Set<String> getAllPrefixes()
+	public static ImmutableNamespaceContext empty()
 	{
-		return this.namespaceURIByPrefix.keySet();
+		return new ImmutableNamespaceContext();
 	}
 
-	private ImmutableNamespaceContext copy()
+	public static ImmutableNamespaceContext ofMappings(String... mappings)
 	{
-		ImmutableNamespaceContext other = new ImmutableNamespaceContext();
-		other.namespaceURIByPrefix = new HashMap<>(this.namespaceURIByPrefix);
-		other.prefixesByNamespaceURI = new HashMap<>();
-		for (Map.Entry<String, Set<String>> entry : prefixesByNamespaceURI.entrySet())
+		return ImmutableNamespaceContext.empty().withMappings(mappings);
+	}
+
+	public ImmutableNamespaceContext withMappings(String... mappings)
+	{
+		if (mappings.length == 0)
 		{
-			other.prefixesByNamespaceURI.put(entry.getKey(), new HashSet<>(entry.getValue()));
+			return this;
+		}
+
+		if (mappings.length % 2 != 0)
+		{
+			throw new IllegalArgumentException("Expected an even number of values, but was " + mappings.length + ".");
+		}
+
+		ImmutableNamespaceContext other = copy();
+		int mappingsCount = mappings.length / 2;
+		for (int i = 0; i < mappingsCount; ++i)
+		{
+			other.addMappingWithoutCopy(mappings[i * 2 + 0], mappings[i * 2 + 1]);
 		}
 		return other;
 	}
@@ -62,10 +76,32 @@ public class ImmutableNamespaceContext implements NamespaceContext
 		}
 	}
 
-	public ImmutableNamespaceContext addMapping(String prefix, String namespaceURI)
+	public Set<String> getAllPrefixes()
+	{
+		return this.namespaceURIByPrefix.keySet();
+	}
+
+	public ImmutableNamespaceContext withMapping(String prefix, String namespaceURI)
+	{
+		return withMappings(prefix, namespaceURI);
+	}
+
+	public ImmutableNamespaceContext withoutPrefix(String prefix)
 	{
 		ImmutableNamespaceContext other = copy();
-		other.addMappingWithoutCopy(prefix, namespaceURI);
+		other.removePrefixWithoutCopy(prefix);
+		return other;
+	}
+
+	private ImmutableNamespaceContext copy()
+	{
+		ImmutableNamespaceContext other = new ImmutableNamespaceContext();
+		other.namespaceURIByPrefix = new HashMap<>(this.namespaceURIByPrefix);
+		other.prefixesByNamespaceURI = new HashMap<>();
+		for (Map.Entry<String, Set<String>> entry : prefixesByNamespaceURI.entrySet())
+		{
+			other.prefixesByNamespaceURI.put(entry.getKey(), new HashSet<>(entry.getValue()));
+		}
 		return other;
 	}
 
@@ -80,13 +116,6 @@ public class ImmutableNamespaceContext implements NamespaceContext
 			this.prefixesByNamespaceURI.put(namespaceURI, prefixesByNamespaceURI);
 		}
 		prefixesByNamespaceURI.add(prefix);
-	}
-
-	public ImmutableNamespaceContext removePrefix(String prefix)
-	{
-		ImmutableNamespaceContext other = copy();
-		other.removePrefixWithoutCopy(prefix);
-		return other;
 	}
 
 	private void removePrefixWithoutCopy(String prefix)

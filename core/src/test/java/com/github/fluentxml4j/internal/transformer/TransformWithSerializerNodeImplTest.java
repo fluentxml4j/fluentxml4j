@@ -1,7 +1,5 @@
 package com.github.fluentxml4j.internal.transformer;
 
-import com.github.fluentxml4j.internal.transformer.TransformWithSerializerNodeImpl;
-import com.github.fluentxml4j.internal.transformer.TransformationChain;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

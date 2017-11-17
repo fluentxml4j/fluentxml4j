@@ -1,6 +1,6 @@
 package com.github.fluentxml4j.internal.xpath;
 
-import com.github.fluentxml4j.xpath.ImmutableNamespaceContext;
+import com.github.fluentxml4j.namespace.ImmutableNamespaceContext;
 import com.github.fluentxml4j.xpath.XPathConfigurer;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,6 +1,6 @@
 package com.github.fluentxml4j.internal.transformer.filters;
 
-import com.github.fluentxml4j.xpath.ImmutableNamespaceContext;
+import com.github.fluentxml4j.namespace.ImmutableNamespaceContext;
 
 import java.util.HashMap;
 import java.util.Map;

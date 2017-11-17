@@ -1,7 +1,7 @@
 package com.github.fluentxml4j.internal.transformer.filters;
 
 import com.github.fluentxml4j.FluentXmlConfigurationException;
-import com.github.fluentxml4j.xpath.ImmutableNamespaceContext;
+import com.github.fluentxml4j.namespace.ImmutableNamespaceContext;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.DTDHandler;
@@ -124,10 +124,11 @@ public abstract class AbstractSAXFilter extends Transformer implements Transform
 	@Override
 	public void startPrefixMapping(String prefix, String nsURI) throws SAXException
 	{
+		this.namespaceContext = this.namespaceContext.withMapping(prefix, nsURI);
+
 		boolean process = beforeStartPrefixMapping(prefix, nsURI);
 		if (process)
 		{
-			this.namespaceContext = this.namespaceContext.addMapping(prefix, nsURI);
 			delegateStartPrefixMapping(prefix, nsURI);
 		}
 		afterStartPrefixMapping(prefix, nsURI, process);
@@ -154,10 +155,10 @@ public abstract class AbstractSAXFilter extends Transformer implements Transform
 		if (process)
 		{
 			delegateEndPrefixMapping(prefix);
-			this.namespaceContext = this.namespaceContext.removePrefix(prefix);
 		}
 		afterEndPrefixMapping(prefix, process);
 
+		this.namespaceContext = this.namespaceContext.withoutPrefix(prefix);
 	}
 
 	protected void afterEndPrefixMapping(String prefix, boolean processed)

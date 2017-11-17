@@ -1,8 +1,9 @@
 package com.github.fluentxml4j.xpath;
 
+import javax.xml.namespace.NamespaceContext;
 import javax.xml.xpath.XPath;
 
 public interface XPathConfigurer
 {
-	XPath getXPath(ImmutableNamespaceContext namespaceContext);
+	XPath getXPath(NamespaceContext namespaceContext);
 }

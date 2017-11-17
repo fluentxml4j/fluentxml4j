@@ -1,10 +1,10 @@
 package com.github.fluentxml4j.internal.xpath;
 
 import com.github.fluentxml4j.FluentXmlProcessingException;
-import com.github.fluentxml4j.xpath.ImmutableNamespaceContext;
 import com.github.fluentxml4j.xpath.XPathConfigurer;
 import com.github.fluentxml4j.xpath.XPathConfigurerAdapter;
 
+import javax.xml.namespace.NamespaceContext;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
@@ -18,7 +18,7 @@ class FluentXPathContext
 		this.xPathConfigurer = xPathConfigurer;
 	}
 
-	XPathExpression compile(String xPathQuery, ImmutableNamespaceContext namespaceContext)
+	XPathExpression compile(String xPathQuery, NamespaceContext namespaceContext)
 	{
 		try
 		{

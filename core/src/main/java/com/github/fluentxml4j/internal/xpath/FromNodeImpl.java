@@ -1,14 +1,15 @@
 package com.github.fluentxml4j.internal.xpath;
 
 import com.github.fluentxml4j.FluentXmlProcessingException;
+import com.github.fluentxml4j.namespace.ImmutableNamespaceContext;
 import com.github.fluentxml4j.xpath.QueryFromNode;
-import com.github.fluentxml4j.xpath.ImmutableNamespaceContext;
 import com.github.fluentxml4j.xpath.SelectMultipleFromNode;
 import com.github.fluentxml4j.xpath.XPathConfigurer;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javax.xml.namespace.NamespaceContext;
 import javax.xml.xpath.XPathExpression;
 import java.util.Optional;
 import java.util.function.Function;
@@ -18,7 +19,7 @@ class FromNodeImpl implements QueryFromNode
 	private FluentXPathContext context;
 	private Node baseNode;
 
-	private ImmutableNamespaceContext namespaceContext;
+	private NamespaceContext namespaceContext;
 
 	FromNodeImpl(Node baseNode, FluentXPathContext context)
 	{
@@ -28,10 +29,33 @@ class FromNodeImpl implements QueryFromNode
 	}
 
 	@Override
-	public QueryFromNode withNamespace(String prefix, String namespaceURI)
+	public QueryFromNode withNamespaceContext(NamespaceContext namespaceContext)
 	{
-		this.namespaceContext = this.namespaceContext.addMapping(prefix, namespaceURI);
+		this.namespaceContext = namespaceContext;
 		return this;
+	}
+
+	@Override
+	public QueryFromNode withNamespaceMappings(String... namespaceMappings)
+	{
+		checkImmutableNamespaceContext();
+
+		this.namespaceContext = ((ImmutableNamespaceContext) this.namespaceContext).withMappings(namespaceMappings);
+		return this;
+	}
+
+	private void checkImmutableNamespaceContext()
+	{
+		if (!(this.namespaceContext instanceof ImmutableNamespaceContext))
+		{
+			throw new IllegalStateException("Customized namespace cannot be customized.");
+		}
+	}
+
+	@Override
+	public QueryFromNode withNamespaceMapping(String prefix, String namespaceURI)
+	{
+		return withNamespaceMappings(prefix, namespaceURI);
 	}
 
 	@Override

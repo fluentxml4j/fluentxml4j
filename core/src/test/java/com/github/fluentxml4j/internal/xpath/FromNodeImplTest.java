@@ -1,7 +1,7 @@
 package com.github.fluentxml4j.internal.xpath;
 
 import com.github.fluentxml4j.FluentXmlProcessingException;
-import com.github.fluentxml4j.xpath.ImmutableNamespaceContext;
+import com.github.fluentxml4j.namespace.ImmutableNamespaceContext;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
