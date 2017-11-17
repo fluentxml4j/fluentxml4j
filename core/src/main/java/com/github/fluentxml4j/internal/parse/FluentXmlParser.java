@@ -49,20 +49,15 @@ public class FluentXmlParser
 		{
 			public ParseWithDocumentBuilderNode withDocumentBuilder(DocumentBuilderConfigurer documentBuilderConfigurer)
 			{
-				return new ParseWithDocumentBuilderNode()
-				{
-					@Override
-					public Document document()
+				return () -> {
+					try
 					{
-						try
-						{
-							DocumentBuilder documentBuilder = documentBuilderConfigurer.getDocumentBuilder();
-							return documentBuilder.parse(inputSource);
-						}
-						catch (SAXException | IOException ex)
-						{
-							throw new FluentXmlProcessingException(ex);
-						}
+						DocumentBuilder documentBuilder = documentBuilderConfigurer.getDocumentBuilder();
+						return documentBuilder.parse(inputSource);
+					}
+					catch (SAXException | IOException ex)
+					{
+						throw new FluentXmlProcessingException(ex);
 					}
 				};
 			}

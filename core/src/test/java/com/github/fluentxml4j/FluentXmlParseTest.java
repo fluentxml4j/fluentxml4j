@@ -5,14 +5,17 @@ import com.github.fluentxml4j.parse.ParseNode;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
+import java.net.URL;
 
 import static com.github.fluentxml4j.FluentXml.from;
 import static com.github.fluentxml4j.FluentXml.parse;
@@ -44,10 +47,18 @@ public class FluentXmlParseTest
 	@Mock
 	private Document document;
 
+	private URL url;
+
+	@Mock
+	private File file;
+
 	@Before
-	public void setUp()
+	public void setUp() throws Exception
 	{
+		this.url = new URL("http://www.example.com");
 		fluentXmlInjectionRule.setFluentXmlParser(fluentXmlParser);
+		when(fluentXmlParser.parse(url)).thenReturn(parseNode);
+		when(fluentXmlParser.parse(file)).thenReturn(parseNode);
 		when(fluentXmlParser.parse(inputStream)).thenReturn(parseNode);
 		when(fluentXmlParser.parse(reader)).thenReturn(parseNode);
 		when(fluentXmlParser.parse(inputSource)).thenReturn(parseNode);
@@ -79,6 +90,14 @@ public class FluentXmlParseTest
 	}
 
 	@Test
+	public void parseFromURL()
+	{
+		ParseNode parseNodeReturned = parse(url);
+
+		assertThat(parseNodeReturned, is(this.parseNode));
+	}
+
+	@Test
 	public void documentFromInputSource() {
 		Document documentReturned = from(inputSource).parse().document();
 
@@ -98,4 +117,19 @@ public class FluentXmlParseTest
 
 		assertThat(documentReturned, is(this.document));
 	}
+
+	@Test
+	public void documentFromUrl() {
+		Document documentReturned = from(url).parse().document();
+
+		assertThat(documentReturned, is(this.document));
+	}
+
+	@Test
+	public void documentFromFile() {
+		Document documentReturned = from(file).parse().document();
+
+		assertThat(documentReturned, is(this.document));
+	}
+
 }
