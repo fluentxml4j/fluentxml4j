@@ -1,7 +1,7 @@
 package com.github.fluentxml4j;
 
-import com.github.fluentxml4j.internal.xpath.FluentXPath;
-import com.github.fluentxml4j.xpath.QueryFromNode;
+import com.github.fluentxml4j.internal.query.FluentXPath;
+import com.github.fluentxml4j.query.QueryFromNode;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

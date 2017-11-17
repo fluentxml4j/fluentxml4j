@@ -1,8 +1,7 @@
 package com.github.fluentxml4j;
 
-import com.github.fluentxml4j.FluentXmlInjectionRule;
-import com.github.fluentxml4j.internal.serializer.FluentXmlSerializer;
-import com.github.fluentxml4j.serializer.SerializeNode;
+import com.github.fluentxml4j.internal.serialize.FluentXmlSerializer;
+import com.github.fluentxml4j.serialize.SerializeNode;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

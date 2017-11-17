@@ -1,6 +1,6 @@
 package com.github.fluentxml4j;
 
-import com.github.fluentxml4j.parser.DocumentBuilderConfigurerAdapter;
+import com.github.fluentxml4j.parse.DocumentBuilderConfigurerAdapter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

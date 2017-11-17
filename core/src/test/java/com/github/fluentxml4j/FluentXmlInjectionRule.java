@@ -1,9 +1,9 @@
 package com.github.fluentxml4j;
 
-import com.github.fluentxml4j.internal.parser.FluentXmlParser;
-import com.github.fluentxml4j.internal.serializer.FluentXmlSerializer;
-import com.github.fluentxml4j.internal.transformer.FluentXmlTransformer;
-import com.github.fluentxml4j.internal.xpath.FluentXPath;
+import com.github.fluentxml4j.internal.parse.FluentXmlParser;
+import com.github.fluentxml4j.internal.serialize.FluentXmlSerializer;
+import com.github.fluentxml4j.internal.transform.FluentXmlTransformer;
+import com.github.fluentxml4j.internal.query.FluentXPath;
 import org.junit.rules.ExternalResource;
 
 public class FluentXmlInjectionRule extends ExternalResource

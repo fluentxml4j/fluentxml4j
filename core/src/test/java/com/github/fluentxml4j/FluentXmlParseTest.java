@@ -1,8 +1,7 @@
 package com.github.fluentxml4j;
 
-import com.github.fluentxml4j.FluentXmlInjectionRule;
-import com.github.fluentxml4j.internal.parser.FluentXmlParser;
-import com.github.fluentxml4j.parser.ParseNode;
+import com.github.fluentxml4j.internal.parse.FluentXmlParser;
+import com.github.fluentxml4j.parse.ParseNode;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
