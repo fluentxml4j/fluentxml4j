@@ -46,6 +46,12 @@ public class FluentXmlTransformerIntegrationTest
 			"<xsl:output method='xml' indent='yes'/>" +
 			"<xsl:template match='/transformed2'><transformed3/></xsl:template>" +
 			"</xsl:stylesheet>");
+	@Rule
+	public XmlSource xsltDocumentRule4 = XmlSource.withData("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+			"<xsl:stylesheet version='1.0' xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">" +
+			"<xsl:output method='xml' indent='yes'/>" +
+			"<xsl:template match='/transformed3'><transformed4/></xsl:template>" +
+			"</xsl:stylesheet>");
 
 	private FluentXmlTransformer fluentXmlTransformer = new FluentXmlTransformer();
 
@@ -119,11 +125,12 @@ public class FluentXmlTransformerIntegrationTest
 				.withStylesheet(xsltDocumentRule.asDocument())
 				.withStylesheet(xsltDocumentRule2.asInputStream())
 				.withStylesheet(xsltDocumentRule3.asUrl())
+				.withStylesheet(xsltDocumentRule4.asFile())
 				.toDocument();
 
 		Element root = resultDoc.getDocumentElement();
 
-		assertThat(root.getLocalName(), is("transformed3"));
+		assertThat(root.getLocalName(), is("transformed4"));
 	}
 
 	@Test

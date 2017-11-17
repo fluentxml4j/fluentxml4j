@@ -22,6 +22,7 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stax.StAXSource;
 import javax.xml.transform.stream.StreamSource;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -74,6 +75,12 @@ class TransformNodeImpl implements TransformNode
 	public TransformNode withStylesheet(InputStream in)
 	{
 		return withStylesheet(new StreamSource(in));
+	}
+
+	@Override
+	public TransformNode withStylesheet(File file)
+	{
+		return withStylesheet(new StreamSource(file));
 	}
 
 	@Override
