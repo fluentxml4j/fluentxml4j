@@ -7,20 +7,10 @@ FluentXML4J uses the builtin JDK XML parser and XPath API, but Java 8 is require
 
 ## Maven Dependency
 
-### FluentXML4J core library
 ```
 <dependency>
   <groupId>com.github.fluentxml4j</groupId>
   <artifactId>fluentxml4j-core</artifactId>
-  <version>2.0.0</version>
-</dependency>
-```
-
-### FluentXML4J JUnit support library
-```
-<dependency>
-  <groupId>com.github.fluentxml4j</groupId>
-  <artifactId>fluentxml4j-junit</artifactId>
   <version>2.0.0</version>
 </dependency>
 ```
