@@ -11,11 +11,12 @@ import javax.xml.stream.XMLEventWriter;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FilterOutputStream;
 import java.io.FilterWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -25,7 +26,7 @@ public class XmlResult extends ExternalResource
 {
 	private static final Charset UTF8 = Charset.forName("UTF-8");
 
-	private byte[] data;
+	private DataHolder dataHolder = EmptyDataHolder.INSTANCE;
 
 	public static XmlResult empty()
 	{
@@ -81,7 +82,7 @@ public class XmlResult extends ExternalResource
 			private void publishData()
 			{
 				ByteArrayOutputStream bytesOut = (ByteArrayOutputStream) out;
-				XmlResult.this.data = bytesOut.toByteArray();
+				XmlResult.this.dataHolder = new BytesDataHolder(bytesOut.toByteArray());
 			}
 		};
 	}
@@ -107,7 +108,7 @@ public class XmlResult extends ExternalResource
 
 			private void publishData()
 			{
-				XmlResult.this.data = bytesOut.toByteArray();
+				XmlResult.this.dataHolder = new BytesDataHolder(bytesOut.toByteArray());
 			}
 		};
 	}
@@ -118,7 +119,7 @@ public class XmlResult extends ExternalResource
 		{
 			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 			documentBuilderFactory.setNamespaceAware(true);
-			return documentBuilderFactory.newDocumentBuilder().parse(new InputSource(new ByteArrayInputStream(data)));
+			return documentBuilderFactory.newDocumentBuilder().parse(new InputSource(dataHolder.getData()));
 		}
 		catch (ParserConfigurationException | SAXException | IOException ex)
 		{
@@ -128,6 +129,60 @@ public class XmlResult extends ExternalResource
 
 	public String asString()
 	{
-		return new String(this.data, UTF8);
+		return new String(readAllFrom(dataHolder.getData(), true), UTF8);
+	}
+
+	public File asFile()
+	{
+		try
+		{
+			File file = File.createTempFile(getClass().getSimpleName(), "asFile");
+			this.dataHolder = new FileDataHolder(file);
+
+			return file;
+		}
+		catch (IOException ex)
+		{
+			throw new RuntimeException(ex);
+		}
+	}
+
+	private byte[] readAllFrom(InputStream in, boolean close)
+	{
+		try
+		{
+			ByteArrayOutputStream bytesBufOut = new ByteArrayOutputStream();
+			byte[] bbuf = new byte[1024];
+			int length;
+			while ((length = in.read(bbuf)) > -1)
+			{
+				bytesBufOut.write(bbuf, 0, length);
+			}
+
+			return bytesBufOut.toByteArray();
+		}
+		catch (IOException ex)
+		{
+			throw new RuntimeException(ex);
+		}
+		finally
+		{
+			if (close)
+			{
+				close(in);
+			}
+		}
+	}
+
+	private void close(InputStream in)
+	{
+		try
+		{
+			in.close();
+		}
+		catch (IOException ex)
+		{
+			throw new RuntimeException(ex);
+		}
 	}
 }

@@ -6,6 +6,7 @@ import com.github.fluentxml4j.serializer.SerializerConfigurer;
 import com.github.fluentxml4j.serializer.SerializerConfigurerAdapter;
 
 import javax.xml.transform.Source;
+import java.io.File;
 import java.io.OutputStream;
 import java.io.Writer;
 
@@ -28,6 +29,12 @@ class SerializeNodeImpl implements SerializeNode
 	public void to(Writer out)
 	{
 		withSerializer(new SerializerConfigurerAdapter()).to(out);
+	}
+
+	@Override
+	public void to(File file)
+	{
+		withSerializer(new SerializerConfigurerAdapter()).to(file);
 	}
 
 	@Override

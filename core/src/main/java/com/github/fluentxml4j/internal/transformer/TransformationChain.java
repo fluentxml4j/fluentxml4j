@@ -21,6 +21,7 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stax.StAXResult;
 import javax.xml.transform.stream.StreamResult;
+import java.io.File;
 import java.io.OutputStream;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -161,5 +162,10 @@ class TransformationChain
 	public void transformTo(XMLEventWriter out)
 	{
 		transformTo(new StAXResult(out));
+	}
+
+	public void transformTo(File file)
+	{
+		transform(new StreamResult(file));
 	}
 }

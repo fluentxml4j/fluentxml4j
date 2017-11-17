@@ -1,8 +1,10 @@
 package com.github.fluentxml4j.internal.serializer;
 
+import com.github.fluentxml4j.junit.XmlResult;
 import com.github.fluentxml4j.junit.XmlSource;
 import com.github.fluentxml4j.serializer.SerializerConfigurerAdapter;
 import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.Test;
 
 import javax.xml.transform.OutputKeys;
@@ -19,6 +21,9 @@ public class FluentXmlSerializerIntegrationTest
 {
 	@ClassRule
 	public static XmlSource documentTestRule = XmlSource.withData("<foo:test xmlns:foo=\"bar\"/>");
+
+	@Rule
+	public XmlResult xmlResult = XmlResult.empty();
 
 	@Test
 	public void serializeWithDefaultsToString()
@@ -52,7 +57,15 @@ public class FluentXmlSerializerIntegrationTest
 		assertThat(serializedXml, is("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<foo:test xmlns:foo=\"bar\"/>\n"));
 	}
 
+	@Test
+	public void serializeWithDefaultsToFile()
+	{
+		serialize(documentTestRule.asDocument())
+				.to(xmlResult.asFile());
 
+		String serializedXml = xmlResult.asString();
+		assertThat(serializedXml, is("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<foo:test xmlns:foo=\"bar\"/>\n"));
+	}
 
 	@Test
 	public void serializeCustomizedToString()

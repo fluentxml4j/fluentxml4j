@@ -5,6 +5,7 @@ import com.github.fluentxml4j.serializer.SerializeWithTransformerNode;
 import javax.xml.stream.XMLEventWriter;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.Result;
+import java.io.File;
 import java.io.OutputStream;
 import java.io.Writer;
 
@@ -39,6 +40,12 @@ class TransformWithSerializerNodeImpl implements SerializeWithTransformerNode
 	public void to(XMLEventWriter out)
 	{
 		this.transformationChain.transformTo(out);
+	}
+
+	@Override
+	public void to(File file)
+	{
+		this.transformationChain.transformTo(file);
 	}
 
 	@Override

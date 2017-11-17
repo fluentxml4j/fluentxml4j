@@ -12,6 +12,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stax.StAXResult;
 import javax.xml.transform.stream.StreamResult;
+import java.io.File;
 import java.io.OutputStream;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -49,6 +50,12 @@ public class SerializeWithTransformerNodeImpl implements SerializeWithTransforme
 	public void to(Result out)
 	{
 		serialize(source, out);
+	}
+
+	@Override
+	public void to(File file)
+	{
+		serialize(source, new StreamResult(file));
 	}
 
 	@Override
