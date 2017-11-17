@@ -7,6 +7,8 @@ import com.github.fluentxml4j.internal.serializer.FluentXmlSerializer;
 import com.github.fluentxml4j.serializer.SerializeNode;
 import com.github.fluentxml4j.internal.transformer.FluentXmlTransformer;
 import com.github.fluentxml4j.internal.xpath.FluentXPath;
+import com.github.fluentxml4j.transformer.TransformNode;
+import com.github.fluentxml4j.xpath.QueryFromNode;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -90,7 +92,7 @@ public class FluentXml
 		return () -> fluentXmlParser.get().parse(in);
 	}
 
-	public static com.github.fluentxml4j.xpath.FromNode from(Document doc)
+	public static QueryFromNode from(Document doc)
 	{
 		return fluentXPath.get().from(doc);
 	}
@@ -100,22 +102,22 @@ public class FluentXml
 		return fluentXmlSerializer.get().serialize(doc);
 	}
 
-	public static com.github.fluentxml4j.transformer.TransformNode transform(Document doc)
+	public static TransformNode transform(Document doc)
 	{
 		return fluentXmlTransformer.get().transform(doc);
 	}
 
-	public static com.github.fluentxml4j.transformer.TransformNode transform(InputStream in)
+	public static TransformNode transform(InputStream in)
 	{
 		return fluentXmlTransformer.get().transform(in);
 	}
 
-	public static com.github.fluentxml4j.transformer.TransformNode transform(XMLStreamReader in)
+	public static TransformNode transform(XMLStreamReader in)
 	{
 		return fluentXmlTransformer.get().transform(in);
 	}
 
-	public static com.github.fluentxml4j.transformer.TransformNode transform(XMLEventReader in)
+	public static TransformNode transform(XMLEventReader in)
 	{
 		return fluentXmlTransformer.get().transform(in);
 	}

@@ -1,7 +1,7 @@
 package com.github.fluentxml4j;
 
 import com.github.fluentxml4j.internal.xpath.FluentXPath;
-import com.github.fluentxml4j.xpath.FromNode;
+import com.github.fluentxml4j.xpath.QueryFromNode;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class FluentXmlXPathTest
 	private Document document;
 
 	@Mock
-	private FromNode fromNode;
+	private QueryFromNode fromNode;
 
 	@Before
 	public void setUp()
@@ -40,7 +40,7 @@ public class FluentXmlXPathTest
 	@Test
 	public void serializeDocument()
 	{
-		FromNode fromNodeReturned = from(document);
+		QueryFromNode fromNodeReturned = from(document);
 
 		assertThat(fromNodeReturned, is(this.fromNode));
 	}

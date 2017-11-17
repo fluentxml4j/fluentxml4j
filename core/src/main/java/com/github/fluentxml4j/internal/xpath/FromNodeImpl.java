@@ -1,7 +1,7 @@
 package com.github.fluentxml4j.internal.xpath;
 
 import com.github.fluentxml4j.FluentXmlProcessingException;
-import com.github.fluentxml4j.xpath.FromNode;
+import com.github.fluentxml4j.xpath.QueryFromNode;
 import com.github.fluentxml4j.xpath.ImmutableNamespaceContext;
 import com.github.fluentxml4j.xpath.SelectMultipleFromNode;
 import com.github.fluentxml4j.xpath.XPathConfigurer;
@@ -13,7 +13,7 @@ import javax.xml.xpath.XPathExpression;
 import java.util.Optional;
 import java.util.function.Function;
 
-class FromNodeImpl implements FromNode
+class FromNodeImpl implements QueryFromNode
 {
 	private FluentXPathContext context;
 	private Node baseNode;
@@ -28,14 +28,14 @@ class FromNodeImpl implements FromNode
 	}
 
 	@Override
-	public FromNode withNamespace(String prefix, String namespaceURI)
+	public QueryFromNode withNamespace(String prefix, String namespaceURI)
 	{
 		this.namespaceContext = this.namespaceContext.addMapping(prefix, namespaceURI);
 		return this;
 	}
 
 	@Override
-	public FromNode withXPath(XPathConfigurer xPathConfigurer)
+	public QueryFromNode withXPath(XPathConfigurer xPathConfigurer)
 	{
 		this.context.setxPathConfigurer(xPathConfigurer);
 		return this;

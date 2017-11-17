@@ -5,11 +5,11 @@ import org.w3c.dom.Node;
 
 import java.util.Optional;
 
-public interface FromNode
+public interface QueryFromNode
 {
-	FromNode withNamespace(String prefix, String namespaceURI);
+	QueryFromNode withNamespace(String prefix, String namespaceURI);
 
-	FromNode withXPath(XPathConfigurer xPathConfigurer);
+	QueryFromNode withXPath(XPathConfigurer xPathConfigurer);
 
 	Optional<String> selectString(String xPathQuery);
 

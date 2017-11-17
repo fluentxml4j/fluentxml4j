@@ -1,9 +1,7 @@
 package com.github.fluentxml4j;
 
 import com.github.fluentxml4j.internal.transformer.FluentXmlTransformer;
-import com.github.fluentxml4j.internal.xpath.FluentXPath;
 import com.github.fluentxml4j.transformer.TransformNode;
-import com.github.fluentxml4j.xpath.FromNode;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
