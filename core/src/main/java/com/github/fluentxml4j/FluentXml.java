@@ -102,6 +102,11 @@ public class FluentXml
 		return fluentXmlSerializer.get().serialize(doc);
 	}
 
+	public static TransformNode transform(File file)
+	{
+		return fluentXmlTransformer.get().transform(file);
+	}
+
 	public static TransformNode transform(Document doc)
 	{
 		return fluentXmlTransformer.get().transform(doc);
