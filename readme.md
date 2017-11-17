@@ -2,6 +2,16 @@
 
 #### XML parsing, serialization XPath querying and transformation without boilerplate code
 
+## Features
+* Simple, fluent API but full flexibility
+* Parse from java.io inputs to org.w3c.dom.Document
+* Serialize org.w3c.dom.Document to any java.io output
+* Transform from java.io, SAX, StAX, JAXB input to any of them
+  with XSLT and custom filters support
+* Query org.w3c.dom.Document via XPath for String, Boolean, Number, org.w3c.dom.Element or Node,
+  get the results as collections or process with the Java 8 Streaming API
+* No (required) dependencies
+
 ## Requirements
 FluentXML4J uses the builtin JDK XML parser and XPath API, but Java 8 is required because of streaming API and Optional support.
 
