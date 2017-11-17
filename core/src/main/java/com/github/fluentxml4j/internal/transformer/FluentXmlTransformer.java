@@ -6,10 +6,10 @@ import org.w3c.dom.Document;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stax.StAXSource;
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.io.InputStream;
+import java.net.URL;
 
 public class FluentXmlTransformer
 {
@@ -36,5 +36,10 @@ public class FluentXmlTransformer
 	public TransformNode transform(File in)
 	{
 		return new TransformNodeImpl(new StreamSource(in));
+	}
+
+	public TransformNode transform(URL url)
+	{
+		return new TransformNodeImpl(new StreamSource(url.toExternalForm()));
 	}
 }

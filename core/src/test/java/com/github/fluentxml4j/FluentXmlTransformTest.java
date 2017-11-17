@@ -14,6 +14,8 @@ import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamReader;
 import java.io.File;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import static com.github.fluentxml4j.FluentXml.from;
 import static org.hamcrest.CoreMatchers.is;
@@ -47,9 +49,13 @@ public class FluentXmlTransformTest
 	@Mock
 	private XMLEventReader xmlEventReader;
 
+	private URL url;
+
 	@Before
-	public void setUp()
+	public void setUp() throws MalformedURLException
 	{
+		this.url = new URL("http://example.com");
+
 		fluentXmlInjectionRule.setFluentXmlTransformer(this.fluentXmlTransformer);
 	}
 
@@ -79,6 +85,16 @@ public class FluentXmlTransformTest
 		when(fluentXmlTransformer.transform(file)).thenReturn(transformNode);
 
 		TransformNode transformNodeReturned = FluentXml.transform(file);
+
+		assertThat(transformNodeReturned, is(this.transformNode));
+	}
+
+	@Test
+	public void transformUrl()
+	{
+		when(fluentXmlTransformer.transform(url)).thenReturn(transformNode);
+
+		TransformNode transformNodeReturned = FluentXml.transform(url);
 
 		assertThat(transformNodeReturned, is(this.transformNode));
 	}
