@@ -12,6 +12,7 @@ import org.w3c.dom.Document;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamReader;
+import java.io.File;
 import java.io.InputStream;
 
 import static com.github.fluentxml4j.FluentXml.from;
@@ -36,6 +37,9 @@ public class FluentXmlTransformTest
 
 	@Mock
 	private InputStream inputStream;
+
+	@Mock
+	private File file;
 
 	@Mock
 	private XMLStreamReader xmlStreamReader;
@@ -65,6 +69,16 @@ public class FluentXmlTransformTest
 		when(fluentXmlTransformer.transform(inputStream)).thenReturn(transformNode);
 
 		TransformNode transformNodeReturned = FluentXml.transform(inputStream);
+
+		assertThat(transformNodeReturned, is(this.transformNode));
+	}
+
+	@Test
+	public void transformFile()
+	{
+		when(fluentXmlTransformer.transform(file)).thenReturn(transformNode);
+
+		TransformNode transformNodeReturned = FluentXml.transform(file);
 
 		assertThat(transformNodeReturned, is(this.transformNode));
 	}
