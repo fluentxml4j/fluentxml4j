@@ -16,6 +16,10 @@ public interface QueryFromNode
 
 	QueryFromNode withXPath(XPathConfigurer xPathConfigurer);
 
+	Optional<Integer> selectInteger(String xPathQuery);
+
+	Optional<Boolean> selectBoolean(String xPathQuery);
+
 	Optional<String> selectString(String xPathQuery);
 
 	Optional<Element> selectElement(String xPathQuery);
@@ -25,6 +29,10 @@ public interface QueryFromNode
 	SelectMultipleFromNode<Element> selectElements(String xPathQuery);
 
 	SelectMultipleFromNode<String> selectStrings(String xPathQuery);
+
+	SelectMultipleFromNode<Integer> selectIntegers(String xPathQuery);
+
+	SelectMultipleFromNode<Boolean> selectBooleans(String xPathQuery);
 
 	SelectMultipleFromNode<Node> selectNodes(String xPathQuery);
 }

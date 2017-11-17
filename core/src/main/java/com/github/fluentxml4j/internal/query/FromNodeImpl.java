@@ -104,6 +104,32 @@ class FromNodeImpl implements QueryFromNode
 		return selectUniqueNode(xPathQuery, Function.identity());
 	}
 
+	@Override
+	public Optional<Integer> selectInteger(String xPathQuery)
+	{
+		return selectUniqueNode(xPathQuery, ToIntegerConverter::toInteger);
+	}
+
+	@Override
+	public Optional<Boolean> selectBoolean(String xPathQuery)
+	{
+		return selectUniqueNode(xPathQuery, ToBooleanConverter::toBoolean);
+	}
+
+	@Override
+	public SelectMultipleFromNode<Integer> selectIntegers(String xPathQuery)
+	{
+		XPathExpression xPathExpression = this.context.compile(xPathQuery, this.namespaceContext);
+		return new SelectMultipleFromNodeImpl<>(baseNode, xPathExpression, ToIntegerConverter::toInteger);
+	}
+
+	@Override
+	public SelectMultipleFromNode<Boolean> selectBooleans(String xPathQuery)
+	{
+		XPathExpression xPathExpression = this.context.compile(xPathQuery, this.namespaceContext);
+		return new SelectMultipleFromNodeImpl<>(baseNode, xPathExpression, ToBooleanConverter::toBoolean);
+	}
+
 	private <T> Optional<T> selectUniqueNode(String xPathQuery, Function<Node, T> converter)
 	{
 		NodeList nodeList = selectNodes(xPathQuery).asNodeList();

@@ -8,7 +8,11 @@ interface ToStringConverter
 {
 	static String toString(Node node)
 	{
-		if (node instanceof Text)
+		if (node == null)
+		{
+			return null;
+		}
+		else if (node instanceof Text)
 		{
 			return ((Text) node).getData();
 		}

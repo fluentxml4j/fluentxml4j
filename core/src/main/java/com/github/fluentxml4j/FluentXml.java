@@ -3,7 +3,7 @@ package com.github.fluentxml4j;
 import com.github.fluentxml4j.internal.parse.FluentXmlParser;
 import com.github.fluentxml4j.internal.serialize.FluentXmlSerializer;
 import com.github.fluentxml4j.internal.transform.FluentXmlTransformer;
-import com.github.fluentxml4j.internal.query.FluentXPath;
+import com.github.fluentxml4j.internal.query.FluentQuery;
 import com.github.fluentxml4j.parse.FromNode;
 import com.github.fluentxml4j.parse.ParseNode;
 import com.github.fluentxml4j.serialize.SerializeNode;
@@ -30,7 +30,7 @@ public class FluentXml
 
 	static Supplier<FluentXmlSerializer> fluentXmlSerializer = supplierFor(new FluentXmlSerializer());
 
-	static Supplier<FluentXPath> fluentXPath = supplierFor(new FluentXPath());
+	static Supplier<FluentQuery> fluentQuery = supplierFor(new FluentQuery());
 
 	static Supplier<FluentXmlTransformer> fluentXmlTransformer = supplierFor(new FluentXmlTransformer());
 
@@ -95,7 +95,7 @@ public class FluentXml
 
 	public static QueryFromNode from(Document doc)
 	{
-		return fluentXPath.get().from(doc);
+		return fluentQuery.get().from(doc);
 	}
 
 	public static SerializeNode serialize(Document doc)

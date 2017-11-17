@@ -1,6 +1,6 @@
 package com.github.fluentxml4j;
 
-import com.github.fluentxml4j.internal.query.FluentXPath;
+import com.github.fluentxml4j.internal.query.FluentQuery;
 import com.github.fluentxml4j.query.QueryFromNode;
 import org.junit.Before;
 import org.junit.Rule;
@@ -16,13 +16,13 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class FluentXmlXPathTest
+public class FluentXmlQueryTest
 {
 	@Rule
 	public FluentXmlInjectionRule fluentXmlInjectionRule = new FluentXmlInjectionRule();
 
 	@Mock
-	private FluentXPath fluentXPath;
+	private FluentQuery fluentQuery;
 
 	@Mock
 	private Document document;
@@ -33,8 +33,8 @@ public class FluentXmlXPathTest
 	@Before
 	public void setUp()
 	{
-		fluentXmlInjectionRule.setFluentXPath(this.fluentXPath);
-		when(fluentXPath.from(document)).thenReturn(fromNode);
+		fluentXmlInjectionRule.setFluentXPath(this.fluentQuery);
+		when(fluentQuery.from(document)).thenReturn(fromNode);
 	}
 
 	@Test
