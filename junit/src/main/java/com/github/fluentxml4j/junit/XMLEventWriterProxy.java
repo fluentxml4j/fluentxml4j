@@ -12,7 +12,7 @@ class XMLEventWriterProxy
 	public static XMLEventWriter proxyFor(XMLEventWriter delegate, boolean autoFlush)
 	{
 		return (XMLEventWriter) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
-				new Class[]{XMLEventWriter.class},
+				new Class<?>[]{XMLEventWriter.class},
 				new InvocationHandler()
 				{
 					private boolean closed = false;

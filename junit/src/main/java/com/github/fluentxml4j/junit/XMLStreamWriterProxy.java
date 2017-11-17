@@ -10,7 +10,7 @@ class XMLStreamWriterProxy
 	public static XMLStreamWriter proxyFor(XMLStreamWriter delegate, boolean autoFlush)
 	{
 		return (XMLStreamWriter) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
-				new Class[]{XMLStreamWriter.class},
+				new Class<?>[]{XMLStreamWriter.class},
 				new InvocationHandler()
 				{
 					private boolean closed = false;
