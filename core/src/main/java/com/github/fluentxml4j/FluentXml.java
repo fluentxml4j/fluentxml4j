@@ -10,6 +10,7 @@ import com.github.fluentxml4j.serialize.SerializeNode;
 import com.github.fluentxml4j.transform.TransformNode;
 import com.github.fluentxml4j.query.QueryFromNode;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 
 import javax.xml.bind.JAXBContext;
@@ -96,6 +97,11 @@ public class FluentXml
 	public static QueryFromNode from(Document doc)
 	{
 		return fluentQuery.get().from(doc);
+	}
+
+	public static QueryFromNode from(Node node)
+	{
+		return fluentQuery.get().from(node);
 	}
 
 	public static SerializeNode serialize(Document doc)
