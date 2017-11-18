@@ -21,6 +21,7 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stax.StAXResult;
 import javax.xml.transform.stream.StreamResult;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.StringWriter;
@@ -167,5 +168,12 @@ class TransformationChain
 	public void transformTo(File file)
 	{
 		transform(new StreamResult(file));
+	}
+
+	public byte[] transformToBytes()
+	{
+		ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
+		transform(new StreamResult(bytesOut));
+		return bytesOut.toByteArray();
 	}
 }

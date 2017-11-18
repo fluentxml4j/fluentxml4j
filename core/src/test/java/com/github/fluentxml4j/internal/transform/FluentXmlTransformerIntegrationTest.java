@@ -173,6 +173,30 @@ public class FluentXmlTransformerIntegrationTest
 	}
 
 	@Test
+	public void streamToBytesWithTransformers() throws Exception
+	{
+		byte[] bytes = fluentXmlTransformer
+				.transform(sourceDocumentRule.asInputStream())
+				.withStylesheet(xsltDocumentRule.asDocument())
+				.withStylesheet(xsltDocumentRule2.asInputStream())
+				.withStylesheet(xsltDocumentRule3.asUrl())
+				.withSerializer(new SerializerConfigurerAdapter()
+				{
+					@Override
+					protected void configure(Transformer transformer)
+					{
+						super.configure(transformer);
+						transformer.setOutputProperty(OutputKeys.INDENT, "no");
+						transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+					}
+				})
+				.toBytes();
+
+		assertThat(new String(bytes, "UTF-8"), is("<transformed3/>"));
+	}
+
+
+	@Test
 	public void xmlStreamReaderToXMLEventWriterNoTransformerWithAutoFlushEnabled() throws Exception
 	{
 		fluentXmlTransformer

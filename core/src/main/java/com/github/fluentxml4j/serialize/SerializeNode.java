@@ -14,5 +14,7 @@ public interface SerializeNode
 
 	void to(File out);
 
+	byte[] toBytes();
+
 	String toString();
 }

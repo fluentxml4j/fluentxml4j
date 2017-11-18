@@ -12,6 +12,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stax.StAXResult;
 import javax.xml.transform.stream.StreamResult;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.StringWriter;
@@ -70,6 +71,14 @@ public class SerializeWithTransformerNodeImpl implements SerializeWithTransforme
 		StringWriter wr = new StringWriter();
 		serialize(source, new StreamResult(wr));
 		return wr.getBuffer().toString();
+	}
+
+	@Override
+	public byte[] toBytes()
+	{
+		ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
+		serialize(source, new StreamResult(bytesOut));
+		return bytesOut.toByteArray();
 	}
 
 	private void serialize(Source source, Result result)

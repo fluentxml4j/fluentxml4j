@@ -15,6 +15,8 @@ public interface SerializeWithTransformerNode
 
 	String toString();
 
+	byte[] toBytes();
+
 	void to(XMLEventWriter out);
 
 	void to(XMLStreamWriter out);

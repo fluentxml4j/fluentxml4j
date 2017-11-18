@@ -59,4 +59,10 @@ class TransformWithSerializerNodeImpl implements SerializeWithTransformerNode
 	{
 		return this.transformationChain.transformToString();
 	}
+
+	@Override
+	public byte[] toBytes()
+	{
+		return this.transformationChain.transformToBytes();
+	}
 }

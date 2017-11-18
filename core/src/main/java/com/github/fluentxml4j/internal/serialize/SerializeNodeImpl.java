@@ -32,6 +32,12 @@ class SerializeNodeImpl implements SerializeNode
 	}
 
 	@Override
+	public byte[] toBytes()
+	{
+		return withSerializer(new SerializerConfigurerAdapter()).toBytes();
+	}
+
+	@Override
 	public void to(File file)
 	{
 		withSerializer(new SerializerConfigurerAdapter()).to(file);

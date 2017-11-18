@@ -109,6 +109,27 @@ public class FluentXmlSerializerIntegrationTest
 	}
 
 	@Test
+	public void serializeWithCustomizedToBytes()
+	{
+		byte[] bytes = serialize(documentTestRule.asDocument())
+				.withSerializer(new SerializerConfigurerAdapter()
+				{
+					@Override
+					protected void configure(Transformer transformer)
+					{
+						super.configure(transformer);
+						transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+						transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+						transformer.setOutputProperty(OutputKeys.INDENT, "no");
+					}
+				})
+				.toBytes();
+
+		String serializedXml = new String(bytes, Charset.forName("UTF-8"));
+		assertThat(serializedXml, is("<foo:test xmlns:foo=\"bar\"/>"));
+	}
+
+	@Test
 	public void serializeWithCustomizedToOutputStream()
 	{
 		ByteArrayOutputStream bytesBufOut = new ByteArrayOutputStream();
