@@ -56,7 +56,7 @@ public class FluentXmlParserIntegrationTest
 	@Test
 	public void parseDocumentWithDefaultsFromReader()
 	{
-		Document doc = fluentXmlParser.parse(xmlInput.asReader()).document();
+		Document doc = fluentXmlParser.parse(xmlInput.asReader("UTF-8")).document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}
@@ -96,7 +96,7 @@ public class FluentXmlParserIntegrationTest
 	@Test
 	public void parseDocumentWithDefaultsFromReaderViaFrom()
 	{
-		Document doc = fluentXmlParser.from(xmlInput.asReader()).parse().document();
+		Document doc = fluentXmlParser.from(xmlInput.asReader("UTF-8")).parse().document();
 
 		assertThat(doc.getDocumentElement().getLocalName(), is("test"));
 	}

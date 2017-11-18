@@ -19,7 +19,7 @@ public class XmlSourceTest
 	@Test
 	public void asBytes() throws UnsupportedEncodingException
 	{
-		assertThat(xml.asBytes("UTF-8"), is("<test/>".getBytes("UTF-8")));
+		assertThat(xml.asBytes(), is("<test/>".getBytes("UTF-8")));
 	}
 
 	@Test
@@ -53,7 +53,7 @@ public class XmlSourceTest
 	@Test
 	public void asReader() throws IOException
 	{
-		String xmlRead = IOUtils.toString(xml.asReader());
+		String xmlRead = IOUtils.toString(xml.asReader("UTF-8"));
 
 		assertThat(xmlRead, is("<test/>"));
 	}

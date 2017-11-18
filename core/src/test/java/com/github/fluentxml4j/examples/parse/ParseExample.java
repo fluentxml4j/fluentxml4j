@@ -27,7 +27,7 @@ public class ParseExample
 	@Test
 	public void readerToDocument()
 	{
-		Document doc = from(xmlSource.asReader())
+		Document doc = from(xmlSource.asReader("UTF-8"))
 				.parse()
 				.document();
 

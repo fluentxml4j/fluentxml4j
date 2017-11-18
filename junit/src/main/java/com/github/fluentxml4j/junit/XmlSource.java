@@ -17,16 +17,27 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.StringReader;
 import java.net.URL;
-import java.nio.charset.Charset;
 
 public class XmlSource extends ExternalResource
 {
-	private String xml;
+	private byte[] data;
 
 	public static XmlSource withData(String xml)
+	{
+		try
+		{
+			return new XmlSource(xml.getBytes("UTF-8"));
+		}
+		catch (IOException ex)
+		{
+			throw new RuntimeException(ex);
+		}
+	}
+
+	public static XmlSource withData(byte[] xml)
 	{
 		return new XmlSource(xml);
 	}
@@ -37,7 +48,7 @@ public class XmlSource extends ExternalResource
 		{
 			byte[] bytes = readBytes(in);
 
-			return new XmlSource(new String(bytes, "UTF-8"));
+			return new XmlSource(bytes);
 		}
 		catch (IOException ex)
 		{
@@ -57,9 +68,9 @@ public class XmlSource extends ExternalResource
 		return bytesOut.toByteArray();
 	}
 
-	private XmlSource(String xml)
+	private XmlSource(byte[] data)
 	{
-		this.xml = xml;
+		this.data = data;
 	}
 
 	public URL asUrl()
@@ -71,7 +82,7 @@ public class XmlSource extends ExternalResource
 
 	public InputStream asInputStream()
 	{
-		return new ByteArrayInputStream(this.xml.getBytes(Charset.forName("UTF-8")));
+		return new ByteArrayInputStream(this.data);
 	}
 
 	public Document asDocument()
@@ -80,7 +91,7 @@ public class XmlSource extends ExternalResource
 		{
 			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 			documentBuilderFactory.setNamespaceAware(true);
-			return documentBuilderFactory.newDocumentBuilder().parse(new InputSource(new StringReader(xml)));
+			return documentBuilderFactory.newDocumentBuilder().parse(new InputSource(asInputStream()));
 		}
 		catch (ParserConfigurationException | SAXException | IOException ex)
 		{
@@ -88,16 +99,9 @@ public class XmlSource extends ExternalResource
 		}
 	}
 
-	public byte[] asBytes(String charset)
+	public byte[] asBytes()
 	{
-		try
-		{
-			return xml.getBytes(charset);
-		}
-		catch (IOException ex)
-		{
-			throw new RuntimeException(ex);
-		}
+		return this.data;
 	}
 
 	public File asFile()
@@ -105,9 +109,16 @@ public class XmlSource extends ExternalResource
 		return exportXmlToTempFile();
 	}
 
-	public Reader asReader()
+	public Reader asReader(String charSet)
 	{
-		return new StringReader(this.xml);
+		try
+		{
+			return new InputStreamReader(asInputStream(), charSet);
+		}
+		catch (IOException ex)
+		{
+			throw new RuntimeException(ex);
+		}
 	}
 
 	private File exportXmlToTempFile()
@@ -135,7 +146,7 @@ public class XmlSource extends ExternalResource
 	{
 		try (FileOutputStream fileOut = new FileOutputStream(tempFile))
 		{
-			fileOut.write(this.xml.getBytes(Charset.forName("UTF-8")));
+			fileOut.write(this.data);
 		}
 		catch (IOException ex)
 		{
@@ -157,16 +168,28 @@ public class XmlSource extends ExternalResource
 		}
 	}
 
+	public String asString(String charSet)
+	{
+		try
+		{
+			return new String(this.data, charSet);
+		}
+		catch (IOException ex)
+		{
+			throw new RuntimeException(ex);
+		}
+	}
+
 	public String asString()
 	{
-		return this.xml;
+		return asString("UTF-8");
 	}
 
 	public XMLStreamReader asXMLStreamReader()
 	{
 		try
 		{
-			return XMLInputFactory.newFactory().createXMLStreamReader(new StringReader(this.xml));
+			return XMLInputFactory.newFactory().createXMLStreamReader(asInputStream());
 		}
 		catch (XMLStreamException e)
 		{
@@ -178,7 +201,7 @@ public class XmlSource extends ExternalResource
 	{
 		try
 		{
-			return XMLInputFactory.newFactory().createXMLEventReader(new StringReader(this.xml));
+			return XMLInputFactory.newFactory().createXMLEventReader(asInputStream());
 		}
 		catch (XMLStreamException e)
 		{
