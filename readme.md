@@ -61,6 +61,11 @@ List<Element> elements = from(doc)
 
 [More xpath examples...](doc/examples/xpath-examples.md)
 
+## Similar and related Projects
+* [xmltool](http://code.mycila.com/xmltool)
+* [dom4j](https://dom4j.github.io/)
+* [jdom](http://www.jdom.org/)
+
 ## Contributing
 FluentXML4J is an open source project, and contributions are welcome! Feel free to raise an issue or submit a pull request.
 
