@@ -12,6 +12,7 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,6 +29,32 @@ public class XmlSource extends ExternalResource
 	public static XmlSource withData(String xml)
 	{
 		return new XmlSource(xml);
+	}
+
+	public static XmlSource withDataFrom(Class<?> clazz, String path)
+	{
+		try (InputStream in = clazz.getResourceAsStream(path))
+		{
+			byte[] bytes = readBytes(in);
+
+			return new XmlSource(new String(bytes, "UTF-8"));
+		}
+		catch (IOException ex)
+		{
+			throw new RuntimeException(ex);
+		}
+	}
+
+	private static byte[] readBytes(InputStream in) throws IOException
+	{
+		byte[] bbuf = new byte[1024];
+		int lenght;
+		ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
+		while ((lenght = in.read(bbuf)) != -1)
+		{
+			bytesOut.write(bbuf, 0, lenght);
+		}
+		return bytesOut.toByteArray();
 	}
 
 	private XmlSource(String xml)

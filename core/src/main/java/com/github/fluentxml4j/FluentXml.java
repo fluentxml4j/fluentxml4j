@@ -1,14 +1,16 @@
 package com.github.fluentxml4j;
 
 import com.github.fluentxml4j.internal.parse.FluentXmlParser;
+import com.github.fluentxml4j.internal.query.FluentQuery;
 import com.github.fluentxml4j.internal.serialize.FluentXmlSerializer;
 import com.github.fluentxml4j.internal.transform.FluentXmlTransformer;
-import com.github.fluentxml4j.internal.query.FluentQuery;
+import com.github.fluentxml4j.internal.validate.FluentXmlValidator;
 import com.github.fluentxml4j.parse.FromNode;
 import com.github.fluentxml4j.parse.ParseNode;
+import com.github.fluentxml4j.query.QueryFromNode;
 import com.github.fluentxml4j.serialize.SerializeNode;
 import com.github.fluentxml4j.transform.TransformNode;
-import com.github.fluentxml4j.query.QueryFromNode;
+import com.github.fluentxml4j.validate.ValidateNode;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
@@ -34,6 +36,8 @@ public class FluentXml
 	static Supplier<FluentQuery> fluentQuery = supplierFor(new FluentQuery());
 
 	static Supplier<FluentXmlTransformer> fluentXmlTransformer = supplierFor(new FluentXmlTransformer());
+
+	static Supplier<FluentXmlValidator> fluentXmlValidator = supplierFor(new FluentXmlValidator());
 
 	private FluentXml()
 	{
@@ -147,5 +151,10 @@ public class FluentXml
 	public static TransformNode transform(JAXBContext jaxbContext, Object object)
 	{
 		return fluentXmlTransformer.get().transform(jaxbContext, object);
+	}
+
+	public static ValidateNode validate(Document doc)
+	{
+		return fluentXmlValidator.get().validate(doc);
 	}
 }
