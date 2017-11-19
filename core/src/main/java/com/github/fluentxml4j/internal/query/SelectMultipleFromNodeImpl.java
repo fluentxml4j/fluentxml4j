@@ -67,5 +67,15 @@ class SelectMultipleFromNodeImpl<ResultType> implements SelectMultipleFromNode<R
 		return asStream().collect(Collectors.toList());
 	}
 
+	@Override
+	public int count()
+	{
+		return asNodeList().getLength();
+	}
 
+	@Override
+	public boolean empty()
+	{
+		return count() == 0;
+	}
 }

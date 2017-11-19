@@ -19,4 +19,8 @@ public interface SelectMultipleFromNode<NodeType> extends Iterable<NodeType>
 	List<NodeType> asList();
 
 	NodeList asNodeList();
+
+	int count();
+
+	boolean empty();
 }

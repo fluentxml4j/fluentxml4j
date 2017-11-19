@@ -50,4 +50,25 @@ public class QueryExample
 
 		assertThat(fullNames, is(Arrays.asList("hans meiser", "hans-peter kerkeling")));
 	}
+
+	@Test
+	public void countElementsShort()
+	{
+		int count = from(xmlSource.asDocument())
+				.selectElements("//person")
+				.count();
+
+		assertThat(count, is(3));
+	}
+
+
+	@Test
+	public void checkIfElementsExist()
+	{
+		boolean empty = from(xmlSource.asDocument())
+				.selectElements("//person")
+				.empty();
+
+		assertThat(empty, is(false));
+	}
 }
