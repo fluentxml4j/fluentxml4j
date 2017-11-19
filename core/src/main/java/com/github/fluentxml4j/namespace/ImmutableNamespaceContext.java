@@ -109,13 +109,9 @@ public class ImmutableNamespaceContext implements NamespaceContext
 	{
 		removePrefixWithoutCopy(prefix);
 		this.namespaceURIByPrefix.put(prefix, namespaceURI);
-		Set<String> prefixesByNamespaceURI = this.prefixesByNamespaceURI.get(namespaceURI);
-		if (prefixesByNamespaceURI == null)
-		{
-			prefixesByNamespaceURI = new HashSet<>();
-			this.prefixesByNamespaceURI.put(namespaceURI, prefixesByNamespaceURI);
-		}
-		prefixesByNamespaceURI.add(prefix);
+		Set<String> prefixes = this.prefixesByNamespaceURI.computeIfAbsent(namespaceURI,
+				(s) -> new HashSet<>());
+		prefixes.add(prefix);
 	}
 
 	private void removePrefixWithoutCopy(String prefix)
