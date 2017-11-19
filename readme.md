@@ -10,6 +10,7 @@
   with XSLT and custom filters support
 * Query org.w3c.dom.Document via XPath for String, Boolean, Number, org.w3c.dom.Element or Node,
   get the results as collections or process with the Java 8 Streaming API
+* Validate document against schemas
 * No (required) dependencies
 
 ## Requirements
