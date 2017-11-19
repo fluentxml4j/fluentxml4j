@@ -21,7 +21,7 @@ FluentXML4J uses the builtin JDK XML parser and XPath API, but Java 8 is require
 <dependency>
   <groupId>com.github.fluentxml4j</groupId>
   <artifactId>fluentxml4j-core</artifactId>
-  <version>2.0.0</version>
+  <version>2.1.0</version>
 </dependency>
 ```
 
