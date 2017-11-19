@@ -19,13 +19,13 @@ public class ValidateExample
 			+ "</persons></data>");
 
 	@Rule
-	public XmlSource xsdSource = XmlSource.withDataFrom(ValidateExample.class, "schema.xsd");
+	public XmlSource schemaSource = XmlSource.withDataFrom(ValidateExample.class, "schema.xsd");
 
 	@Test
 	public void validateDocAgainstDoc()
 	{
 		ValidationResult result = validate(xmlSource.asDocument())
-				.againstSchema(xsdSource.asDocument())
+				.againstSchema(schemaSource.asDocument())
 				.getResult();
 
 		assertThat(result.hasErrors(), is(false));

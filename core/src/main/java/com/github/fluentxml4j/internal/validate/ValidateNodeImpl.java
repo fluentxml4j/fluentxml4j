@@ -1,5 +1,6 @@
 package com.github.fluentxml4j.internal.validate;
 
+import com.github.fluentxml4j.internal.transform.TransformationChain;
 import com.github.fluentxml4j.validate.Severity;
 import com.github.fluentxml4j.validate.ValidateNode;
 import com.github.fluentxml4j.validate.ValidationError;
@@ -13,7 +14,7 @@ import javax.xml.XMLConstants;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
+import javax.xml.validation.ValidatorHandler;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,11 +43,11 @@ class ValidateNodeImpl implements ValidateNode
 		try
 		{
 			List<ValidationError> errors = new ArrayList<>();
+			TransformationChain transformationChain = new TransformationChain(new DOMSource(this.doc));
 			for (Document schemaDoc : this.schemaDocs)
 			{
 				Schema schema = schemaFactory.newSchema(new DOMSource(schemaDoc));
-
-				Validator validator = schema.newValidator();
+				ValidatorHandler validator = schema.newValidatorHandler();
 				validator.setErrorHandler(new ErrorHandler()
 				{
 					@Override
@@ -67,11 +68,13 @@ class ValidateNodeImpl implements ValidateNode
 						errors.add(new ValidationError(Severity.FATAL_ERROR, e.getMessage(), e.getSystemId(), e.getPublicId(), e.getColumnNumber(), e.getLineNumber()));
 					}
 				});
-				validator.validate(new DOMSource(this.doc));
+				transformationChain.addTransformer(validator);
 			}
+			transformationChain.transform();
+
 			return new ValidationResult(errors);
 		}
-		catch (SAXException | IOException e)
+		catch (SAXException e)
 		{
 			return new ValidationResult(new ArrayList<>());
 		}

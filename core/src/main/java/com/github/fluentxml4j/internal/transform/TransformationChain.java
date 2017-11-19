@@ -21,6 +21,7 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stax.StAXResult;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.validation.ValidatorHandler;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.OutputStream;
@@ -29,29 +30,39 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-class TransformationChain
+public class TransformationChain
 {
 	private Source source;
-	private List<TransformerHandler> transformers = new ArrayList<>();
+	private List<TransformerAdapter> transformers = new ArrayList<>();
 
-	TransformationChain(Source source)
+	public TransformationChain(Source source)
 	{
 		this.source = source;
 	}
 
 	public void addTransformer(TransformerHandler transformer)
 	{
-		this.transformers.add(transformer);
+		this.transformers.add(new TrAXTransformerAdapter(transformer));
 	}
 
-	public void transform(Result result)
+	public void addTransformer(ValidatorHandler transformer)
+	{
+		this.transformers.add(new ValidatorAdapter(transformer));
+	}
+
+	public void transform()
+	{
+		transformTo((Result) null);
+	}
+
+	public void transformTo(Result result)
 	{
 		try
 		{
-			TransformerHandler firstTransformerOfPipeline = buildPipeline(result);
+			Result firstTransformerOfPipeline = buildPipeline(result);
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
-			transformer.transform(source, new SAXResult(firstTransformerOfPipeline));
+			transformer.transform(source, firstTransformerOfPipeline);
 		}
 		catch (TransformerException ex)
 		{
@@ -68,12 +79,12 @@ class TransformationChain
 
 	public void transformTo(OutputStream out)
 	{
-		transform(new StreamResult(out));
+		transformTo(new StreamResult(out));
 	}
 
 	public void transformTo(Writer out)
 	{
-		transform(new StreamResult(out));
+		transformTo(new StreamResult(out));
 	}
 
 	public Document transformToDocument()
@@ -85,7 +96,7 @@ class TransformationChain
 			DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 			Document document = documentBuilder.newDocument();
 
-			transform(new DOMResult(document));
+			transformTo(new DOMResult(document));
 			return document;
 		}
 		catch (ParserConfigurationException ex)
@@ -95,7 +106,7 @@ class TransformationChain
 
 	}
 
-	private TransformerHandler buildPipeline(Result result)
+	private Result buildPipeline(Result result)
 	{
 		if (this.transformers.isEmpty())
 		{
@@ -107,11 +118,11 @@ class TransformationChain
 		}
 	}
 
-	private TransformerHandler buildChainedTransformersPipeline(Result result)
+	private Result buildChainedTransformersPipeline(Result result)
 	{
-		TransformerHandler prevTransformer = null;
-		TransformerHandler firstTransformer = null;
-		for (TransformerHandler currTransformer : transformers)
+		TransformerAdapter prevTransformer = null;
+		TransformerAdapter firstTransformer = null;
+		for (TransformerAdapter currTransformer : transformers)
 		{
 			if (firstTransformer == null)
 			{
@@ -120,7 +131,7 @@ class TransformationChain
 
 			if (prevTransformer != null)
 			{
-				prevTransformer.setResult(new SAXResult(currTransformer));
+				prevTransformer.setNext(currTransformer.asResult());
 			}
 			prevTransformer = currTransformer;
 		}
@@ -130,29 +141,30 @@ class TransformationChain
 			throw new IllegalStateException("Internal problem: No previous transformer.");
 		}
 
-		prevTransformer.setResult(result);
+		if (result != null)
+		{
+			prevTransformer.setNext(result);
+		}
 
-		return firstTransformer;
+		return firstTransformer.asResult();
 	}
 
-	private TransformerHandler buildSingleTransformerPipeline(Result result)
+	private Result buildSingleTransformerPipeline(Result result)
 	{
 		try
 		{
 			SAXTransformerFactory saxTransformerFactory = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
 			TransformerHandler transformerHandler = saxTransformerFactory.newTransformerHandler();
-			transformerHandler.setResult(result);
-			return transformerHandler;
+			if (result != null)
+			{
+				transformerHandler.setResult(result);
+			}
+			return new SAXResult(transformerHandler);
 		}
 		catch (TransformerConfigurationException ex)
 		{
 			throw new FluentXmlConfigurationException(ex);
 		}
-	}
-
-	public void transformTo(Result out)
-	{
-		transform(out);
 	}
 
 	public void transformTo(XMLStreamWriter out)
@@ -167,13 +179,70 @@ class TransformationChain
 
 	public void transformTo(File file)
 	{
-		transform(new StreamResult(file));
+		transformTo(new StreamResult(file));
 	}
 
 	public byte[] transformToBytes()
 	{
 		ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
-		transform(new StreamResult(bytesOut));
+		transformTo(new StreamResult(bytesOut));
 		return bytesOut.toByteArray();
+	}
+
+	private static class TrAXTransformerAdapter implements TransformationChain.TransformerAdapter
+	{
+		private TransformerHandler transformerHandler;
+
+		public TrAXTransformerAdapter(TransformerHandler transformerHandler)
+		{
+			this.transformerHandler = transformerHandler;
+		}
+
+		@Override
+		public Result asResult()
+		{
+			return new SAXResult(this.transformerHandler);
+		}
+
+		@Override
+		public void setNext(Result result)
+		{
+			this.transformerHandler.setResult(result);
+		}
+	}
+
+	private static class ValidatorAdapter implements TransformationChain.TransformerAdapter
+	{
+		private ValidatorHandler transformerHandler;
+
+		public ValidatorAdapter(ValidatorHandler transformerHandler)
+		{
+			this.transformerHandler = transformerHandler;
+		}
+
+		@Override
+		public Result asResult()
+		{
+			return new SAXResult(this.transformerHandler);
+		}
+
+		@Override
+		public void setNext(Result result)
+		{
+			if (!(result instanceof SAXResult))
+			{
+				throw new IllegalArgumentException("Only SAX result is supported.");
+			}
+
+			this.transformerHandler.setContentHandler(((SAXResult) result).getHandler());
+		}
+	}
+
+
+	private interface TransformerAdapter
+	{
+		Result asResult();
+
+		void setNext(Result result);
 	}
 }
