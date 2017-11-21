@@ -39,5 +39,7 @@ public interface TransformNode
 
 	Document toDocument();
 
+	org.jdom2.Document toJDOM2Document();
+
 	String toString();
 }

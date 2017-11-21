@@ -1,6 +1,7 @@
 package com.github.fluentxml4j.internal.parse;
 
 import com.github.fluentxml4j.FluentXmlProcessingException;
+import com.github.fluentxml4j.internal.transform.TransformationChain;
 import com.github.fluentxml4j.parse.DocumentBuilderConfigurer;
 import com.github.fluentxml4j.parse.DocumentBuilderConfigurerAdapter;
 import com.github.fluentxml4j.parse.FromNode;
@@ -11,6 +12,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
+import javax.xml.transform.sax.SAXSource;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,6 +49,13 @@ public class FluentXmlParser
 	{
 		return new ParseNode()
 		{
+			@Override
+			public org.jdom2.Document toJDOM2Document()
+			{
+				TransformationChain transformationChain = new TransformationChain(new SAXSource(inputSource));
+				return transformationChain.transformToJDOM2Document();
+			}
+
 			public ParseWithDocumentBuilderNode withDocumentBuilder(DocumentBuilderConfigurer documentBuilderConfigurer)
 			{
 				return () -> {

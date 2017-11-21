@@ -3,64 +3,23 @@ package com.github.fluentxml4j.examples.parse;
 import com.github.fluentxml4j.junit.XmlSource;
 import org.junit.Rule;
 import org.junit.Test;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 import static com.github.fluentxml4j.FluentXml.from;
-import static org.junit.Assert.assertNotNull;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
-public class ParseExample
+public class JDOM2ParseExample
 {
 	@Rule
-	public XmlSource xmlSource = XmlSource.withData("<test/>");
+	public XmlSource xmlSource = XmlSource.withData("<ns1:test xmlns:ns1=\"uri:ns1\"/>");
 
 	@Test
 	public void inputStreamToDocument()
 	{
-		Document doc = from(xmlSource.asInputStream())
+		org.jdom2.Document doc = from(xmlSource.asInputStream())
 				.parse()
-				.document();
+				.toJDOM2Document();
 
-		assertNotNull(doc);
-	}
-
-	@Test
-	public void readerToDocument()
-	{
-		Document doc = from(xmlSource.asReader("UTF-8"))
-				.parse()
-				.document();
-
-		assertNotNull(doc);
-	}
-
-	@Test
-	public void fileToDocument()
-	{
-		Document doc = from(xmlSource.asFile())
-				.parse()
-				.document();
-
-		assertNotNull(doc);
-	}
-
-	@Test
-	public void urlToDocument()
-	{
-		Document doc = from(xmlSource.asUrl())
-				.parse()
-				.document();
-
-		assertNotNull(doc);
-	}
-
-	@Test
-	public void inputSourceToDocument()
-	{
-		Document doc = from(new InputSource(xmlSource.asInputStream()))
-				.parse()
-				.document();
-
-		assertNotNull(doc);
+		assertThat(doc.getRootElement().getQualifiedName(), is("ns1:test"));
 	}
 }

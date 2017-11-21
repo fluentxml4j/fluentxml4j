@@ -2,6 +2,7 @@ package com.github.fluentxml4j.internal.transform;
 
 import com.github.fluentxml4j.FluentXmlConfigurationException;
 import com.github.fluentxml4j.FluentXmlProcessingException;
+import org.jdom2.transform.JDOMResult;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -103,7 +104,13 @@ public class TransformationChain
 		{
 			throw new FluentXmlConfigurationException(ex);
 		}
+	}
 
+	public org.jdom2.Document transformToJDOM2Document()
+	{
+		JDOMResult result = new JDOMResult();
+		transformTo(result);
+		return result.getDocument();
 	}
 
 	private Result buildPipeline(Result result)

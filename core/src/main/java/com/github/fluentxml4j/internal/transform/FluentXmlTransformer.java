@@ -20,6 +20,11 @@ public class FluentXmlTransformer
 		return new TransformNodeImpl(new DOMSource(doc));
 	}
 
+	public TransformNode transform(org.jdom2.Document doc)
+	{
+		return new TransformNodeImpl(new org.jdom2.transform.JDOMSource(doc));
+	}
+
 	public TransformNode transform(XMLEventReader in)
 	{
 		return new TransformNodeImpl(in);

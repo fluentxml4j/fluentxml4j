@@ -154,4 +154,10 @@ class TransformNodeImpl implements TransformNode
 	{
 		return this.transformationChain.transformToDocument();
 	}
+
+	@Override
+	public org.jdom2.Document toJDOM2Document()
+	{
+		return this.transformationChain.transformToJDOM2Document();
+	}
 }

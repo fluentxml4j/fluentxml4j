@@ -8,6 +8,8 @@ public interface ParseNode
 
 	Document document();
 
+	org.jdom2.Document toJDOM2Document();
+
 	/**
 	 * @deprecated Use {@link #document()} instead.
 	 * @return The document parsed.

@@ -153,6 +153,11 @@ public class FluentXml
 		return fluentXmlTransformer.get().transform(jaxbContext, object);
 	}
 
+	public static TransformNode transform(org.jdom2.Document doc)
+	{
+		return fluentXmlTransformer.get().transform(doc);
+	}
+
 	public static ValidateNode validate(Document doc)
 	{
 		return fluentXmlValidator.get().validate(doc);
