@@ -9,7 +9,7 @@ import org.xml.sax.InputSource;
 import static com.github.fluentxml4j.FluentXml.from;
 import static org.junit.Assert.assertNotNull;
 
-public class ParseExample
+public class JDOM2ParseExample
 {
 	@Rule
 	public XmlSource xmlSource = XmlSource.withData("<test/>");
