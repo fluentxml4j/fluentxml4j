@@ -72,5 +72,6 @@ List<Element> elements = from(doc)
 FluentXML4J is an open source project, and contributions are welcome! Feel free to raise an issue or submit a pull request.
 
 ## License
+Copyright 2017 by [Cornelius Buschka](https://github.com/cbuschka)
 
 [Apache License, Version 2.0](license)
