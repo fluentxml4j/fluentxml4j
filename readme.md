@@ -1,4 +1,4 @@
-# FluentXML4J - a fluent API for XML in Java [![Build Status](https://travis-ci.org/fluentxml4j/fluentxml4j.svg?branch=master)](https://travis-ci.org/fluentxml4j/fluentxml4j) [![Quality Gate](https://sonarqube.com/api/badges/gate?key=com.github.fluentxml4j:fluentxml4j)](https://sonarcloud.io/dashboard?id=com.github.fluentxml4j%3Afluentxml4j) [![Maven Central](https://img.shields.io/maven-central/v/com.github.fluentxml4j/fluentxml4j-core.svg)](https://search.maven.org/#search%7Cga%7C1%7Cfluentxml4j-core) [![FluentXML4j-Core Javadocs](http://javadoc.io/badge/com.github.fluentxml4j/fluentxml4j-core.svg)](http://javadoc.io/doc/com.github.fluentxml4j/fluentxml4j-core) [![FluentXML4j-JUnit Javadocs](http://javadoc.io/badge/com.github.fluentxml4j/fluentxml4j-junit.svg)](http://javadoc.io/doc/com.github.fluentxml4j/fluentxml4j-junit) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.txt)
+# FluentXML4J - a fluent API for XML in Java [![Build Status](https://travis-ci.org/fluentxml4j/fluentxml4j.svg?branch=master)](https://travis-ci.org/fluentxml4j/fluentxml4j) [![Quality Gate](https://sonarqube.com/api/badges/gate?key=com.github.fluentxml4j:fluentxml4j)](https://sonarcloud.io/dashboard?id=com.github.fluentxml4j%3Afluentxml4j) [![Maven Central](https://img.shields.io/maven-central/v/com.github.fluentxml4j/fluentxml4j-core.svg)](https://search.maven.org/#search%7Cga%7C1%7Cfluentxml4j-core) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.txt)
 
 #### XML parsing, serialization XPath querying and transformation without boilerplate code
 
@@ -63,7 +63,7 @@ List<Element> elements = from(doc)
 [More xpath examples...](doc/examples/xpath-examples.md)
 
 ## Similar and related Projects
-* [xmltool](http://code.mycila.com/xmltool) - another fluent API for XML with weight on document creation
+* [xmltool](http://code.mycila.com/xmltool) - another fluent API for XML
 * [dom4j](https://dom4j.github.io/) - alternative DOM implementation
 * [jdom](http://www.jdom.org/) - alternative DOM implementation
 * [XMLDog](https://code.google.com/archive/p/jlibs/wikis/XMLDog.wiki) - a XML stream sniffer
