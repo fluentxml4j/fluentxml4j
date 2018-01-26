@@ -7,6 +7,7 @@ import org.w3c.dom.Document;
 import javax.xml.bind.JAXBContext;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
@@ -43,6 +44,11 @@ public class FluentXmlTransformer
 	public TransformNode transform(URL url)
 	{
 		return new TransformNodeImpl(new StreamSource(url.toExternalForm()));
+	}
+
+	public TransformNode transform(Source source)
+	{
+		return new TransformNodeImpl(source);
 	}
 
 	public TransformNode transform(JAXBContext jaxbContext, Object object)

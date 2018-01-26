@@ -18,6 +18,7 @@ import org.xml.sax.InputSource;
 import javax.xml.bind.JAXBContext;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.Source;
 import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
@@ -151,6 +152,11 @@ public class FluentXml
 	public static TransformNode transform(JAXBContext jaxbContext, Object object)
 	{
 		return fluentXmlTransformer.get().transform(jaxbContext, object);
+	}
+
+	public static TransformNode transform(Source source)
+	{
+		return fluentXmlTransformer.get().transform(source);
 	}
 
 	public static ValidateNode validate(Document doc)

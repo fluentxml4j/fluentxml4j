@@ -12,6 +12,7 @@ import org.w3c.dom.Document;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.Source;
 import java.io.File;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -41,6 +42,9 @@ public class FluentXmlTransformTest
 
 	@Mock
 	private File file;
+
+	@Mock
+	private Source source;
 
 	@Mock
 	private XMLStreamReader xmlStreamReader;
@@ -118,4 +122,13 @@ public class FluentXmlTransformTest
 		assertThat(transformNodeReturned, is(this.transformNode));
 	}
 
+	@Test
+	public void transformSource()
+	{
+		when(fluentXmlTransformer.transform(source)).thenReturn(transformNode);
+
+		TransformNode transformNodeReturned = FluentXml.transform(source);
+
+		assertThat(transformNodeReturned, is(this.transformNode));
+	}
 }
