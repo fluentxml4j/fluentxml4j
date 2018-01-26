@@ -5,10 +5,16 @@ import com.github.fluentxml4j.serialize.SerializeNode;
 import org.w3c.dom.Document;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
 
 public class FluentXmlSerializer
 {
+	public SerializeNode serialize(Source source)
+	{
+		return new SerializeNodeImpl(source);
+	}
+
 	public SerializeNode serialize(Document doc)
 	{
 		return new SerializeNodeImpl(new DOMSource(doc));

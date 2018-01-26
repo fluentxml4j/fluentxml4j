@@ -114,6 +114,11 @@ public class FluentXml
 		return fluentXmlSerializer.get().serialize(doc);
 	}
 
+	public static SerializeNode serialize(Source source)
+	{
+		return fluentXmlSerializer.get().serialize(source);
+	}
+
 	public static SerializeNode serialize(JAXBContext jaxbContext, Object object)
 	{
 		return fluentXmlSerializer.get().serialize(jaxbContext, object);

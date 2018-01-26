@@ -11,6 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.w3c.dom.Document;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.transform.Source;
 
 import static com.github.fluentxml4j.FluentXml.serialize;
 import static org.hamcrest.CoreMatchers.is;
@@ -28,6 +29,9 @@ public class FluentXmlSerializeTest
 
 	@Mock
 	private Document document;
+
+	@Mock
+	private Source source;
 
 	@Mock
 	private SerializeNode serializeNode;
@@ -50,6 +54,16 @@ public class FluentXmlSerializeTest
 		when(fluentXmlSerializer.serialize(document)).thenReturn(serializeNode);
 
 		SerializeNode serializeNodeReturned = serialize(document);
+
+		assertThat(serializeNodeReturned, is(this.serializeNode));
+	}
+
+	@Test
+	public void serializeSource()
+	{
+		when(fluentXmlSerializer.serialize(source)).thenReturn(serializeNode);
+
+		SerializeNode serializeNodeReturned = serialize(source);
 
 		assertThat(serializeNodeReturned, is(this.serializeNode));
 	}
