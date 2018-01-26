@@ -2,6 +2,7 @@ package com.github.fluentxml4j.internal.transform;
 
 import com.github.fluentxml4j.FluentXmlConfigurationException;
 import com.github.fluentxml4j.FluentXmlProcessingException;
+import com.github.fluentxml4j.util.transform.TransformUtils;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -153,7 +154,7 @@ public class TransformationChain
 	{
 		try
 		{
-			SAXTransformerFactory saxTransformerFactory = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
+			SAXTransformerFactory saxTransformerFactory = TransformUtils.newSAXTransformerFactory();
 			TransformerHandler transformerHandler = saxTransformerFactory.newTransformerHandler();
 			if (result != null)
 			{

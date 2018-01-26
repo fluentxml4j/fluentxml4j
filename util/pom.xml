@@ -6,12 +6,12 @@
         <version>2.2.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>fluentxml4j-junit</artifactId>
+    <artifactId>fluentxml4j-util</artifactId>
     <packaging>jar</packaging>
-    <name>FluentXML4J JUnit Extensions</name>
-    <description>Collection of junit extensions for tests with xml.</description>
+    <name>FluentXML4J Utilities</name>
+    <description>Collection of utilities.</description>
     <properties>
-        <sonar.projectKey>com.github.fluentxml4j:fluentxml4j-junit</sonar.projectKey>
+        <sonar.projectKey>com.github.fluentxml4j:fluentxml4j-util</sonar.projectKey>
     </properties>
     <build>
         <plugins>
@@ -43,20 +43,4 @@
             </plugin>
         </plugins>
     </build>
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 </project>

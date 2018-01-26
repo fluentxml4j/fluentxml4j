@@ -2,6 +2,7 @@ package com.github.fluentxml4j.internal.transform.filters;
 
 import com.github.fluentxml4j.FluentXmlConfigurationException;
 import com.github.fluentxml4j.namespace.ImmutableNamespaceContext;
+import com.github.fluentxml4j.util.transform.TransformUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.DTDHandler;
@@ -353,7 +354,7 @@ public abstract class AbstractSAXFilter extends Transformer implements Transform
 
 		try
 		{
-			SAXTransformerFactory transformerFactory = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
+			SAXTransformerFactory transformerFactory = TransformUtils.newSAXTransformerFactory();
 			TransformerHandler transformerHandler = transformerFactory.newTransformerHandler();
 			transformerHandler.setResult(result);
 			return new SAXResult(transformerHandler);

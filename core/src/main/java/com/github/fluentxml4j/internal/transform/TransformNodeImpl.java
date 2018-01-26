@@ -8,6 +8,7 @@ import com.github.fluentxml4j.serialize.SerializeWithTransformerNode;
 import com.github.fluentxml4j.serialize.SerializerConfigurer;
 import com.github.fluentxml4j.serialize.SerializerConfigurerAdapter;
 import com.github.fluentxml4j.transform.TransformNode;
+import com.github.fluentxml4j.util.transform.TransformUtils;
 import org.w3c.dom.Document;
 
 import javax.xml.stream.XMLEventReader;
@@ -93,7 +94,7 @@ class TransformNodeImpl implements TransformNode
 	{
 		try
 		{
-			SAXTransformerFactory saxTransformerFactory = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
+			SAXTransformerFactory saxTransformerFactory = TransformUtils.newSAXTransformerFactory();
 			TransformerHandler xsltTransformer = saxTransformerFactory.newTransformerHandler(xslt);
 			this.transformationChain.addTransformer(xsltTransformer);
 

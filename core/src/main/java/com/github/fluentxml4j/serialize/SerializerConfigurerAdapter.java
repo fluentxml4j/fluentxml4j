@@ -1,6 +1,7 @@
 package com.github.fluentxml4j.serialize;
 
 import com.github.fluentxml4j.FluentXmlConfigurationException;
+import com.github.fluentxml4j.util.transform.TransformUtils;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -46,7 +47,7 @@ public class SerializerConfigurerAdapter implements SerializerConfigurer
 
 	protected SAXTransformerFactory buildTransformerFactory()
 	{
-		return (SAXTransformerFactory) SAXTransformerFactory.newInstance();
+		return TransformUtils.newSAXTransformerFactory();
 	}
 
 
