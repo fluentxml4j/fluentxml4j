@@ -1,10 +1,10 @@
 package com.github.fluentxml4j.internal.query;
 
 import com.github.fluentxml4j.FluentXmlProcessingException;
-import com.github.fluentxml4j.namespace.ImmutableNamespaceContext;
 import com.github.fluentxml4j.query.QueryFromNode;
 import com.github.fluentxml4j.query.SelectMultipleFromNode;
 import com.github.fluentxml4j.query.XPathConfigurer;
+import com.github.fluentxml4j.util.namespace.ImmutableNamespaceContext;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

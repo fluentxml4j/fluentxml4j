@@ -1,4 +1,4 @@
-package com.github.fluentxml4j.namespace;
+package com.github.fluentxml4j.util.namespace;
 
 import javax.xml.namespace.NamespaceContext;
 import java.util.Collections;

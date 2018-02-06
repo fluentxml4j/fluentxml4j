@@ -1,7 +1,7 @@
 package com.github.fluentxml4j.internal.transform.filters;
 
 import com.github.fluentxml4j.FluentXmlConfigurationException;
-import com.github.fluentxml4j.namespace.ImmutableNamespaceContext;
+import com.github.fluentxml4j.util.namespace.ImmutableNamespaceContext;
 import com.github.fluentxml4j.util.transform.TransformUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;

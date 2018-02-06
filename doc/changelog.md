@@ -1,11 +1,12 @@
 # Changelog
 
-## #2.2.0
+## 2.2.0 (upcoming)
 * Added module util
 * Added transform(Source)
 * Added serialize(Source)
+* moved core ImmutableNamespaceContext to util (changed package name!)
 
-## #2.1.0
+## 2.1.0
 * Added count()/empty(), #28
 * Added validation support via and without transformation chain
 * Added XmlSource.asString()
@@ -14,7 +15,7 @@
 * Changed query from(Document) to from(Node)
 * Added selectBoolean(s)/selectInteger(s), #26, #27
 
-2.0.0
+## 2.0.0
 * Added parse test for URL and File
 * Renamed packages to parse, transform, serialize and query
 * Added JAXB support, #7
@@ -37,7 +38,7 @@
 * Refactored transformer chaining
 * Improved transformation example
 
-1.0.3
+## 1.0.3
 * Added support for transformation
 * Added a private constructor to entry point FluentXml
 * Added example for beginning parsing with from()
@@ -46,12 +47,12 @@
 * Added examples for parsing and serialization
 * Added jacoco plugin and codecov.io hook for travis
 
-1.0.2
+## 1.0.2
 * FluentXml now main entry point
 * Added test for DocumentBuilderConfigurerAdapter
 * Added test for serializer customization
 
-1.0.2
+## 1.0.2
 * Added XPathConfigurer for query customization
 * Added SerializerConfigurer for serializer customization
 * Added DocumentBuilderConfigurer for parser customization
@@ -60,6 +61,6 @@
 * Added fluent api for parsing
 * Result with multiple elements now is instance of Iterable
 
-1.0.0
+## 1.0.0
 * license Apache #2.0
 * initial version

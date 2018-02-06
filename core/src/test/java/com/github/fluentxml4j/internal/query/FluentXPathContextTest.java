@@ -1,6 +1,6 @@
 package com.github.fluentxml4j.internal.query;
 
-import com.github.fluentxml4j.namespace.ImmutableNamespaceContext;
+import com.github.fluentxml4j.util.namespace.ImmutableNamespaceContext;
 import com.github.fluentxml4j.query.XPathConfigurer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
