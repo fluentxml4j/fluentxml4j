@@ -1,6 +1,9 @@
 # Changelog
 
-## 2.2.0 (upcoming)
+## 2.2.1
+* added withStylesheet(Source)
+
+## 2.2.0
 * Added module util
 * Added transform(Source)
 * Added serialize(Source)
