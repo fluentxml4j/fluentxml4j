@@ -90,12 +90,13 @@ class TransformNodeImpl implements TransformNode
 		return withStylesheet(new DOMSource(doc));
 	}
 
-	private TransformNode withStylesheet(Source xslt)
+	@Override
+	public TransformNode withStylesheet(Source xsltSource)
 	{
 		try
 		{
 			SAXTransformerFactory saxTransformerFactory = TransformUtils.newSAXTransformerFactory();
-			TransformerHandler xsltTransformer = saxTransformerFactory.newTransformerHandler(xslt);
+			TransformerHandler xsltTransformer = saxTransformerFactory.newTransformerHandler(xsltSource);
 			this.transformationChain.addTransformer(xsltTransformer);
 
 			return this;

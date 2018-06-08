@@ -7,6 +7,7 @@ import org.w3c.dom.Document;
 import javax.xml.stream.XMLEventWriter;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.Result;
+import javax.xml.transform.Source;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -22,6 +23,8 @@ public interface TransformNode
 	TransformNode withStylesheet(File file);
 
 	TransformNode withStylesheet(Document doc);
+
+	TransformNode withStylesheet(Source source);
 
 	TransformNode withPrefixMapping(String prefix, String newPrefix);
 
