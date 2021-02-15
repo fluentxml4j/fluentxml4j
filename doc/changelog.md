@@ -1,7 +1,12 @@
 # Changelog
 
+## 2.2.2-SNAPSHOT
+* Switched to github actions
+* Removed travis build
+* Removed sonar scanning
+
 ## 2.2.1
-* added withStylesheet(Source)
+* Added withStylesheet(Source)
 
 ## 2.2.0
 * Added module util
