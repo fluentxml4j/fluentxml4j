@@ -1,9 +1,11 @@
 # Changelog
 
-## 2.2.2-SNAPSHOT
+## 3.0.0-SNAPSHOT
 * Switched to github actions
 * Removed travis build
 * Removed sonar scanning
+* Removed .core from automatic module name of fluentxml4j-core.
+* Moved util classes from fluentxml4j-util to fluentxml4j-core.
 
 ## 2.2.1
 * Added withStylesheet(Source)
