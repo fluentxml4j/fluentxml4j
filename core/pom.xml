@@ -6,7 +6,7 @@
         <version>3.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>fluentxml4j-core</artifactId>
+    <artifactId>fluentxml4j</artifactId>
     <packaging>jar</packaging>
     <name>FluentXML4J Core Library</name>
     <description>A fluent API for XML parsing, serialization and XPath querying in Java.</description>
