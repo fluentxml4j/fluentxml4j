@@ -1,0 +1,22 @@
+name: build_experimental
+on:
+  push:
+    branches:
+      - experimental
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+        jdk: [8, 11]
+    runs-on: ${{ matrix.os }}
+    env:
+      JDK_VERSION: ${{ matrix.jdk }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup jdk
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.jdk }}
+      - name: build with maven
+        run: mvn --batch-mode --update-snapshots verify
