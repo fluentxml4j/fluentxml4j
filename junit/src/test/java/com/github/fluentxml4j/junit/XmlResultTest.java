@@ -8,6 +8,9 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.nio.charset.Charset;
 
+import com.github.fluentxml4j.junit.XmlSource;
+import com.github.fluentxml4j.junit.XmlResult;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 

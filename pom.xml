@@ -138,17 +138,10 @@
                 <executions>
                     <execution>
                         <id>default-compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
                         <configuration>
                             <excludes>
-                                <exclude>**/*</exclude>
+                                <exclude>**/module-info.java</exclude>
                             </excludes>
-                            <includes>
-                                <include>**/module-info.java</include>
-                            </includes>
                             <source>1.11</source>
                             <target>1.11</target>
                             <jdkToolchain>
@@ -157,25 +150,41 @@
                             <release>11</release>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>jdk8-compile</id>
-                        <configuration>
-                            <excludes>
-                                <exclude>**/module-info.java</exclude>
-                            </excludes>
-                            <source>1.8</source>
-                            <target>1.8</target>
-                            <jdkToolchain>
-                                <version>8</version>
-                            </jdkToolchain>
-                            <release>8</release>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
     <profiles>
+        <profile>
+            <id>jdk8</id>
+            <activation>
+                <jdk>8</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>default-compile</id>
+                                <configuration>
+                                    <excludes>
+                                        <exclude>**/module-info.java</exclude>
+                                    </excludes>
+                                    <source>1.8</source>
+                                    <target>1.8</target>
+                                    <jdkToolchain>
+                                        <version>8</version>
+                                    </jdkToolchain>
+                                    <release>8</release>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>release</id>
             <build>
