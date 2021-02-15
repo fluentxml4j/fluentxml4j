@@ -1,4 +1,5 @@
-# FluentXML4J - a fluent API for XML in Java [![Build Status](https://travis-ci.org/fluentxml4j/fluentxml4j.svg?branch=master)](https://travis-ci.org/fluentxml4j/fluentxml4j) [![Code Coverage](https://codecov.io/gh/fluentxml4j/fluentxml4j/branch/master/graph/badge.svg)](https://codecov.io/gh/fluentxml4j/fluentxml4j) [![Maven Central](https://img.shields.io/maven-central/v/com.github.fluentxml4j/fluentxml4j-core.svg)](https://search.maven.org/#search%7Cga%7C1%7Cfluentxml4j-core) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.txt)
+# FluentXML4J - a fluent API for XML in Java
+[![Build Status](https://github.com/fluentxml4j/fluentxml4j/workflows/build/badge.svg)](https://github.com/fluentxml4j/fluentxml4j/actions) [![Code Coverage](https://codecov.io/gh/fluentxml4j/fluentxml4j/branch/master/graph/badge.svg)](https://codecov.io/gh/fluentxml4j/fluentxml4j) [![Maven Central](https://img.shields.io/maven-central/v/com.github.fluentxml4j/fluentxml4j-core.svg)](https://search.maven.org/#search%7Cga%7C1%7Cfluentxml4j-core) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.txt)
 
 #### XML parsing, serialization XPath querying and transformation without boilerplate code
 
