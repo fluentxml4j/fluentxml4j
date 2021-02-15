@@ -16,7 +16,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class FluentXmlTransformerIntegrationTest
 {

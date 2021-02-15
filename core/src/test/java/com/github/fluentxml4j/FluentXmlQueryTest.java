@@ -12,7 +12,7 @@ import org.w3c.dom.Document;
 
 import static com.github.fluentxml4j.FluentXml.from;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
