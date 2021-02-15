@@ -68,9 +68,5 @@
             <artifactId>fluentxml4j-junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.github.fluentxml4j</groupId>
-            <artifactId>fluentxml4j-util</artifactId>
-        </dependency>
     </dependencies>
 </project>

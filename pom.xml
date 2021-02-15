@@ -41,7 +41,6 @@
     <modules>
         <module>core</module>
         <module>junit</module>
-        <module>util</module>
     </modules>
     <build>
         <pluginManagement>
@@ -212,11 +211,6 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>fluentxml4j-junit</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>fluentxml4j-util</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
