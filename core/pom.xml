@@ -44,7 +44,7 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Automatic-Module-Name>com.github.fluentxml4j.core</Automatic-Module-Name>
+                            <Automatic-Module-Name>com.github.fluentxml4j</Automatic-Module-Name>
                         </manifestEntries>
                     </archive>
                 </configuration>
