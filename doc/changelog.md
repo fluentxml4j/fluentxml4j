@@ -6,6 +6,7 @@
 * Removed sonar scanning
 * Removed .core from automatic module name of fluentxml4j-core.
 * Moved util classes from fluentxml4j-util to fluentxml4j-core.
+* fluentxml4j-core now is fluentxml4j.
 
 ## 2.2.1
 * Added withStylesheet(Source)
